@@ -1,0 +1,14 @@
+matrix.hh
+~~~~~~~~~
+
+enthaelt eine vergleichsweise einfache C++ Implementierung fuer verschiedene Matrix-Typen.
+
+matrix-crtp.hh
+~~~~~~~~~~~~~~
+
+CRTP bei Wikipedia nachschlagen! Enthaelt eine Interface-Klasse und
+eine der Implementierungen aus matrix.hh. Mit dieser Technik kann man
+z.B. einen generische Input/Output-Operatoren schreiben (am Ende von
+matrix-crtp.hh). Fuer die Matrizen in matrix.hh kann man natuerlich
+auch IO-Funktionalitaet implementieren, muesste das aber fuer jede
+Klasse einzeln machen.
