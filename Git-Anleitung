@@ -1,0 +1,9 @@
+Konsole in Ordner
+
+Abspeichern: git clone https//MatheMichi@Internetadresse
+
+Runterladen: git pull
+geänderte Dateien: git add Dateiname.x
+kommentieren: git commit -m "....."
+Hochladen commiteter Dateien: git push
+
