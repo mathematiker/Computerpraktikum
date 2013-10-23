@@ -1,6 +1,6 @@
 Konsole in Ordner
 
-Abspeichern: https://benutzername@github.com/mathematiker/Computerpraktikum.git
+Abspeichern: git clone https://benutzername@github.com/mathematiker/Computerpraktikum.git
 
 Runterladen: git pull
 geänderte Dateien: git add Dateiname.x (ganzer Ordner: add Ordnername/*)
