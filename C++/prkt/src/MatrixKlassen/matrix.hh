@@ -10,7 +10,14 @@ class Matrix
 
 public:
   // constructor
-  Matrix(int n_rows_ = 1) : n_rows(n_rows_), data(n_rows * n_rows) {}
+  Matrix(int n_rows_ = 1, const EntryType& initialValue = (EntryType)0) : n_rows(n_rows_), data(n_rows * n_rows, initialValue) {}
+
+
+  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
+   {
+
+
+   }
 
   // Zugriff mit Schreibberechtigung
   EntryType& operator()(int i, int j) {
@@ -165,6 +172,8 @@ public:
   SparseMatrix(int n_rows_ = 1, int max_cols_ = 1)
     : n_rows(n_rows_), max_cols(max_cols_), data(n_rows*max_cols), colIdx(n_rows*max_cols, -1) {
   }
+
+
 
   // Zugriff mit Schreibberechtigung
   // Achtung: neue Eintraege werden nur mit der assign()-Methode angelegt.

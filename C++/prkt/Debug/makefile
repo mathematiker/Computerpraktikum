@@ -10,7 +10,6 @@ RM := rm -rf
 -include sources.mk
 -include subdir.mk
 -include src/subdir.mk
--include src/MatrixKlassen/subdir.mk
 -include objects.mk
 
 ifneq ($(MAKECMDGOALS),clean)
