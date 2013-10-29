@@ -2,22 +2,22 @@
 #define MATRIX_HH
 
 #include <vector>
+#include <iostream>
+#include <iomanip>
 
-template<class EntryType = double>
+template<class Entry = double>
 class Matrix
 {
-  typedef std::vector<EntryType> DataType;
+  typedef std::vector<Entry> DataType;
 
 public:
+
+  typedef Entry EntryType;
   // constructor
-  Matrix(int n_rows_ = 1, const EntryType& initialValue = (EntryType)0) : n_rows(n_rows_), data(n_rows * n_rows, initialValue) {}
+  Matrix(int n_rows_ = 1) :  n_rows(n_rows_), data(n_rows * n_rows) {}
 
 
-  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
-   {
 
-
-   }
 
   // Zugriff mit Schreibberechtigung
   EntryType& operator()(int i, int j) {
@@ -45,16 +45,38 @@ private:
   DataType data;
 };
 
+template <class EntryType>
+std::ostream& operator<<(std::ostream &os, const Matrix<EntryType> &obj)
+{
+  for (int i = 0; i < obj.size(); ++i) {
+    for (int j = 0; j < obj.size(); ++j) {
+      os << std::setw(5); // field-width
+      os << obj(i, j) << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
 template<class MatrixType>
 class BlockMatrix
 {
   typedef std::vector<MatrixType> DataType;
 
 public:
+
+  typedef typename MatrixType::EntryType EntryType;
   BlockMatrix(int n_blocks_, int block_size_)
     : n_blocks(n_blocks_), block_size(block_size_),
       data(n_blocks * n_blocks, MatrixType(block_size))
   {}
+
+  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
+         {
+
+
+         }
+
 
 
   double& operator()(int i, int j) {
@@ -108,6 +130,19 @@ private:
   int block_size;
   DataType data;
 };
+
+template <class MatrixType>
+std::ostream& operator<<(std::ostream &os, const BlockMatrix<MatrixType> &obj)
+{
+  for (int i = 0; i < obj.size(); ++i) {
+    for (int j = 0; j < obj.size(); ++j) {
+      os << std::setw(5); // field-width
+      os << obj(i, j) << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
 
 template<class EntryType = double>
 class DiagMatrix

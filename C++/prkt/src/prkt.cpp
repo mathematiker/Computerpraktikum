@@ -11,14 +11,35 @@
 using namespace std;
 
 int main() {
+/*
+	Matrix<double> M(3);
 
-	Matrix<double> M(10);
+	M(2,2) = 5.6;
+	M(1,2) = 18;
 
-	M(3,4) = 5.6;
+	BlockMatrix<Matrix<double> > B(2,3);
 
-	std::vector<double> v(10), result(10);
+	//std::vector<double> v(10), result(10);
 
-	M(v, result);
-
+	//M(v, result);
+	B.block(0,0)=M;
+	B.block(0,1)=M;
+	cout << M << endl;
+	cout << B << endl;
 	return 0;
+	*/
+	int n=6;
+	Matrix<double> T(n);
+	T(0,0)=4;
+	T(0,1)=-1;
+	T(n-1,n-2)=-1;
+	T(n-1,n-1)=4;
+
+	for (int i=1;i<(n-1);i++)
+	{
+		T(i,i-1)=-1;
+		T(i,i)=4;
+		T(i,i+1)=-1;
+	}
+cout << T << endl;
 }
