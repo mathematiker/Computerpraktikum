@@ -12,13 +12,15 @@ using namespace std;
 
 int main() {
 
-	Matrix<double> M(10);
+	Matrix<double> M(1);
 
 	M(3,4) = 5.6;
 
-	std::vector<double> v(10), result(10);
+	std::vector<double> v(10, 1), result(10);
 
 	M(v, result);
+
+	cout << result[4] << endl;
 
 	return 0;
 }
