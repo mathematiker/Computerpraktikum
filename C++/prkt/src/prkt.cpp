@@ -54,5 +54,6 @@ int main() {
 		T(i,i)=4;
 		T(i,i+1)=-1;
 	}
-cout << T << endl;
+	cout << T << endl;
+	return 0;
 }
