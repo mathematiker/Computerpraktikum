@@ -7,6 +7,7 @@
 //============================================================================
 
 #include <iostream>
+#include <math.h>
 #include "MatrixKlassen/matrix.hh"
 #include "methods.hh"
 using namespace std;
@@ -67,6 +68,7 @@ cout << T << endl;
 Matrix<double> A;
 A=Erstelle(3,3);
 cout << A << endl;
+cout << exp(0) << endl;
 
 
 /*
