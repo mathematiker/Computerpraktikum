@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
+#include "methods.hh"
 using namespace std;
 
 int main() {
@@ -39,7 +40,7 @@ int main() {
 	cout << result[4] << endl;
 
 	return 0;
-	*/
+
 
 	int n=6;
 	Matrix<double> T(n);
@@ -55,5 +56,8 @@ int main() {
 		T(i,i+1)=-1;
 	}
 	cout << T << endl;
+	*/
+	vector<double> a(10,1),b(10,1);
+	cout << skal(a,b) << endl;
 	return 0;
 }
