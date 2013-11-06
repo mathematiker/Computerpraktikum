@@ -9,7 +9,7 @@
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
 
-double skal(std::vector<double>& arg1, std::vector<double>& arg2) {
+double skal(const std::vector<double>& arg1, const std::vector<double>& arg2) {
 	int i, n;
 	double skal;
 	skal= 0;
@@ -20,6 +20,22 @@ double skal(std::vector<double>& arg1, std::vector<double>& arg2) {
 	return skal;
 }
 
+//Addiert Vektoren
+void plus(const std::vector<double> arg1, const std::vector<double> arg2, std::vector<double>& sum) {
+	int i;
+	int n=arg1.size();
+	for (i=0; i<n; i++) {
+		sum[i]=arg1[i]+arg2[i];
+	}
+}
+
+void skalmul(const double a, const std::vector<double> arg, std::vector<double> mult) {
+	int i;
+	int n=arg.size();
+	for (i=0; i<n; i++) {
+		mult[i]=a*arg[i];
+	}
+}
 
 //Erstellt die gwünschte M*LxM*L Matrix
 //M=Anzahl Blöcke
@@ -55,4 +71,31 @@ for (int l=L+1;l<M*L+1;l++)
 	A(l-L-1,l-1)=-1;
 }
 return A;
+}
+
+void CG(const int M, const int L, const std::vector<double>& b, std::vector<double>& result) {
+	int tol=0.00000001; //wähle geeignete Toleranz
+	Matrix<double> A;
+	A=Erstelle(M, L);
+	int n;
+	double a;
+	n=M*L;
+	std::vector<double> x(n, 0), z(n), az(n), r(n), r1(n), d(n), ad(n), bd(n);
+	r=b;
+	d=b;
+	A(d, z);
+
+	while (skal(r,r)<tol)
+	{
+		a=skal(r,r)/skal(d,z);
+		skalmul(a,d, ad);
+		plus(x, ad, x);
+		skalmul(-a, z, az);
+		plus(r, az, r1);
+		b=skal(r1,r1)/skal(r,r);
+		skalmul(b, d, bd);
+		plus(r, bd, d);
 	}
+}
+
+

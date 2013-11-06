@@ -40,10 +40,7 @@ int main() {
 	cout << result[4] << endl;
 
 	return 0;
-<<<<<<< HEAD
-=======
 
->>>>>>> 23ff146f7924007e4ce8adbb05f531b3806d86a1
 
 
 	int n=3;
@@ -59,7 +56,7 @@ int main() {
 		T(i,i)=4;
 		T(i,i+1)=-1;
 	}
-<<<<<<< HEAD
+
 	Matrix<double>Id(n);
 	for (int i=0;i<n;i++)
 	{

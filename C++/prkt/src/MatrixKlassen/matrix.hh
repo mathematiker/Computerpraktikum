@@ -18,8 +18,6 @@ public:
   Matrix(int n_rows_ = 1) :  n_rows(n_rows_), data(n_rows * n_rows) {}
 
 
-
-
 // Matrix-Vektor-Multiplikation
   void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
    {
