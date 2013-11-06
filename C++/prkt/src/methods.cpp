@@ -20,15 +20,24 @@ double skal(const std::vector<double>& arg1, const std::vector<double>& arg2) {
 	return skal;
 }
 
+
+void add(std::vector<double>& v, std::vector<double>& u, std::vector<double>& w ) {
+	int i,n;
+	n = v.size();
+	for (i=0; i<n; i++) {
+	w[i]=v[i]+u[i];
+	}
+}
+/*
 //Addiert Vektoren
-void plus(const std::vector<double> arg1, const std::vector<double> arg2, std::vector<double>& sum) {
-	int i;
-	int n=arg1.size();
+void plus(std::vector<double> arg1, std::vector<double> arg2, std::vector<double>& sum) {
+	int i, n;
+	n=arg1.size();
 	for (i=0; i<n; i++) {
 		sum[i]=arg1[i]+arg2[i];
 	}
 }
-
+*/
 void skalmul(const double a, const std::vector<double> arg, std::vector<double> mult) {
 	int i;
 	int n=arg.size();
@@ -36,6 +45,7 @@ void skalmul(const double a, const std::vector<double> arg, std::vector<double> 
 		mult[i]=a*arg[i];
 	}
 }
+
 
 //Erstellt die gwünschte M*LxM*L Matrix
 //M=Anzahl Blöcke
@@ -78,9 +88,9 @@ void CG(const int M, const int L, const std::vector<double>& b, std::vector<doub
 	Matrix<double> A;
 	A=Erstelle(M, L);
 	int n;
-	double a;
+	double a,beta;
 	n=M*L;
-	std::vector<double> x(n, 0), z(n), az(n), r(n), r1(n), d(n), ad(n), bd(n);
+	std::vector<double> x(n, 0), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
 	r=b;
 	d=b;
 	A(d, z);
@@ -89,12 +99,12 @@ void CG(const int M, const int L, const std::vector<double>& b, std::vector<doub
 	{
 		a=skal(r,r)/skal(d,z);
 		skalmul(a,d, ad);
-		plus(x, ad, x);
+		add(x, ad, x);
 		skalmul(-a, z, az);
-		plus(r, az, r1);
-		b=skal(r1,r1)/skal(r,r);
-		skalmul(b, d, bd);
-		plus(r, bd, d);
+		add(r, az, r1);
+		beta=skal(r1,r1)/skal(r,r);
+		skalmul(beta, d, betad);
+		add(r, betad, d);
 	}
 }
 
