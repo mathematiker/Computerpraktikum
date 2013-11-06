@@ -69,7 +69,9 @@ Matrix<double> A;
 A=Erstelle(3,3);
 cout << A << endl;
 cout << exp(0) << endl;
-
+int a=3;
+double b=a;
+cout<< 1/b <<endl;
 
 /*
 	vector<double> a(10,1),b(10,1);

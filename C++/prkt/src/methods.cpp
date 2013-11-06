@@ -6,6 +6,7 @@
  */
 
 // Definiert ein skalarprodukt für Vektor gleicher Dimension
+#include <math.h>
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
 
@@ -81,6 +82,43 @@ for (int l=L+1;l<M*L+1;l++)
 	A(l-L-1,l-1)=-1;
 }
 return A;
+}
+// G erstellt den Vektor g, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
+void G(const int n, std::vector<double> g) {
+	int i,j, N; //N ist die Anzahl der inneren Punkte
+	N=(n-2)+(n-3)*(n-1);
+	// innere Punkte
+	for(i=1; i<n-1; i++ ) {
+		for(j=1; j<n-1; j++) {
+			g[i+(j-1)*(n-1)]=exp(-10*(i*i/((n-1)*(n-1))+j*j/((n-1)*(n-1))));
+		}
+	}
+	// Randpunkte
+	for(i=0; i<n; i++) {
+		g[N+1+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
+		g[N+2+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
+		g[N+3+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
+		g[N+4+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
+	}
+}
+
+// F erstellt den Vektor f, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
+void F(const int n, std::vector<double> f) {
+	int i,j, N; //N ist die Anzahl der inneren Punkte
+	N=(n-2)+(n-3)*(n-1);
+	// innere Punkte
+	for(i=1; i<n-1; i++ ) {
+		for(j=1; j<n-1; j++) {
+			f[i+(j-1)*(n-1)]=(400*i*i/((n-1)*(n-1))+400*j*j/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))+j*j/((n-1)*(n-1))));
+		}
+	}
+	// Randpunkte
+	for(i=0; i<n; i++) {
+		f[N+1+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))));
+		f[N+2+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1)))); //Weitermachen
+		f[N+3+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
+		f[N+4+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
+	}
 }
 
 void CG(const int M, const int L, const std::vector<double>& b, std::vector<double>& result) {
