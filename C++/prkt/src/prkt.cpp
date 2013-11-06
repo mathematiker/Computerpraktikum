@@ -39,9 +39,9 @@ int main() {
 	cout << result[4] << endl;
 
 	return 0;
-	*/
 
-	int n=6;
+
+	int n=3;
 	Matrix<double> T(n);
 	T(0,0)=4;
 	T(0,1)=-1;
@@ -54,5 +54,46 @@ int main() {
 		T(i,i)=4;
 		T(i,i+1)=-1;
 	}
+	Matrix<double>Id(n);
+	for (int i=0;i<n;i++)
+	{
+		Id(i,i)=1;
+	}
 cout << T << endl;
+*/
+
+int M=3;
+int L=3;
+Matrix<double> A(M*L);
+for (int m=0; m<M;m++)
+{
+	A(m*L,m*L)=4;
+	A(m*L,m*L+1)=-1; //Ausnahmefälle oben
+
+
+	A(m*L+L-1,m*L+L-1)=4;
+	A(m*L+L-1,m*L+L-2)=-1; //Ausnahmefälle unten
+
+
+	for (int l=1;l<L-1;l++)
+	{
+		A(m*L+l,m*L+l-1)=-1;
+		A(m*L+l,m*L+l)=4;
+		A(m*L+l,m*L+l+1)=-1;
+
+
+	}
+
+}
+for (int l=L+1;l<M*L+1;l++)
+{
+	A(l-1,l-L-1)=-1;
+}
+for (int l=L+1;l<M*L+1;l++)
+{
+	A(l-L-1,l-1)=-1;
+}
+
+cout << A << endl;
+
 }
