@@ -14,10 +14,15 @@ int main() {
 /*
 	Matrix<double> M(3);
 
+
 	M(2,2) = 5.6;
 	M(1,2) = 18;
 
+	Matrix<double> M(1);
+
+
 	BlockMatrix<Matrix<double> > B(2,3);
+
 
 	//std::vector<double> v(10), result(10);
 
@@ -26,8 +31,16 @@ int main() {
 	B.block(0,1)=M;
 	cout << M << endl;
 	cout << B << endl;
+
+	std::vector<double> v(10, 1), result(10);
+
+	M(v, result);
+
+	cout << result[4] << endl;
+
 	return 0;
 	*/
+
 	int n=6;
 	Matrix<double> T(n);
 	T(0,0)=4;

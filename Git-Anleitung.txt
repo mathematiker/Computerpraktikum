@@ -1,9 +1,11 @@
 Konsole in Ordner
 
-Abspeichern: git clone https//MatheMichi@Internetadresse
+Abspeichern: git clone https://benutzername@github.com/mathematiker/Computerpraktikum.git
 
 Runterladen: git pull
 geänderte Dateien: git add Dateiname.x (ganzer Ordner: add Ordnername/*)
 kommentieren: git commit -m "....."
 Hochladen commiteter Dateien: git push (evtl zuerst git pull)
-gelöschte Dateien aus GIT entfernen: git add -u
+gelöschte Dateien aus GIT entfernen: git add -U.
+
+Änderungen verwerfen: git stash

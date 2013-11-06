@@ -12,11 +12,22 @@ class Matrix
 
 public:
 
+
   typedef Entry EntryType;
   // constructor
   Matrix(int n_rows_ = 1) :  n_rows(n_rows_), data(n_rows * n_rows) {}
 
 
+
+
+// Matrix-Vektor-Multiplikation
+  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
+   {
+	  int i,j;
+	  for (i=0, j=0; i<arg.size(); i++, j++) {
+		result[i]=result[i]+data[j+i*n_rows]*arg[j];
+	  }
+   }
 
 
   // Zugriff mit Schreibberechtigung
