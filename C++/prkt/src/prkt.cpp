@@ -8,6 +8,7 @@
 
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
+#include "methods.hh"
 using namespace std;
 
 int main() {
@@ -39,6 +40,10 @@ int main() {
 	cout << result[4] << endl;
 
 	return 0;
+<<<<<<< HEAD
+=======
+
+>>>>>>> 23ff146f7924007e4ce8adbb05f531b3806d86a1
 
 
 	int n=3;
@@ -54,6 +59,7 @@ int main() {
 		T(i,i)=4;
 		T(i,i+1)=-1;
 	}
+<<<<<<< HEAD
 	Matrix<double>Id(n);
 	for (int i=0;i<n;i++)
 	{
@@ -61,39 +67,14 @@ int main() {
 	}
 cout << T << endl;
 */
-
-int M=3;
-int L=3;
-Matrix<double> A(M*L);
-for (int m=0; m<M;m++)
-{
-	A(m*L,m*L)=4;
-	A(m*L,m*L+1)=-1; //Ausnahmefälle oben
-
-
-	A(m*L+L-1,m*L+L-1)=4;
-	A(m*L+L-1,m*L+L-2)=-1; //Ausnahmefälle unten
-
-
-	for (int l=1;l<L-1;l++)
-	{
-		A(m*L+l,m*L+l-1)=-1;
-		A(m*L+l,m*L+l)=4;
-		A(m*L+l,m*L+l+1)=-1;
-
-
-	}
-
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-	A(l-1,l-L-1)=-1;
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-	A(l-L-1,l-1)=-1;
-}
-
+Matrix<double> A;
+A=Erstelle(3,3);
 cout << A << endl;
+
+
+/*
+	vector<double> a(10,1),b(10,1);
+	cout << skal(a,b) << endl;
+	return 0;*/
 
 }

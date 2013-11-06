@@ -4,12 +4,15 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
+../src/methods.cpp \
 ../src/prkt.cpp 
 
 OBJS += \
+./src/methods.o \
 ./src/prkt.o 
 
 CPP_DEPS += \
+./src/methods.d \
 ./src/prkt.d 
 
 
