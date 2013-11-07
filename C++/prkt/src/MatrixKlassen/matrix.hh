@@ -21,12 +21,12 @@ public:
 // Matrix-Vektor-Multiplikation
   void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
    {
-	  int i,j;
-	  for (i=0, j=0; i<arg.size(); i++, j++) {
+	  int i,j, n;
+	  n=(int)arg.size();
+	  for (i=0, j=0; i<n; i++, j++) {
 		result[i]=result[i]+data[j+i*n_rows]*arg[j];
 	  }
    }
-
 
   // Zugriff mit Schreibberechtigung
   EntryType& operator()(int i, int j) {

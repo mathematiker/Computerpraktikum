@@ -128,7 +128,7 @@ void CG(const int M, const int L, const std::vector<double>& b, std::vector<doub
 	int n;
 	double a,beta;
 	n=M*L;
-	std::vector<double> x(n, 0), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
+	std::vector<double> x(n, 0), z(n,0), az(n), r(n), r1(n), d(n), ad(n), betad(n);
 	r=b;
 	d=b;
 	A(d, z);
@@ -144,6 +144,7 @@ void CG(const int M, const int L, const std::vector<double>& b, std::vector<doub
 		skalmul(beta, d, betad);
 		add(r, betad, d);
 	}
+	result=x;
 }
 
 
