@@ -97,7 +97,7 @@ Vector mult(Matrix<double>& A, Vector& arg)
 	  return result;
    }
 Vector CG(int& M, int& L, Vector& b) {
-	int tol=0.01; //wähle geeignete Toleranz
+	double tol=0.01; //wähle geeignete Toleranz
 	Matrix<double> A;
 	A=Erstelle(M, L);
 	int n=M*L;
@@ -117,10 +117,9 @@ Vector CG(int& M, int& L, Vector& b) {
 
 	r=b;
 	d=b;
-	z=mult(A,d);
-	int oktopus=0;
 	while (r.operator*(r)>=tol)
 	{
+		z=mult(A,d);
 		a=r.operator*(r)/d.operator*(z);
 		ad=d.operator*(a);
 		x=x.operator+(ad);

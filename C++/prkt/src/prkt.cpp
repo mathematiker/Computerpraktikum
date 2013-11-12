@@ -80,11 +80,11 @@ for (int i=0; i<6; i++)
 	a[i]=i;
 b[0]=2;
 result=mult(A, a);
-/*for (unsigned int i = 0; i < 6; ++i) {
+for (unsigned int i = 0; i < 6; ++i) {
 cout << result[i];
 cout << " ";
  }
- cout << " "<<endl;*/
+ cout << " "<<endl;
 for (int i = 0; i < 6; i++) {
  cout << a[i];
  cout << " ";
@@ -98,6 +98,7 @@ for (int i = 0; i < 6; i++) {
  cout << " ";
   }
  cout << " "<<endl;
+
 return 0;
 
 }

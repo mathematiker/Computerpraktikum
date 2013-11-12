@@ -52,8 +52,9 @@ public:
     {
     	Vector v(dimension());
     	for ( size_t i=0; i <dimension(); i++ )
-    		v[i]=a*v[i];
-
+    	{
+    		v[i]=vector[i]*a;
+    	}
     	return v;
     }
 
