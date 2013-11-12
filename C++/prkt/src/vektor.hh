@@ -10,19 +10,19 @@
 class Vector
 {
 private:
-    std::vector<int> vector;
+    std::vector<double> vector;
 public:
     // Ctor
-    explicit Vector( size_t n ) : vector(std::vector<int>(n)) {}
+    explicit Vector( size_t n ) : vector(std::vector<double>(n)) {}
 
     // Ueberladung fuer non-const Vector Objekte
-    int& operator[]( const size_t index )
+    double& operator[]( const size_t index )
     {
         return vector[index];
     }
 
     // Ueberladung fuer const-Vector Objekte
-    const int& operator[]( const size_t index ) const
+    const double& operator[]( const size_t index ) const
     {
         return vector[index];
     }
@@ -39,6 +39,18 @@ public:
     // Liefert die Groesse des Vektors
     size_t dimension() const { return vector.size(); }
 };
+/*
+template <class EntryType>
+std::ostream& operator<<(std::ostream &os, const Vector &obj)
+{
+  for (int i = 0; i < obj.dimension(); ++i) {
+      os << std::setw(5); // field-width
+      os << obj[ << " ";
+    os << std::endl;
+  }
+  return os;
+}
+*/
 
 
 #endif /* VEKTOR_HH_ */
