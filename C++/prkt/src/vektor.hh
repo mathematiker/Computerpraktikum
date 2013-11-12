@@ -39,18 +39,18 @@ public:
     // Liefert die Groesse des Vektors
     size_t dimension() const { return vector.size(); }
 };
-/*
-template <class EntryType>
+
 std::ostream& operator<<(std::ostream &os, const Vector &obj)
 {
-  for (int i = 0; i < obj.dimension(); ++i) {
+  for (unsigned int i = 0; i < obj.dimension(); ++i) {
       os << std::setw(5); // field-width
-      os << obj[ << " ";
-    os << std::endl;
+      os << obj[i] << " ";
   }
+  os << std::endl;
+
   return os;
 }
-*/
+
 
 
 #endif /* VEKTOR_HH_ */
