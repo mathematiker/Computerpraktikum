@@ -6,10 +6,14 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
-#include <iostream>
 #include <math.h>
+#include <iostream>
+#include "vektor.hh"
 #include "MatrixKlassen/matrix.hh"
 #include "methods.hh"
+
+
+
 using namespace std;
 
 int main() {
@@ -65,17 +69,41 @@ int main() {
 	}
 cout << T << endl;
 */
-Matrix<double> A;
-A=Erstelle(3,3);
-cout << A << endl;
-cout << exp(0) << endl;
-int a=3;
-double b=a;
-cout<< 1/b <<endl;
+double x=1;
 
-/*
-	vector<double> a(10,1),b(10,1);
-	cout << skal(a,b) << endl;
-	return 0;*/
+Matrix<double> A(3);
+int M=3,L=2;
+A=Erstelle(M,L);
+cout << A <<endl;
+A(0,0)=1;
+A(0,1)=3;
+A(0,2)=2;
+
+Vector a(3), b(3), c(3), result(3);
+result[0]=0;
+result[1]=0;
+result[2]=0;
+a[0]=1;
+a[1]=2;
+a[2]=2;
+b[0]=2;
+result=mult(A, a);
+c=a.operator+(b);
+cout<<c[2]<<endl;
+for (unsigned int i = 0; i < 3; ++i) {
+cout << result[i];
+cout << " ";
+ }
+ cout << " "<<endl;
+
+//mult(A, b, result);
+//x=a.operator*(b);
+//x=2;
+//cout<<x<<endl;
+
+c=a.operator*(x);
+c[0]=2;
+cout<<result[2]<<endl;
+return 0;
 
 }

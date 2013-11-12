@@ -9,43 +9,7 @@
 #include <math.h>
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
-
-double skal(const std::vector<double>& arg1, const std::vector<double>& arg2) {
-	int i, n;
-	double skal;
-	skal= 0;
-	n= arg1.size();
-	for (i=0; i<n; i++) {
-		skal=skal+arg1[i]*arg2[i];
-	}
-	return skal;
-}
-
-
-void add(std::vector<double>& v, std::vector<double>& u, std::vector<double>& w ) {
-	int i,n;
-	n = v.size();
-	for (i=0; i<n; i++) {
-	w[i]=v[i]+u[i];
-	}
-}
-/*
-//Addiert Vektoren
-void plus(std::vector<double> arg1, std::vector<double> arg2, std::vector<double>& sum) {
-	int i, n;
-	n=arg1.size();
-	for (i=0; i<n; i++) {
-		sum[i]=arg1[i]+arg2[i];
-	}
-}
-*/
-void skalmul(const double a, const std::vector<double> arg, std::vector<double> mult) {
-	int i;
-	int n=arg.size();
-	for (i=0; i<n; i++) {
-		mult[i]=a*arg[i];
-	}
-}
+#include "vektor.hh"
 
 
 //Erstellt die gwünschte M*LxM*L Matrix
@@ -120,31 +84,48 @@ void F(const int n, std::vector<double> f) {
 		f[N+4+4*i]=(360+400*i*i/((n-1)*(n-1)))*exp(-10*(1+i*i/((n-1)*(n-1))));
 	}
 }
-
-void CG(const int M, const int L, const std::vector<double>& b, std::vector<double>& result) {
+Vector mult(Matrix<double>& A, Vector& arg)
+   {
+	  int i,j, n;
+	  n=arg.dimension();
+	  Vector result(n);
+	  for (i=0; i<n; i++) {
+		  for (j=0; j<n; j++) {
+			  result[i]=result[i]+A(i,j)*arg[j];
+		  }
+	  }
+	  return result;
+   }
+void CG(const int M, const int L, const Vector& b, Vector result) {
 	int tol=0.00000001; //wähle geeignete Toleranz
 	Matrix<double> A;
 	A=Erstelle(M, L);
 	int n;
 	double a,beta;
 	n=M*L;
-	std::vector<double> x(n, 0), z(n,0), az(n), r(n), r1(n), d(n), ad(n), betad(n);
+	Vector x(n), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
+	for (int i=0; i<n; i++) {
+		x[i]=0;
+		z[i]=0;
+	}
 	r=b;
 	d=b;
-	A(d, z);
+	z=mult(A,d);
 
-	while (skal(r,r)<tol)
+	while (r.operator*(r)>=tol)
 	{
-		a=skal(r,r)/skal(d,z);
-		skalmul(a,d, ad);
-		add(x, ad, x);
-		skalmul(-a, z, az);
-		add(r, az, r1);
-		beta=skal(r1,r1)/skal(r,r);
-		skalmul(beta, d, betad);
-		add(r, betad, d);
+		a=r.operator*(r)/d.operator*(z);
+		ad=d.operator*(a);
+		x=x.operator+(ad);
+		az=z.operator*(-a);
+		r1=r.operator+(az);
+		beta=r1.operator*(r1)/r.operator*(r);
+		betad=d.operator*(beta);
+		d=r.operator+(betad);
 	}
 	result=x;
 }
+
+
 
 

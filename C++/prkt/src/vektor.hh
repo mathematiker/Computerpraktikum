@@ -7,6 +7,10 @@
 
 #ifndef VEKTOR_HH_
 #define VEKTOR_HH_
+
+#include "MatrixKlassen/matrix.hh"
+#include <vector>
+
 class Vector
 {
 private:
@@ -27,7 +31,7 @@ public:
         return vector[index];
     }
 
-    const Vector operator+( const Vector& rhs )
+    Vector operator+( const Vector& rhs )
     {
         Vector v(dimension());
         for ( size_t i = 0; i < dimension(); i++ )
@@ -36,11 +40,28 @@ public:
         return v; // Es wird eine Kopie zurueckgegeben. Nicht sehr effizient, aber etwas einfacher zum implementieren und korrek
     }
 
+    double operator*(const Vector& rhs)
+    {
+    	double v=0;
+    	for ( size_t i=0; i <dimension(); i++)
+    		v=v+vector[i]*rhs[i];
+    	return v;
+    }
+
+    Vector operator*( const double& a)
+    {
+    	Vector v(dimension());
+    	for ( size_t i=0; i <dimension(); i++ )
+    		v[i]=a*v[i];
+
+    	return v;
+    }
+
     // Liefert die Groesse des Vektors
     size_t dimension() const { return vector.size(); }
 };
-
-std::ostream& operator<<(std::ostream &os, const Vector &obj)
+/*
+std::ostream& operator<<(std::ostream& os, const Vector& obj)
 {
   for (unsigned int i = 0; i < obj.dimension(); ++i) {
       os << std::setw(5); // field-width
@@ -50,6 +71,7 @@ std::ostream& operator<<(std::ostream &os, const Vector &obj)
 
   return os;
 }
+*/
 
 
 
