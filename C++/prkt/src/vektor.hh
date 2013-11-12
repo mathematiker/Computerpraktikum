@@ -37,7 +37,7 @@ public:
         for ( size_t i = 0; i < dimension(); i++ )
             v[i] = vector[i] + rhs[i];
 
-        return v; // Es wird eine Kopie zurueckgegeben. Nicht sehr effizient, aber etwas einfacher zum implementieren und korrek
+        return v;
     }
 
     double operator*(const Vector& rhs)

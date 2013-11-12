@@ -10,7 +10,7 @@
 
 
 Matrix<double> Erstelle(const int& M, const int& L);
-//void CG(const int M, const int L, const std::vector<double>& b, std::vector<double>& result);
+Vector CG(int& M, int& L, Vector& b);
 //void F(const int n, std::vector<double> f);
 //void G(const int n, std::vector<double> g);
 Vector mult(Matrix<double>& A, Vector& arg);

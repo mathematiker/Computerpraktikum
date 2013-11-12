@@ -96,22 +96,29 @@ Vector mult(Matrix<double>& A, Vector& arg)
 	  }
 	  return result;
    }
-void CG(const int M, const int L, const Vector& b, Vector result) {
-	int tol=0.00000001; //wähle geeignete Toleranz
+Vector CG(int& M, int& L, Vector& b) {
+	int tol=0.01; //wähle geeignete Toleranz
 	Matrix<double> A;
 	A=Erstelle(M, L);
-	int n;
-	double a,beta;
-	n=M*L;
+	int n=M*L;
+	double a=0,beta=0;
 	Vector x(n), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
+
 	for (int i=0; i<n; i++) {
 		x[i]=0;
 		z[i]=0;
+		az[i]=0;
+		r[i]=0;
+		r1[i]=0;
+		d[i]=0;
+		ad[i]=0;
+		betad[i]=0;
 	}
+
 	r=b;
 	d=b;
 	z=mult(A,d);
-
+	int oktopus=0;
 	while (r.operator*(r)>=tol)
 	{
 		a=r.operator*(r)/d.operator*(z);
@@ -122,8 +129,9 @@ void CG(const int M, const int L, const Vector& b, Vector result) {
 		beta=r1.operator*(r1)/r.operator*(r);
 		betad=d.operator*(beta);
 		d=r.operator+(betad);
+		r=r1;
 	}
-	result=x;
+	return x;
 }
 
 

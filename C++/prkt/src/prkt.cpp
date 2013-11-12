@@ -69,41 +69,35 @@ int main() {
 	}
 cout << T << endl;
 */
-double x=1;
+//double x=1;
 
 Matrix<double> A(3);
 int M=3,L=2;
 A=Erstelle(M,L);
-cout << A <<endl;
-A(0,0)=1;
-A(0,1)=3;
-A(0,2)=2;
 
-Vector a(3), b(3), c(3), result(3);
-result[0]=0;
-result[1]=0;
-result[2]=0;
-a[0]=1;
-a[1]=2;
-a[2]=2;
+Vector a(6), b(6), c(6), result(6), result2(6);
+for (int i=0; i<6; i++)
+	a[i]=i;
 b[0]=2;
 result=mult(A, a);
-c=a.operator+(b);
-cout<<c[2]<<endl;
-for (unsigned int i = 0; i < 3; ++i) {
+/*for (unsigned int i = 0; i < 6; ++i) {
 cout << result[i];
 cout << " ";
  }
+ cout << " "<<endl;*/
+for (int i = 0; i < 6; i++) {
+ cout << a[i];
+ cout << " ";
+  }
  cout << " "<<endl;
 
-//mult(A, b, result);
-//x=a.operator*(b);
-//x=2;
-//cout<<x<<endl;
+ result2=CG(M,L, result);
 
-c=a.operator*(x);
-c[0]=2;
-cout<<result[2]<<endl;
+for (int i = 0; i < 6; i++) {
+ cout << result2[i];
+ cout << " ";
+  }
+ cout << " "<<endl;
 return 0;
 
 }
