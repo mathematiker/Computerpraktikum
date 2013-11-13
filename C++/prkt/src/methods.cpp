@@ -135,6 +135,17 @@ Vector CG(int& M, int& L, Vector& b) {
 	return x;
 }
 
+std::ostream& operator<<(std::ostream& os, const Vector& obj)
+{
+  for (unsigned int i = 0; i < obj.dimension(); ++i) {
+      os << std::setw(5); // field-width
+      os << obj[i] << " ";
+  }
+  os << std::endl;
+
+  return os;
+}
+
 
 
 

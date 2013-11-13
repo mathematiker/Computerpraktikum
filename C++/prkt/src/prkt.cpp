@@ -98,6 +98,7 @@ for (int i = 0; i < 6; i++) {
  cout << " ";
   }
  cout << " "<<endl;
+ cout << result2 << endl;
 
 return 0;
 

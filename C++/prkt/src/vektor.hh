@@ -10,6 +10,8 @@
 
 #include "MatrixKlassen/matrix.hh"
 #include <vector>
+#include <iostream>
+#include <iomanip>
 
 class Vector
 {
@@ -61,18 +63,10 @@ public:
     // Liefert die Groesse des Vektors
     size_t dimension() const { return vector.size(); }
 };
-/*
-std::ostream& operator<<(std::ostream& os, const Vector& obj)
-{
-  for (unsigned int i = 0; i < obj.dimension(); ++i) {
-      os << std::setw(5); // field-width
-      os << obj[i] << " ";
-  }
-  os << std::endl;
 
-  return os;
-}
-*/
+
+
+
 
 
 
