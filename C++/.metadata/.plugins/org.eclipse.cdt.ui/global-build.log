@@ -1,0 +1,98 @@
+21:38:35 **** Clean-only build of configuration Debug for project prkt ****
+make clean 
+rm -rf  ./src/methods.o ./src/prkt.o  ./src/methods.d ./src/prkt.d  prkt
+ 
+21:40:58 **** Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/methods.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/methods.d" -MT"src/methods.d" -o "src/methods.o" "../src/methods.cpp"
+Finished building: ../src/methods.cpp
+ 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 
+21:41:05 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+make: Für das Ziel »all« ist nichts zu tun.
+21:41:25 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 
+21:41:28 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+make: Für das Ziel »all« ist nichts zu tun.
+21:55:37 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/methods.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/methods.d" -MT"src/methods.d" -o "src/methods.o" "../src/methods.cpp"
+../src/methods.cpp: In Funktion »Vector G(int)«:
+../src/methods.cpp:53:14: Fehler: Zuweisung des schreibgeschützten Parameters »n«
+../src/methods.cpp: In Funktion »Vector F(int)«:
+../src/methods.cpp:77:15: Fehler: Zuweisung des schreibgeschützten Parameters »n«
+../src/methods.cpp: In Funktion »Vector B(int)«:
+../src/methods.cpp:99:15: Fehler: Zuweisung des schreibgeschützten Parameters »n«
+make: *** [src/methods.o] Fehler 1
+21:56:50 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/methods.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/methods.d" -MT"src/methods.d" -o "src/methods.o" "../src/methods.cpp"
+Finished building: ../src/methods.cpp
+ 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 
+21:56:54 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+make: Für das Ziel »all« ist nichts zu tun.
+21:57:43 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 
+21:57:45 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+make: Für das Ziel »all« ist nichts zu tun.
+22:01:47 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 

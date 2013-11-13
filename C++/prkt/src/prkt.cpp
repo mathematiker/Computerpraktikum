@@ -104,7 +104,7 @@ b=B(n);
 o=f.operator+(b);
 erg=CG(A,o);
 ofstream file;
-file.open("test");
+file.open("test.csv");
 file << erg;
 file.close();
 return 0;

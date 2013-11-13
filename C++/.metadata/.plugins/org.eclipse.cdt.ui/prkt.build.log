@@ -1,0 +1,15 @@
+22:01:47 **** Incremental Build of configuration Debug for project prkt ****
+make all 
+Building file: ../src/prkt.cpp
+Invoking: GCC C++ Compiler
+g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"src/prkt.d" -MT"src/prkt.d" -o "src/prkt.o" "../src/prkt.cpp"
+Finished building: ../src/prkt.cpp
+ 
+Building target: prkt
+Invoking: GCC C++ Linker
+g++  -o "prkt"  ./src/methods.o ./src/prkt.o   
+Finished building target: prkt
+ 
+
+22:01:48 Build Finished (took 454ms)
+

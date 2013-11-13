@@ -1,0 +1,294 @@
+#ifndef MATRIX_HH
+#define MATRIX_HH
+
+#include <vector>
+#include <iostream>
+#include <iomanip>
+
+template<class Entry = double>
+class Matrix
+{
+  typedef std::vector<Entry> DataType;
+
+public:
+
+
+  typedef Entry EntryType;
+  // constructor
+  Matrix(int n_rows_ = 1) :  n_rows(n_rows_), data(n_rows * n_rows) {}
+
+
+// Matrix-Vektor-Multiplikation
+  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
+   {
+	  int i,j;
+	  if(arg.size()>=0) {
+	  for (i=0, j=0; i<arg.size(); i++, j++) {
+		result[i]=result[i]+data[j+i*n_rows]*arg[j];
+	  }
+	  }
+   }
+
+  // Zugriff mit Schreibberechtigung
+  EntryType& operator()(int i, int j) {
+    return data[j + i * n_rows];
+  }
+
+  // Zugriff ohne Schreibberechtigung
+  const EntryType& operator()(int i, int j) const {
+    return data[j + i * n_rows];
+  }
+
+  // Groesse aendern ohne umkopieren
+  void resize(int new_size) {
+    // Evtl. Daten umkopieren???
+    data.resize(new_size * new_size);
+    n_rows = new_size;
+  }
+
+  int size() const {
+    return n_rows;
+  }
+
+private:
+  int n_rows;
+  DataType data;
+};
+
+template <class EntryType>
+std::ostream& operator<<(std::ostream &os, const Matrix<EntryType> &obj)
+{
+  for (int i = 0; i < obj.size(); ++i) {
+    for (int j = 0; j < obj.size(); ++j) {
+      os << std::setw(5); // field-width
+      os << obj(i, j) << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+template<class MatrixType>
+class BlockMatrix
+{
+  typedef std::vector<MatrixType> DataType;
+
+public:
+
+  typedef typename MatrixType::EntryType EntryType;
+  BlockMatrix(int n_blocks_, int block_size_)
+    : n_blocks(n_blocks_), block_size(block_size_),
+      data(n_blocks * n_blocks, MatrixType(block_size))
+  {}
+
+  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
+         {
+
+
+         }
+
+
+
+  double& operator()(int i, int j) {
+    int row_block, col_block;
+    int block_i, block_j;
+
+    row_block = i / block_size;
+    col_block = j / block_size;
+    block_i = i % block_size;
+    block_j = j % block_size;
+
+    return data[row_block * n_blocks + col_block](block_i, block_j);
+  }
+
+  const double& operator()(int i, int j) const {
+    int row_block, col_block;
+    int block_i, block_j;
+
+    row_block = i / block_size;
+    col_block = j / block_size;
+    block_i = i % block_size;
+    block_j = j % block_size;
+
+    return data[row_block * n_blocks + col_block](block_i, block_j);
+  }
+
+  MatrixType& block(int row_block, int col_block) {
+    return data[row_block * n_blocks + col_block];
+  }
+
+  const MatrixType& block(int row_block, int col_block) const {
+    return data[row_block * n_blocks + col_block];
+  }
+
+  int size() const {
+    return n_blocks * block_size;
+  }
+
+  int blockSize() const {
+    return block_size;
+  }
+
+  int numBlocks() const {
+    return n_blocks;
+  }
+
+
+
+private:
+  int n_blocks;
+  int block_size;
+  DataType data;
+};
+
+template <class MatrixType>
+std::ostream& operator<<(std::ostream &os, const BlockMatrix<MatrixType> &obj)
+{
+  for (int i = 0; i < obj.size(); ++i) {
+    for (int j = 0; j < obj.size(); ++j) {
+      os << std::setw(5); // field-width
+      os << obj(i, j) << " ";
+    }
+    os << std::endl;
+  }
+  return os;
+}
+
+template<class EntryType = double>
+class DiagMatrix
+{
+  typedef std::vector<EntryType> DataType;
+
+public:
+  // constructor
+  DiagMatrix(int n_rows_ = 1) : n_rows(n_rows_), data(n_rows) {}
+
+  // Zugriff mit Schreibberechtigung
+  EntryType& operator()(int i, int j) {
+    if (i == j) {
+      return data[i];
+    } else {
+      static EntryType result;
+
+      result = 0;
+
+      return result;
+    }
+  }
+
+  // Zugriff ohne Schreibberechtigung
+  const EntryType& operator()(int i, int j) const {
+    std::cout << "Hello" << std::endl;
+    if (i == j) {
+      return data[i];
+    } else {
+      static EntryType result = 0;
+      return result;
+    }
+  }
+
+  // Groesse aendern ohne umkopieren
+  void resize(int new_size) {
+    // Evtl. Daten umkopieren???
+    data.resize(new_size);
+    n_rows = new_size;
+  }
+
+  int size() const {
+    return n_rows;
+  }
+
+private:
+  int n_rows;
+  DataType data;
+};
+
+// Eine sehr einfache schwach besetzte Matrix mit hoechsten max_cols
+// vielen Eintraegen pro Zeile. Fuer jede Zeile merkt man sich die
+// Werte und die Spaltenindizes, an denen die Werte eingetragen sind.
+template<class EntryType = double>
+class SparseMatrix
+{
+  typedef std::vector<EntryType> DataType;
+  typedef std::vector<int>       IndexType;
+
+public:
+  // constructor
+  SparseMatrix(int n_rows_ = 1, int max_cols_ = 1)
+    : n_rows(n_rows_), max_cols(max_cols_), data(n_rows*max_cols), colIdx(n_rows*max_cols, -1) {
+  }
+
+
+
+  // Zugriff mit Schreibberechtigung
+  // Achtung: neue Eintraege werden nur mit der assign()-Methode angelegt.
+  EntryType& operator()(int i, int j) {
+    for (int k = 0; k < max_cols; k++) {
+      if (colIdx[i*max_cols + k] == j) {
+        return data[i*max_cols + k];
+      }
+    }
+
+    static EntryType result;
+        
+    result = 0;
+      
+    return result;
+  }
+
+  // Zugriff ohne Schreibberechtigung
+  const EntryType& operator()(int i, int j) const {
+    for (int k = 0; k < max_cols; k++) {
+      if (colIdx[i*max_cols + k] == j) {
+        return data[i*max_cols + k];
+      }
+    }
+
+    static EntryType result = 0;
+      
+    return result;
+  }
+
+  // Speichere neuen Eintrag VALUE an Stelle i, j, falls in der Zeile noch Platz ist.
+  void assign(int i, int j, const EntryType& value) {
+    // Freien Eintrag suchen
+    for (int k = 0; k < max_cols; ++k) {
+      if (colIdx[i * max_cols + k] == -1) {
+        // Freie Eintraege werden durch den Index -1 markiert
+        data[i * max_cols + k] = value; // Wert merken
+        colIdx[i * max_cols + k] = j;   // Index merken
+        break;
+      }
+    }
+  }
+
+  // Eintrag an der Stelle i, j freigeben, falls vorhanden
+  void erase(int i, int j) {
+    for (int k = 0; k < max_cols; k++) {
+      if (colIdx[i*max_cols + k] == j) {
+        colIdx[i*max_cols + k] = -1; // ist damit wieder "leer"
+        break;
+      }
+    }
+  }
+
+  // Groesse aendern ohne umkopieren
+  void resize(int new_size) {
+    // Evtl. Daten umkopieren???
+    data.resize(new_size*max_cols, -1);
+    colIdx.resize(new_size*max_cols, -1);
+    n_rows = new_size;
+  }
+
+  int size() const {
+    return n_rows;
+  }
+
+private:
+  int       n_rows;
+  int       max_cols;
+  DataType  data;
+  IndexType colIdx;
+};
+
+#endif

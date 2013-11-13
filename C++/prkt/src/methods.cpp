@@ -49,10 +49,11 @@ for (int l=L+1;l<M*L+1;l++)
 return A;
 }
 // G erstellt den Vektor g, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
-	Vector   G(const int n) {
-		int N=n*n;
+	Vector   G(int n) {
+		n=(double) n;
+		double N=n*n;
 		Vector g(N);
-	int i,j; //N ist die Anzahl der inneren Punkte
+	double i,j; //N ist die Anzahl der inneren Punkte
 
 	// innere Punkte
 	for(i=1; i<=n; i++ ) {
@@ -72,10 +73,11 @@ return A;
 }
 
 // F erstellt den Vektor f, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
-Vector F(const int n) {
-	int N=n*n;
+Vector F(int n) {
+	n = (double) n;
+	double N=n*n;
 	Vector f(N);
-	int i,j; //N ist die Anzahl der inneren Punkte
+	double i,j; //N ist die Anzahl der inneren Punkte
 	// innere Punkte
 	for(i=1; i<=n; i++ ) {
 		for(j=1; j<=n; j++) {
@@ -93,9 +95,10 @@ Vector F(const int n) {
 	return f;
 }
 
-Vector B(const int n){
-	int N= n*n;
-	int N2= (n+1)*(n+1);
+Vector B(int n){
+	n= (double) n;
+	double N= n*n;
+	double N2= (n+1)*(n+1);
 	Vector  b1(N), b2(N), b3(N), b4(N);
 	for(int i=0; i<n; i++) {
 			b1[i*n]=exp(-10*(i*i/(n*n))); //x1=i=0
