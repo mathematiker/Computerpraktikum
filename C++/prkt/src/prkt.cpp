@@ -11,6 +11,7 @@
 #include "vektor.hh"
 #include "MatrixKlassen/matrix.hh"
 #include "methods.hh"
+#include <fstream>
 
 
 
@@ -91,7 +92,7 @@ cout << a << endl;
  cout <<f<<endl;
  cout <<B(3)<< endl;*/
 
-int n=5,N=n*n;
+int n=50,N=n*n;
 Matrix<double> A(N)	;
 A=Erstelle(n, n);
 
@@ -100,11 +101,11 @@ f=F(n);
 // cout << f << endl;
 g=G(n);
 b=B(n);
-b=b.operator*(-1);
 o=f.operator+(b);
 erg=CG(A,o);
-for (int i=1;i<10;i++)
-cout << erg[i]/g[i] << endl;
-
+ofstream file;
+file.open("test");
+file << erg;
+file.close();
 return 0;
 }

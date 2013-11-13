@@ -16,22 +16,23 @@
 //M=Anzahl Blöcke
 //L=Größe der Blöcke
 	Matrix<double> Erstelle(const int& M, const int& L) {
+		double N=M*L;
 Matrix<double> A(M*L);
 for (int m=0; m<M;m++)
 {
-	A(m*L,m*L)=4;
-	A(m*L,m*L+1)=-1; //Ausnahmefälle oben
+	A(m*L,m*L)=-4*N;
+	A(m*L,m*L+1)=N; //Ausnahmefälle oben
 
 
-	A(m*L+L-1,m*L+L-1)=4;
-	A(m*L+L-1,m*L+L-2)=-1; //Ausnahmefälle unten
+	A(m*L+L-1,m*L+L-1)=-4*N;
+	A(m*L+L-1,m*L+L-2)=N; //Ausnahmefälle unten
 
 
 	for (int l=1;l<L-1;l++)
 	{
-		A(m*L+l,m*L+l-1)=-1;
-		A(m*L+l,m*L+l)=4;
-		A(m*L+l,m*L+l+1)=-1;
+		A(m*L+l,m*L+l-1)=N;
+		A(m*L+l,m*L+l)=-4*N;
+		A(m*L+l,m*L+l+1)=N;
 
 
 	}
@@ -39,11 +40,11 @@ for (int m=0; m<M;m++)
 }
 for (int l=L+1;l<M*L+1;l++)
 {
-	A(l-1,l-L-1)=-1;
+	A(l-1,l-L-1)=N;
 }
 for (int l=L+1;l<M*L+1;l++)
 {
-	A(l-L-1,l-1)=-1;
+	A(l-L-1,l-1)=N;
 }
 return A;
 }
@@ -94,14 +95,15 @@ Vector F(const int n) {
 
 Vector B(const int n){
 	int N= n*n;
+	int N2= (n+1)*(n+1);
 	Vector  b1(N), b2(N), b3(N), b4(N);
 	for(int i=0; i<n; i++) {
-			b1[i]=exp(-10*(i*i/((n-1)*(n-1)))); //x1=i=0
-			b3[i]=exp(-10*(i*i/((n-1)*(n-1))));//x2=j=0
-			b2[N-i-1]=exp(-10*(1+i*i/((n-1)*(n-1))));//x1=1 i=n-1
-			b4[N-i-1]=exp(-10*(1+i*i/((n-1)*(n-1))));//x2=1 j=n-1
+			b1[i*n]=exp(-10*(i*i/(n*n))); //x1=i=0
+			b3[i]=exp(-10*(i*i/(n*n)));//x2=j=0
+			b2[n-1+i*n]=exp(-10*(1+i*i/(n*n)));//x1=1 i=n-1
+			b4[N-i-1]=exp(-10*(1+i*i/(n*n)));//x2=1 j=n-1
 	}
-	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N);
+	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
 }
 
 Vector mult(Matrix<double>& A, Vector& arg)
