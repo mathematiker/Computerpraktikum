@@ -10,4 +10,4 @@ surf(X,Y,U_h_matrix,'FaceColor','interp','EdgeAlpha',0);
 xlabel('x-Achse');
 ylabel('y-Achse');
 zlabel('u(x,y)');
-print("foo.eps")
+print("test.png", "-dpng");
