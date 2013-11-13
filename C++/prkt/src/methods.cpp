@@ -48,42 +48,62 @@ for (int l=L+1;l<M*L+1;l++)
 return A;
 }
 // G erstellt den Vektor g, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
-void G(const int n, std::vector<double> g) {
-	int i,j, N; //N ist die Anzahl der inneren Punkte
-	N=(n-2)+(n-3)*(n-1);
+	Vector   G(const int n) {
+		int N=n*n;
+		Vector g(N);
+	int i,j; //N ist die Anzahl der inneren Punkte
+
 	// innere Punkte
-	for(i=1; i<n-1; i++ ) {
-		for(j=1; j<n-1; j++) {
-			g[i+(j-1)*(n-1)]=exp(-10*(i*i/((n-1)*(n-1))+j*j/((n-1)*(n-1))));
+	for(i=1; i<=n; i++ ) {
+		for(j=1; j<=n; j++) {
+			g[i+(j-1)*n-1]=exp(-10*(i*i/(n*n)+j*j/(n*n)));
 		}
 	}
-	// Randpunkte
+	/* Randpunkte
+ 	int N=(n-2)+(n-3)*(n-1);
 	for(i=0; i<n; i++) {
 		g[N+1+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
 		g[N+2+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
 		g[N+3+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
 		g[N+4+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
-	}
+	}*/
+	return g;
 }
 
 // F erstellt den Vektor f, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
-void F(const int n, std::vector<double> f) {
-	int i,j, N; //N ist die Anzahl der inneren Punkte
-	N=(n-2)+(n-3)*(n-1);
+Vector F(const int n) {
+	int N=n*n;
+	Vector f(N);
+	int i,j; //N ist die Anzahl der inneren Punkte
 	// innere Punkte
-	for(i=1; i<n-1; i++ ) {
-		for(j=1; j<n-1; j++) {
-			f[i+(j-1)*(n-1)]=(400*i*i/((n-1)*(n-1))+400*j*j/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))+j*j/((n-1)*(n-1))));
+	for(i=1; i<=n; i++ ) {
+		for(j=1; j<=n; j++) {
+			f[i+(j-1)*n-1]=-(400*(i*i+j*j)/(n*n)-40)*exp(-10*((i*i+j*j)/(n*n)));
 		}
 	}
-	// Randpunkte
+	/* Randpunkte
+	 * int N=(n-2)+(n-3)*(n-1);
 	for(i=0; i<n; i++) {
 		f[N+1+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))));
 		f[N+2+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))));
 		f[N+3+4*i]=(360+400*i*i/((n-1)*(n-1)))*exp(-10*(1+i*i/((n-1)*(n-1))));
 		f[N+4+4*i]=(360+400*i*i/((n-1)*(n-1)))*exp(-10*(1+i*i/((n-1)*(n-1))));
-	}
+	}*/
+	return f;
 }
+
+Vector B(const int n){
+	int N= n*n;
+	Vector  b1(N), b2(N), b3(N), b4(N);
+	for(int i=0; i<n; i++) {
+			b1[i]=exp(-10*(i*i/((n-1)*(n-1)))); //x1=i=0
+			b3[i]=exp(-10*(i*i/((n-1)*(n-1))));//x2=j=0
+			b2[N-i-1]=exp(-10*(1+i*i/((n-1)*(n-1))));//x1=1 i=n-1
+			b4[N-i-1]=exp(-10*(1+i*i/((n-1)*(n-1))));//x2=1 j=n-1
+	}
+	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N);
+}
+
 Vector mult(Matrix<double>& A, Vector& arg)
    {
 	  int i,j, n;
@@ -96,24 +116,11 @@ Vector mult(Matrix<double>& A, Vector& arg)
 	  }
 	  return result;
    }
-Vector CG(int& M, int& L, Vector& b) {
-	double tol2=0.000000000000001; //wähle geeignete Toleranz
-	Matrix<double> A;
-	A=Erstelle(M, L);
-	int n=M*L;
+Vector CG(Matrix<double> A, Vector& b) {
+	double tol2=0.0001; //wähle geeignete Toleranz
+	int n=A.size();
 	double a=0,beta=0;
 	Vector x(n), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
-
-	for (int i=0; i<n; i++) {
-		x[i]=0;
-		z[i]=0;
-		az[i]=0;
-		r[i]=0;
-		r1[i]=0;
-		d[i]=0;
-		ad[i]=0;
-		betad[i]=0;
-	}
 
 	r=b;
 	d=b;

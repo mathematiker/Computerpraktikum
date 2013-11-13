@@ -70,36 +70,41 @@ int main() {
 cout << T << endl;
 */
 //double x=1;
-
-Matrix<double> A(3);
-int M=3,L=2;
+/*
+Matrix<double> A(9);
+int M=3,L=3;
 A=Erstelle(M,L);
 
-Vector a(6), b(6), c(6), result(6), result2(6);
-for (int i=0; i<6; i++)
+Vector a(9), b(9), c(9), result(9), result2(9);
+for (int i=0; i<9; i++)
 	a[i]=i;
-b[0]=2;
 result=mult(A, a);
-for (unsigned int i = 0; i < 6; ++i) {
-cout << result[i];
-cout << " ";
- }
- cout << " "<<endl;
-for (int i = 0; i < 6; i++) {
- cout << a[i];
- cout << " ";
-  }
- cout << " "<<endl;
+cout << result << endl;
 
- result2=CG(M,L, result);
+cout << a << endl;
 
-for (int i = 0; i < 6; i++) {
- cout << result2[i];
- cout << " ";
-  }
- cout << " "<<endl;
+ result2=CG(A, result);
  cout << result2 << endl;
 
-return 0;
+ Vector f(3);
+ f=F(3);
+ cout <<f<<endl;
+ cout <<B(3)<< endl;*/
 
+int n=5,N=n*n;
+Matrix<double> A(N)	;
+A=Erstelle(n, n);
+
+Vector g(N), f(N),b(N),o(N),erg(N);
+f=F(n);
+// cout << f << endl;
+g=G(n);
+b=B(n);
+b=b.operator*(-1);
+o=f.operator+(b);
+erg=CG(A,o);
+for (int i=1;i<10;i++)
+cout << erg[i]/g[i] << endl;
+
+return 0;
 }
