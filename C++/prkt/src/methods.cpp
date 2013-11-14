@@ -16,45 +16,39 @@
 //Erstellt die gwünschte M*LxM*L Matrix
 //M=Anzahl Blöcke
 //L=Größe der Blöcke
-	Matrix<double> Erstelle(const int& M, const int& L) {
-		double N=M*L;
-Matrix<double> A(M*L);
-for (int m=0; m<M;m++)
-{
-	A(m*L,m*L)=-4*N;
-	A(m*L,m*L+1)=N; //Ausnahmefälle oben
 
-
-	A(m*L+L-1,m*L+L-1)=-4*N;
-	A(m*L+L-1,m*L+L-2)=N; //Ausnahmefälle unten
-
-
-	for (int l=1;l<L-1;l++)
+Matrix<double> Erstelle(const int& M, const int& L) {
+	double N=M*L;
+	Matrix<double> A(M*L);
+	for (int m=0; m<M;m++)
 	{
-		A(m*L+l,m*L+l-1)=N;
-		A(m*L+l,m*L+l)=-4*N;
-		A(m*L+l,m*L+l+1)=N;
+		A(m*L,m*L)=-4*N;
+		A(m*L,m*L+1)=N; //Ausnahmefälle oben
 
+		A(m*L+L-1,m*L+L-1)=-4*N;
+		A(m*L+L-1,m*L+L-2)=N; //Ausnahmefälle unten
 
+		for (int l=1;l<L-1;l++)
+		{
+			A(m*L+l,m*L+l-1)=N;
+			A(m*L+l,m*L+l)=-4*N;
+			A(m*L+l,m*L+l+1)=N;
+		}
 	}
+	for (int l=L+1;l<M*L+1;l++)
+		A(l-1,l-L-1)=N;
+	for (int l=L+1;l<M*L+1;l++)
+		A(l-L-1,l-1)=N;
+	return A;
+}
 
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-	A(l-1,l-L-1)=N;
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-	A(l-L-1,l-1)=N;
-}
-return A;
-}
 // G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
-	Vector   G(int n) {
-		n=(double) n;
-		double N=n*n;
-		double N2=(n+1)*(n+1);
-		Vector g(N);
+
+Vector   G(int n) {
+	n=(double) n;
+	double N=n*n;
+	double N2=(n+1)*(n+1);
+	Vector g(N);
 	double i,j;
 
 	for(i=1; i<=n; i++ ) {
@@ -65,20 +59,20 @@ return A;
 	return g;
 }
 
-	// G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
-		Vector   G() {
-			double n=100;
-			double N=n*n;
-			double N2=(n+1)*(n+1);
-			Vector g(N);
-		double i,j;
+// G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
+Vector   G() {
+	double n=100;
+	double N=n*n;
+	double N2=(n+1)*(n+1);
+	Vector g(N);
+	double i,j;
 
-		for(i=1; i<=n; i++ ) {
-			for(j=1; j<=n; j++) {
-				g[i+(j-1)*n-1]=1;
+	for(i=1; i<=n; i++ ) {
+		for(j=1; j<=n; j++) {
+			g[i+(j-1)*n-1]=1;
 			}
 		}
-		return g;
+	return g;
 	}
 
 // F erstellt den Vektor f, der Gitterpunktauswertungenan inneren Punkten,der Funktion f=-/\exp(-10(||x||^2) bei gegebenen MxL Gitter.
@@ -146,36 +140,27 @@ Vector mult(const int& n, Vector v) {
 	int M=n, L=n;
 	int N=(M+1)*(L+1);
 	Vector w(M*L);
-for (int m=0; m<M;m++)
-{
-w[m*L]+=-4*N*v[m*L];
-w[m*L]+=N*v[m*L+1]; //Ausnahmefälle oben
+	for (int m=0; m<M;m++)
+	{
+		w[m*L]+=-4*N*v[m*L];
+		w[m*L]+=N*v[m*L+1]; //Ausnahmefälle oben
 
+		w[m*L+L-1]+=-4*N*v[m*L+L-1];
+		w[m*L+L-1]+=N*v[m*L+L-2]; //Ausnahmefälle unten
 
-w[m*L+L-1]+=-4*N*v[m*L+L-1];
-w[m*L+L-1]+=N*v[m*L+L-2]; //Ausnahmefälle unten
-
-
-for (int l=1;l<L-1;l++)
-{
-	w[m*L+l]+=N*v[m*L+l-1];
-	w[m*L+l]+=-4*N*v[m*L+l];
-	w[m*L+l]+=N*v[m*L+l+1];
-
-
-}
-
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-w[l-1]+=N*v[l-L-1];
-}
-for (int l=L+1;l<M*L+1;l++)
-{
-w[l-L-1]+=N*v[l-1];
-}
-return w;
-}
+		for (int l=1;l<L-1;l++)
+		{
+			w[m*L+l]+=N*v[m*L+l-1];
+			w[m*L+l]+=-4*N*v[m*L+l];
+			w[m*L+l]+=N*v[m*L+l+1];
+		}
+	}
+	for (int l=L+1;l<M*L+1;l++)
+		w[l-1]+=N*v[l-L-1];
+	for (int l=L+1;l<M*L+1;l++)
+		w[l-L-1]+=N*v[l-1];
+	return w;
+	}
 
 //maximal gibt den betragsgrößten Eintrag eines Vektors zurück
 double maximal(Vector v){
