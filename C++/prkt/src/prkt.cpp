@@ -18,81 +18,43 @@
 using namespace std;
 
 int main() {
-/*
-	Matrix<double> M(3);
+/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten Lösung mit unserer diskreten Lösung
 
+ for (int n=10;n<=100;n=n+10){
+	int N=n*n;
+	Matrix<double> A(N)	;
+	A=Erstelle(n, n);
 
-	M(2,2) = 5.6;
-	M(1,2) = 18;
+	Vector g(N), f(N),b(N),o(N),erg(N), diff(N);
+	f=F(n);
+	// cout << f << endl;
+	g=G(n);
+	b=B(n);
+	o=f.operator+(b);
+	erg=CG(n,o);
+	diff=g.operator+(erg.operator*(-1));
+	cout << maximal(diff)<<endl;
+}
 
-	Matrix<double> M(1);
+ FEHLER
+ n			max(g-erg)
 
-
-	BlockMatrix<Matrix<double> > B(2,3);
-
-
-	//std::vector<double> v(10), result(10);
-
-	//M(v, result);
-	B.block(0,0)=M;
-	B.block(0,1)=M;
-	cout << M << endl;
-	cout << B << endl;
-
-	std::vector<double> v(10, 1), result(10);
-
-	M(v, result);
-
-	cout << result[4] << endl;
-
-	return 0;
-
-
-
-	int n=3;
-	Matrix<double> T(n);
-	T(0,0)=4;
-	T(0,1)=-1;
-	T(n-1,n-2)=-1;
-	T(n-1,n-1)=4;
-
-	for (int i=1;i<(n-1);i++)
-	{
-		T(i,i-1)=-1;
-		T(i,i)=4;
-		T(i,i+1)=-1;
-	}
-
-	Matrix<double>Id(n);
-	for (int i=0;i<n;i++)
-	{
-		Id(i,i)=1;
-	}
-cout << T << endl;
+10			1.09146
+20			1.03016
+30			1.01244
+40			1.00499
+50			1.00116
+60			0.99904
+70			0.997754
+80			0.9969
+90			0.996363
+100			0.995995
 */
-//double x=1;
-/*
-Matrix<double> A(9);
-int M=3,L=3;
-A=Erstelle(M,L);
 
-Vector a(9), b(9), c(9), result(9), result2(9);
-for (int i=0; i<9; i++)
-	a[i]=i;
-result=mult(A, a);
-cout << result << endl;
+//Hier wird die diskrete Lösung des Problems berechnet und in die Datei "test" geschrieben, damit sie später geplottet werden kann
 
-cout << a << endl;
 
- result2=CG(A, result);
- cout << result2 << endl;
-
- Vector f(3);
- f=F(3);
- cout <<f<<endl;
- cout <<B(3)<< endl;*/
-
-int n=70,N=n*n;
+int n=50,N=n*n;
 Matrix<double> A(N)	;
 A=Erstelle(n, n);
 
@@ -104,8 +66,9 @@ b=B(n);
 o=f.operator+(b);
 erg=CG(n,o);
 ofstream file;
-file.open("test.csv");
+file.open("test");
 file << erg;
 file.close();
+
 return 0;
 }

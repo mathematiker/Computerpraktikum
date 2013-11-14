@@ -1,4 +1,4 @@
-U_h=load("test.csv");
+U_h=load("test");
 n=50;
 
 h=1/(n+1);

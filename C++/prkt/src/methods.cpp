@@ -2,10 +2,10 @@
  * methods.cpp
  *
  *  Created on: 06.11.2013
- *      Author: hofmanms
+ *      Author: hofmanms,rehmeml
  */
 
-// Definiert ein skalarprodukt für Vektor gleicher Dimension
+
 #include <math.h>
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
@@ -16,7 +16,7 @@
 //M=Anzahl Blöcke
 //L=Größe der Blöcke
 	Matrix<double> Erstelle(const int& M, const int& L) {
-		double N=M*L;
+		double N=M*L+1;
 Matrix<double> A(M*L);
 for (int m=0; m<M;m++)
 {
@@ -48,53 +48,36 @@ for (int l=L+1;l<M*L+1;l++)
 }
 return A;
 }
-// G erstellt den Vektor g, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
+// G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
 	Vector   G(int n) {
 		n=(double) n;
 		double N=n*n;
 		Vector g(N);
-	double i,j; //N ist die Anzahl der inneren Punkte
+	double i,j;
 
-	// innere Punkte
 	for(i=1; i<=n; i++ ) {
 		for(j=1; j<=n; j++) {
 			g[i+(j-1)*n-1]=exp(-10*(i*i/(n*n)+j*j/(n*n)));
 		}
 	}
-	/* Randpunkte
- 	int N=(n-2)+(n-3)*(n-1);
-	for(i=0; i<n; i++) {
-		g[N+1+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
-		g[N+2+4*i]=exp(-10*(i*i/((n-1)*(n-1))));
-		g[N+3+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
-		g[N+4+4*i]=exp(-10*(1+i*i/((n-1)*(n-1))));
-	}*/
 	return g;
 }
 
-// F erstellt den Vektor f, der Gitterpunktauswertungen, bei gegebenen MxL Gitter.
+// F erstellt den Vektor f, der Gitterpunktauswertungenan inneren Punkten,der Funktion f=-/\exp(-10(||x||^2) bei gegebenen MxL Gitter.
 Vector F(int n) {
 	n = (double) n;
 	double N=n*n;
 	Vector f(N);
-	double i,j; //N ist die Anzahl der inneren Punkte
-	// innere Punkte
+	double i,j;
 	for(i=1; i<=n; i++ ) {
 		for(j=1; j<=n; j++) {
 			f[i+(j-1)*n-1]=-(400*(i*i+j*j)/(n*n)-40)*exp(-10*((i*i+j*j)/(n*n)));
 		}
 	}
-	/* Randpunkte
-	 * int N=(n-2)+(n-3)*(n-1);
-	for(i=0; i<n; i++) {
-		f[N+1+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))));
-		f[N+2+4*i]=(400*i*i/((n-1)*(n-1))-40)*exp(-10*(i*i/((n-1)*(n-1))));
-		f[N+3+4*i]=(360+400*i*i/((n-1)*(n-1)))*exp(-10*(1+i*i/((n-1)*(n-1))));
-		f[N+4+4*i]=(360+400*i*i/((n-1)*(n-1)))*exp(-10*(1+i*i/((n-1)*(n-1))));
-	}*/
 	return f;
 }
 
+// B erstellt den Vektor b, der die Randpunktauswertungen von f enthält
 Vector B(int n){
 	n= (double) n;
 	double N= n*n;
@@ -109,6 +92,7 @@ Vector B(int n){
 	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
 }
 
+// mult multipliziert eine Matrix und einen Vektor und gibt das Ergebnis zurück
 Vector mult(Matrix<double>& A, Vector& arg)
    {
 	  int i,j, n;
@@ -122,11 +106,12 @@ Vector mult(Matrix<double>& A, Vector& arg)
 	  return result;
    }
 
+
+//multipliziert die Matrix aus Erstelle mit einem Vektor und gibt das Ergebinis zurück
 Vector mult(const int& n, Vector v) {
 	int M=n, L=n;
 	int N=M*L;
 	Vector w(N);
-Matrix<double> A(M*L);
 for (int m=0; m<M;m++)
 {
 w[m*L]+=-4*N*v[m*L];
@@ -158,11 +143,26 @@ w[l-L-1]+=N*v[l-1];
 return w;
 }
 
+//maximal gibt den betragsgrößten Eintrag eines Vektors zurück
+double maximal(Vector v){
+	int n=v.dimension();
+	double temp;
+	temp=fabs(v[0]);
+	for (int i=1;i<n;i++){
+		if (fabs(v[i])>temp){
+			temp=fabs(v[i]);
+		}
+	}
+	return temp;
+}
+
+//CG löst das Gleichungssystem Ax=b für gegebenen Vektor b und der Matrix A aus Erstelle nach x auf
 Vector CG(int n, Vector& b) {
+	int N=n*n;
 	double tol2=0.0001; //wähle geeignete Toleranz
 //	int n=A.size();
 	double a=0,beta=0;
-	Vector x(n), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
+	Vector x(N), z(N), az(N), r(N), r1(N), d(N), ad(N), betad(N);
 
 	r=b;
 	d=b;

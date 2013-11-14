@@ -2,7 +2,7 @@
  * methods.hh
  *
  *  Created on: 06.11.2013
- *      Author: hofmanms
+ *      Author: hofmanms, rehmeml
  */
 
 #ifndef METHODS_HH_
@@ -16,6 +16,7 @@ Vector   G(int n);
 Vector mult(Matrix<double>& A, Vector& arg);
 Vector mult(const int& n, Vector v);
 std::ostream& operator<<(std::ostream& os, const Vector& obj);
+double maximal(Vector v);
 Vector B(int n);
 
 #endif /* METHODS_HH_ */

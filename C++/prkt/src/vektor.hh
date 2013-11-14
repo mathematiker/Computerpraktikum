@@ -2,7 +2,7 @@
  * vektor.hh
  *
  *  Created on: 12.11.2013
- *      Author: hofmanms
+ *      Author: hofmanms,rehmeml
  */
 
 #ifndef VEKTOR_HH_
