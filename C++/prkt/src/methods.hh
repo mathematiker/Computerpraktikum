@@ -10,10 +10,11 @@
 
 
 Matrix<double> Erstelle(const int& M, const int& L);
-Vector CG(Matrix<double> A, Vector& b);
+Vector CG(int n, Vector& b);
 Vector F(int n);
 Vector   G(int n);
 Vector mult(Matrix<double>& A, Vector& arg);
+Vector mult(const int& n, Vector v);
 std::ostream& operator<<(std::ostream& os, const Vector& obj);
 Vector B(int n);
 

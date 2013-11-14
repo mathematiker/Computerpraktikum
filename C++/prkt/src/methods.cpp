@@ -121,9 +121,46 @@ Vector mult(Matrix<double>& A, Vector& arg)
 	  }
 	  return result;
    }
-Vector CG(Matrix<double> A, Vector& b) {
+
+Vector mult(const int& n, Vector v) {
+	int M=n, L=n;
+	int N=M*L;
+	Vector w(N);
+Matrix<double> A(M*L);
+for (int m=0; m<M;m++)
+{
+w[m*L]+=-4*N*v[m*L];
+w[m*L]+=N*v[m*L+1]; //Ausnahmefälle oben
+
+
+w[m*L+L-1]+=-4*N*v[m*L+L-1];
+w[m*L+L-1]+=N*v[m*L+L-2]; //Ausnahmefälle unten
+
+
+for (int l=1;l<L-1;l++)
+{
+	w[m*L+l]+=N*v[m*L+l-1];
+	w[m*L+l]+=-4*N*v[m*L+l];
+	w[m*L+l]+=N*v[m*L+l+1];
+
+
+}
+
+}
+for (int l=L+1;l<M*L+1;l++)
+{
+w[l-1]+=N*v[l-L-1];
+}
+for (int l=L+1;l<M*L+1;l++)
+{
+w[l-L-1]+=N*v[l-1];
+}
+return w;
+}
+
+Vector CG(int n, Vector& b) {
 	double tol2=0.0001; //wähle geeignete Toleranz
-	int n=A.size();
+//	int n=A.size();
 	double a=0,beta=0;
 	Vector x(n), z(n), az(n), r(n), r1(n), d(n), ad(n), betad(n);
 
@@ -132,7 +169,7 @@ Vector CG(Matrix<double> A, Vector& b) {
 	double oktopus=r.operator*(r);
 	while (oktopus>=tol2)
 	{
-		z=mult(A,d);
+		z=mult(n,d);
 		a=r.operator*(r)/d.operator*(z);
 		ad=d.operator*(a);
 		x=x.operator+(ad);
@@ -146,6 +183,7 @@ Vector CG(Matrix<double> A, Vector& b) {
 	}
 	return x;
 }
+
 
 std::ostream& operator<<(std::ostream& os, const Vector& obj)
 {

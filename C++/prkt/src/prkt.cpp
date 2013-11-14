@@ -92,7 +92,7 @@ cout << a << endl;
  cout <<f<<endl;
  cout <<B(3)<< endl;*/
 
-int n=50,N=n*n;
+int n=70,N=n*n;
 Matrix<double> A(N)	;
 A=Erstelle(n, n);
 
@@ -102,7 +102,7 @@ f=F(n);
 g=G(n);
 b=B(n);
 o=f.operator+(b);
-erg=CG(A,o);
+erg=CG(n,o);
 ofstream file;
 file.open("test.csv");
 file << erg;
