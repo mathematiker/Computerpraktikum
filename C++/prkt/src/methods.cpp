@@ -17,7 +17,7 @@
 //M=Anzahl Blöcke
 //L=Größe der Blöcke
 	Matrix<double> Erstelle(const int& M, const int& L) {
-		double N=M*L+1;
+		double N=M*L;
 Matrix<double> A(M*L);
 for (int m=0; m<M;m++)
 {
@@ -104,8 +104,8 @@ Vector B(int n){
 	Vector  b1(N), b2(N), b3(N), b4(N);
 	for(int i=0; i<n; i++) {
 			b1[i*n]=exp(-10*(i*i/N2)); //x1=i=0
-			b3[i]=exp(-10*(i*i/N2));//x2=j=0
-			b2[n-1+i*n]=exp(-10*(1+i*i/N2));//x1=1 i=n-1
+			b2[i]=exp(-10*(i*i/N2));//x2=j=0
+			b3[n-1+i*n]=exp(-10*(1+i*i/N2));//x1=1 i=n-1
 			b4[N-i-1]=exp(-10*(1+i*i/N2));//x2=1 j=n-1
 	}
 	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
@@ -119,8 +119,8 @@ Vector B(){
 	Vector  b1(N), b2(N), b3(N), b4(N);
 	for(int i=0; i<n; i++) {
 			b1[i*n]=1; //x1=i=0
-			b3[i]=1;//x2=j=0
-			b2[n-1+i*n]=1;//x1=1 i=n-1
+			b2[i]=1;//x2=j=0
+			b3[n-1+i*n]=1;//x1=1 i=n-1
 			b4[N-i-1]=1;//x2=1 j=n-1
 	}
 	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
@@ -144,8 +144,8 @@ Vector mult(Matrix<double>& A, Vector& arg)
 //multipliziert die Matrix aus Erstelle mit einem Vektor und gibt das Ergebinis zurück
 Vector mult(const int& n, Vector v) {
 	int M=n, L=n;
-	int N=M*L;
-	Vector w(N);
+	int N=(M+1)*(L+1);
+	Vector w(M*L);
 for (int m=0; m<M;m++)
 {
 w[m*L]+=-4*N*v[m*L];
