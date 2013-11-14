@@ -1,5 +1,5 @@
 U_h=load("test");
-n=500;
+n=100; 
 
 h=1/(n+1);
 U_h_matrix=reshape(U_h,n,n);

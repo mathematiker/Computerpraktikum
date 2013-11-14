@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten Lösung mit unserer diskreten Lösung
+/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten Lï¿½sung mit unserer diskreten Lï¿½sung
 
  for (int n=10;n<=100;n=n+10){
 	int N=n*n;
@@ -48,17 +48,17 @@ int main() {
 500			0.252319
 */
 
-//Hier wird die diskrete Lösung des Problems berechnet und in die Datei "test" geschrieben, damit sie später geplottet werden kann
+//Hier wird die diskrete Lï¿½sung des Problems berechnet und in die Datei "test" geschrieben, damit sie spï¿½ter geplottet werden kann
 
 int N;
-int n=500;
+int n=100;
 N=n*n;
 
 	Vector g(N), f(N),b(N),o(N),erg(N);
 f=F(n);
  g=G(n);
  b=B(n);
-o=f.operator+(b);
+o=f.operator+(b)*(-1);
 erg=CG(n,o);
 //file << erg.operator+(g.operator*(-1))<<endl;
 

@@ -102,7 +102,7 @@ Vector B(int n){
 			b3[n-1+i*n]=exp(-10*(1+i*i/N2));//x1=1 i=n-1
 			b4[N-i-1]=exp(-10*(1+i*i/N2));//x2=1 j=n-1
 	}
-	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
+	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(N2);
 }
 
 // B erstellt den Vektor b, der die Randpunktauswertungen von f enthält
