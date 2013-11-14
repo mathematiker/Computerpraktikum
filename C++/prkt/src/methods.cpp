@@ -10,6 +10,7 @@
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
 #include "vektor.hh"
+//#include <stdio.h>
 
 
 //Erstellt die gwünschte M*LxM*L Matrix
@@ -52,26 +53,44 @@ return A;
 	Vector   G(int n) {
 		n=(double) n;
 		double N=n*n;
+		double N2=(n+1)*(n+1);
 		Vector g(N);
 	double i,j;
 
 	for(i=1; i<=n; i++ ) {
 		for(j=1; j<=n; j++) {
-			g[i+(j-1)*n-1]=exp(-10*(i*i/(n*n)+j*j/(n*n)));
+			g[i+(j-1)*n-1]=exp(-10*(i*i/N2+j*j/N2));
 		}
 	}
 	return g;
 }
 
+	// G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
+		Vector   G() {
+			double n=100;
+			double N=n*n;
+			double N2=(n+1)*(n+1);
+			Vector g(N);
+		double i,j;
+
+		for(i=1; i<=n; i++ ) {
+			for(j=1; j<=n; j++) {
+				g[i+(j-1)*n-1]=1;
+			}
+		}
+		return g;
+	}
+
 // F erstellt den Vektor f, der Gitterpunktauswertungenan inneren Punkten,der Funktion f=-/\exp(-10(||x||^2) bei gegebenen MxL Gitter.
 Vector F(int n) {
 	n = (double) n;
 	double N=n*n;
+	double N2=(n+1)*(n+1);
 	Vector f(N);
 	double i,j;
 	for(i=1; i<=n; i++ ) {
 		for(j=1; j<=n; j++) {
-			f[i+(j-1)*n-1]=-(400*(i*i+j*j)/(n*n)-40)*exp(-10*((i*i+j*j)/(n*n)));
+			f[i+(j-1)*n-1]=-40*(10*(i*i+j*j)/N2-1)*exp(-10*((i*i+j*j)/N2));
 		}
 	}
 	return f;
@@ -84,10 +103,25 @@ Vector B(int n){
 	double N2= (n+1)*(n+1);
 	Vector  b1(N), b2(N), b3(N), b4(N);
 	for(int i=0; i<n; i++) {
-			b1[i*n]=exp(-10*(i*i/(n*n))); //x1=i=0
-			b3[i]=exp(-10*(i*i/(n*n)));//x2=j=0
-			b2[n-1+i*n]=exp(-10*(1+i*i/(n*n)));//x1=1 i=n-1
-			b4[N-i-1]=exp(-10*(1+i*i/(n*n)));//x2=1 j=n-1
+			b1[i*n]=exp(-10*(i*i/N2)); //x1=i=0
+			b3[i]=exp(-10*(i*i/N2));//x2=j=0
+			b2[n-1+i*n]=exp(-10*(1+i*i/N2));//x1=1 i=n-1
+			b4[N-i-1]=exp(-10*(1+i*i/N2));//x2=1 j=n-1
+	}
+	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
+}
+
+// B erstellt den Vektor b, der die Randpunktauswertungen von f enthält
+Vector B(){
+	double n= 100;
+	double N= n*n;
+	double N2= (n+1)*(n+1);
+	Vector  b1(N), b2(N), b3(N), b4(N);
+	for(int i=0; i<n; i++) {
+			b1[i*n]=1; //x1=i=0
+			b3[i]=1;//x2=j=0
+			b2[n-1+i*n]=1;//x1=1 i=n-1
+			b4[N-i-1]=1;//x2=1 j=n-1
 	}
 	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(-N2);
 }
@@ -159,7 +193,7 @@ double maximal(Vector v){
 //CG löst das Gleichungssystem Ax=b für gegebenen Vektor b und der Matrix A aus Erstelle nach x auf
 Vector CG(int n, Vector& b) {
 	int N=n*n;
-	double tol2=0.0001; //wähle geeignete Toleranz
+	double tol2=1e-14; //wähle geeignete Toleranz
 //	int n=A.size();
 	double a=0,beta=0;
 	Vector x(N), z(N), az(N), r(N), r1(N), d(N), ad(N), betad(N);

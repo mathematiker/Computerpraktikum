@@ -53,22 +53,31 @@ int main() {
 
 //Hier wird die diskrete Lösung des Problems berechnet und in die Datei "test" geschrieben, damit sie später geplottet werden kann
 
+//	int N;
 
-int n=50,N=n*n;
-Matrix<double> A(N)	;
-A=Erstelle(n, n);
+//for (int n=2; n<2500; n=2*n) {
+int n=100, N=n*n;
+//Matrix<double> A(N)	;
+//A=Erstelle(n, n);
 
-Vector g(N), f(N),b(N),o(N),erg(N);
-f=F(n);
+	Vector g(N), f(N),b(N),o(N),erg(N);
+//f=F(n);
 // cout << f << endl;
-g=G(n);
-b=B(n);
+//g=G(n);
+	g=G();
+//b=B(n);
+	b=B();
 o=f.operator+(b);
 erg=CG(n,o);
+//ofstream file;
+//file.open("test");
+//file << erg;
+//file.close();
 ofstream file;
 file.open("test");
 file << erg;
 file.close();
+//}
 
 return 0;
 }
