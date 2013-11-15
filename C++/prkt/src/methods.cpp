@@ -40,28 +40,40 @@ Matrix<double> Erstelle(const int& M, const int& L) {
 		A(l-L-1,l-1)=-1;
 	return A;
 }
+
+//Erstelle L erstellt die Matrix für den L-Shape
 Matrix<double> ErstelleL(const int n){
-     int N;
-	N=2*n*n+(n+1)*n;//L ist eine NxN Matrix
+    int N;
+	N=2*n*n+(n+1)*n;			//L ist eine NxN Matrix
 	Matrix<double>L(N);
 
 	for (int i=0;i<N;i++){
 		L(i,i)=4;
 	}
 
-	//oben links
 	int l1=2*n*(n-1)-1;
-	for (int i=0;i<l1;i++){
-			L(i,i+1)=-1;
-			L(i+1,i)=-1;
-	}
 	for (int i=0;i<l1+1;i++){
-		L(i,i+2*n)=-1;
-		L(i+2*n,i)=-1;
+		L(i,i+2*n)=-1;		//oben rechts
+		L(i+2*n,i)=-1;	//oben links
 	}
-	//for (int 4*n;i<N-1;i++){
-		//L
-	//}
+	for (int i=2*n*n-n;i<N-n;i++){
+		L(i,i+n)=-1;				//unten rechts
+		L(i+n,i)=-1;				//unten links
+	}
+
+for(int m=0;m<n;m++){
+	for(int i=0;i<2*n-1;i++){
+		L(m*2*n+i,m*2*n+i+1)=-1;	//T1 rechts
+		L(m*2*n+i+1,m*2*n+i)=-1;	//T1 links
+	}
+}
+
+for(int m=0;m<n+1;m++){						//war vorher m<n+2
+	for(int i=0;i<n-1;i++){
+		L(2*n*n+m*n+i,2*n*n+m*n+i+1)=-1;	//T2 rechts
+		L(2*n*n+m*n+i+1,2*n*n+m*n+i)=-1;	//T2 links
+	}
+}
 
 
 
@@ -159,8 +171,10 @@ Vector mult(Matrix<double>& A, Vector& arg)
    }
 
 
-//multipliziert die Matrix aus Erstelle mit einem Vektor und gibt das Ergebinis zurück
-Vector mult(const int& n, Vector v) {
+//multipliziert die Matrix aus Erstelle mit einem Vektor und gibt das Ergebinis zurück falls mode =0
+//multipliziert die Matrix aus ErstelleL mit einem Vektor und gibt das Ergebinis zurück falls mode =1
+Vector mult(const int& n, Vector v,const bool mode) {
+	if (mode == 0){
 	int M=n, L=n;
 	int N=(M+1)*(L+1);
 	Vector w(M*L);
@@ -184,6 +198,44 @@ Vector mult(const int& n, Vector v) {
 	for (int l=L+1;l<M*L+1;l++)
 		w[l-L-1]+=-N*v[l-1];
 	return w;
+	}
+	//===================================
+	else{
+		int N;
+			N=2*n*n+(n+1)*n;
+			int N0=(n+1)*(n+1);
+			Vector w(N);
+
+			for (int i=0;i<N;i++){
+				w[i]+=4*N0*v[i];
+			}
+
+			int l1=2*n*(n-1)-1;
+			for (int i=0;i<l1+1;i++){
+				w[i]+=-N0*v[i+2*n];		//oben rechts
+				w[i+2*n]+=-N0*v[i];	//oben links
+			}
+			for (int i=2*n*n-n;i<N-n;i++){
+				w[i]+=-N0*v[i+n];				//unten rechts
+				w[i+n]+=-N0*v[i];				//unten links
+			}
+
+		for(int m=0;m<n;m++){
+			for(int i=0;i<2*n-1;i++){
+				w[m*2*n+i]+=-N0*v[m*2*n+i+1];	//T1 rechts
+				w[m*2*n+i+1]+=-N0*v[m*2*n+i];	//T1 links
+			}
+		}
+
+		for(int m=0;m<n+1;m++){
+			for(int i=0;i<n-1;i++){
+				w[2*n*n+m*n+i]+=-N0*v[2*n*n+m*n+i+1];	//T2 rechts
+				w[2*n*n+m*n+i+1]+=-N0*v[2*n*n+m*n+i];	//T2 links
+			}
+		}
+
+		return w;
+	}
 	}
 
 //maximal gibt den betragsgrößten Eintrag eines Vektors zurück
@@ -213,7 +265,7 @@ Vector CG(int n, Vector& b) {
 	double qfehler2; // neuer quadratischer Fehler
 	while (qfehler>=tol2)
 	{
-		z=mult(n,d);
+		z=mult(n,d,0);
 		a=qfehler/(d*z);
 		x=x+d*a;
 		r1=r+z*(-a);
