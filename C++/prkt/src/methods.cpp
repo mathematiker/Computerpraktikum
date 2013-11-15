@@ -252,8 +252,12 @@ double maximal(Vector v){
 }
 
 //CG löst das Gleichungssystem Ax=b für gegebenen Vektor b und der Matrix A aus Erstelle nach x auf
-Vector CG(int n, Vector& b) {
-	int N=n*n;
+Vector CG(int n, Vector& b, bool mode) {
+	int N;
+	if (mode==0)
+		N=n*n;
+	else
+		N=2*n*n+(n+1)*n;
 	double tol2=1e-14; //wähle geeignete Toleranz
 //	int n=A.size();
 	double a=0,beta=0;
@@ -265,7 +269,7 @@ Vector CG(int n, Vector& b) {
 	double qfehler2; // neuer quadratischer Fehler
 	while (qfehler>=tol2)
 	{
-		z=mult(n,d,0);
+		z=mult(n,d,mode);
 		a=qfehler/(d*z);
 		x=x+d*a;
 		r1=r+z*(-a);
@@ -276,6 +280,21 @@ Vector CG(int n, Vector& b) {
 		qfehler= qfehler2;
 	}
 	return x;
+}
+
+Vector PoissonDiff(int n, bool mode) {
+	int N;
+	if (mode==0)
+	N=n*n;
+	else
+	N=2*n*n+(n+1)*n;
+	Vector g(N), f(N),b(N),o(N),erg(N);
+	f=F(n);
+	 g=G(n);
+	 b=B(n, mode);
+	o=f+b;
+	erg=CG(n,o, mode);
+	return erg;
 }
 
 

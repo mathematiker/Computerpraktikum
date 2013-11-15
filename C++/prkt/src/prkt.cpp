@@ -47,7 +47,6 @@ int main() {
 //Hier könnte ihre Werbung stehen
 
 //Hier wird die diskrete Loesung des Problems berechnet und in die Datei "test" geschrieben, damit sie spaeter geplottet werden kann
-/*
 
 int N;
 int n=100;
@@ -68,7 +67,7 @@ file.open("test");
 file << erg;
 file.close();
 
-cout << maximal(g-erg)<<endl;
+cout << maximal(g-erg)<<endl; */
 /*
 	int n=2;
 	Matrix<double>L(n*n*2+(n+1)*(n+1));
@@ -81,6 +80,22 @@ Matrix<double> L;
 L=ErstelleL(3);
 cout <<L<<endl;
 */
-
+	/*
+	int n=3;
+	bool mode=1;
+	ofstream file;
+	file.open("test");
+	file << PoissonDiff(n, mode);
+	file.close();*/
+	int n=5;
+	bool mode=1;
+	int N=2*n*n+(n+1)*n;
+	Vector g(N), f(N),b(N),o(N),erg(N);
+	f=F(n);
+	 g=G(n);
+	 b=B(n, mode);
+	o=f+b;
+	cout <<o<<endl;
+	cout << CG(5,o,mode)<<endl;
 	return 0;
 }

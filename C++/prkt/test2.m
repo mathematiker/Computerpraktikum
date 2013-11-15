@@ -1,5 +1,6 @@
 U_h=load("test");
 n=20; 
+U1= U_h[1
 
 h=1/(n+1);
 U_h_matrix=reshape(U_h,n,n);
