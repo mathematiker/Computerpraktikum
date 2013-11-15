@@ -1,9 +1,6 @@
 //============================================================================
-// Name        : prkt.cpp
-// Author      : ich und ich ganz alleine
-// Version     :
-// Copyright   : Your copyright notice
-// Description : Hello World in C++, Ansi-style
+// Author      : Matthias Hofmann, Michael Rehme, Nadine Schlotz
+// Description : Differenzenverfahren zur Diskretisierung des Poisson-Problems
 //============================================================================
 
 #include <math.h>
