@@ -40,6 +40,33 @@ Matrix<double> Erstelle(const int& M, const int& L) {
 		A(l-L-1,l-1)=-1;
 	return A;
 }
+Matrix<double> ErstelleL(const int n){
+     int N;
+	N=2*n*n+(n+1)*n;//L ist eine NxN Matrix
+	Matrix<double>L(N);
+
+	for (int i=0;i<N;i++){
+		L(i,i)=4;
+	}
+
+	//oben links
+	int l1=2*n*(n-1)-1;
+	for (int i=0;i<l1;i++){
+			L(i,i+1)=-1;
+			L(i+1,i)=-1;
+	}
+	for (int i=0;i<l1+1;i++){
+		L(i,i+2*n)=-1;
+		L(i+2*n,i)=-1;
+	}
+	//for (int 4*n;i<N-1;i++){
+		//L
+	//}
+
+
+
+	return L;
+}
 
 double TestG(int i, int j, int n) {
 	double N2=(n+1)*(n+1);
