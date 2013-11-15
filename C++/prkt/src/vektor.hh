@@ -60,6 +60,16 @@ public:
     	return v;
     }
 
+    Vector operator-(const Vector&rhs)
+    {
+    	Vector v(dimension());
+    	        for ( size_t i = 0; i < dimension(); i++ )
+    	            v[i] = vector[i] - rhs[i];
+
+    	        return v;
+    	return v;
+    }
+
     // Liefert die Groesse des Vektors
     size_t dimension() const { return vector.size(); }
 };
