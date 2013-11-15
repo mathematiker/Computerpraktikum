@@ -68,12 +68,12 @@ Matrix<double> ErstelleL(const int n){
 	return L;
 }
 
-double TestG(int i, int j, int n) {
+double TestG(const int i, const int j, const int n) {
 	double N2=(n+1)*(n+1);
 	return exp(-10*(i*i+j*j)/N2);
 }
 
-double TestF(int i, int j, int n) {
+double TestF(const int i, const int j, const int n) {
 	double N2=(n+1)*(n+1);
 	return -40*(10*(i*i+j*j)/N2-1)*exp(-10*((i*i+j*j)/N2));
 }
@@ -81,7 +81,7 @@ double TestF(int i, int j, int n) {
 
 Vector   G(int n) {
 //	n=(double) n;
-	double N=n*n;
+	int N=n*n;
 //	double N2=(n+1)*(n+1);
 	Vector g(N);
 	double i,j;
@@ -96,8 +96,8 @@ Vector   G(int n) {
 
 // F erstellt den Vektor f, der Gitterpunktauswertungenan inneren Punkten,der Funktion f=-/\exp(-10(||x||^2) bei gegebenen MxL Gitter.
 Vector F(int n) {
-	n = (double) n;
-	double N=n*n;
+//	n = (double) n;
+	int N=n*n;
 //	double N2=(n+1)*(n+1);
 	Vector f(N);
 	double i,j;
@@ -110,18 +110,38 @@ Vector F(int n) {
 }
 
 // B erstellt den Vektor b, der die Randpunktauswertungen von f enthält
-Vector B(int n){
-	n= (double) n;
-	double N= n*n;
+Vector B(int n, const bool mode){
+//	n= (double) n;
+	if (mode==0) {
+	int N= n*n;
 	double N2= (n+1)*(n+1);
-	Vector  b1(N), b2(N), b3(N), b4(N);
+	Vector  b1(N), b2(N), b3(N), b4(N), b(N);
 	for(int i=0; i<n; i++) {
-			b1[i*n]=TestG(0,i,n); //x1=i=0
+			b1[i*n]=TestG(0,i+1,n); //x1=i=0
 			b2[i]=TestG(i, 0, n);//x2=j=0
-			b3[n-1+i*n]=TestG(n+1, i, n);//x1=1 i=n+1
-			b4[N-i-1]=TestG(i, n+1, n);//x2=1 j=n+1
+			b3[n-1+i*n]=TestG(n+1, i+1, n);//x1=1 i=n+1
+			b4[N-i-1]=TestG(i+1, n+1, n);//x2=1 j=n+1
 	}
-	return b1.operator+(b2).operator+(b3).operator+(b4).operator*(N2);
+	return (b1+b2+b3+b4)*N2;
+	}
+	else {
+	int N= 2*n*n+(n+1)*n;
+	double N2= (n+1)*(n+1);
+	Vector b1(N), b2(N), b3(N), b4(N), b5(N), b6(N), b(N);
+	for(int i=0; i<n+1; i++) {
+		b1[2*n*n+i*n]=TestG(-(n+1), i, n);
+		b6[2*n+(n-1)+n]=TestG(i, 0, n);
+	}
+	for(int i=0; i<n; i++) {
+		b1[i*2*n]=TestG(-(n+1), i-n, n);
+		b2[2*n-1+i*2*n]=TestG(n+1, -(n+1)+i+1, n);
+		b4[N-(i+1)]=TestG(-(i+1), n+1, n);
+		b5[2*n*n+n-1+i*n]= TestG(0, i+1, n);
+	}
+	for(int i=0; i<2*n; i++)
+		b3[i]=TestG(-1+(i+1), -(n+1), n);
+	return (b1 + b2 + b3 + b4)*N2;
+	}
 }
 
 // mult multipliziert eine Matrix und einen Vektor und gibt das Ergebnis zurück

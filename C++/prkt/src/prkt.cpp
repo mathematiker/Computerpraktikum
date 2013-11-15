@@ -46,7 +46,7 @@ int main() {
 */
 
 //Hier wird die diskrete L�sung des Problems berechnet und in die Datei "test" geschrieben, damit sie sp�ter geplottet werden kann
-/*
+
 int N;
 int n=100;
 N=n*n;
@@ -54,7 +54,7 @@ N=n*n;
 	Vector g(N), f(N),b(N),o(N),erg(N);
 f=F(n);
  g=G(n);
- b=B(n);
+ b=B(n, 0);
 o=f+b;
 erg=CG(n,o);
 //file << erg.operator+(g.operator*(-1))<<endl;
@@ -65,12 +65,13 @@ ofstream file;
 file.open("test");
 file << erg;
 file.close();
-cout << maximal(erg.operator+(g.operator*(-1)))<<endl;*/
-
+cout << maximal(g-erg)<<endl;
+/*
 	int n=2;
 	Matrix<double>L(n*n*2+(n+1)*(n+1));
 	L=ErstelleL(n);
 	cout<<L<<endl;
+	*/
 
 
 
