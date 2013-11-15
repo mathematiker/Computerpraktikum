@@ -48,7 +48,9 @@ int main() {
 500			0.252319
 */
 
-//Hier wird die diskrete Lï¿½sung des Problems berechnet und in die Datei "test" geschrieben, damit sie spï¿½ter geplottet werden kann
+//Hier könnte ihre Werbung stehen
+
+//Hier wird die diskrete Loesung des Problems berechnet und in die Datei "test" geschrieben, damit sie spaeter geplottet werden kann
 /*
 int N;
 int n=100;
@@ -68,15 +70,12 @@ ofstream file;
 file.open("test");
 file << erg;
 file.close();
-cout << maximal(erg.operator+(g.operator*(-1)))<<endl;*/
+cout << maximal(erg.operator+(g.operator*(-1)))<<endl;
+*/
 
-	int n=2;
-	Matrix<double>L(n*n*2+(n+1)*(n+1));
-	L=ErstelleL(n);
-	cout<<L<<endl;
-
-
-
+Matrix<double> L;
+L=ErstelleL(3);
+cout <<L<<endl;
 
 	return 0;
 }

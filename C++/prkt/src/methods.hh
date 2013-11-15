@@ -13,7 +13,7 @@ Vector CG(int n, Vector& b);
 Vector F(int n);
 Vector G(int n);
 Vector G();
-Vector mult(Matrix<double>& A, Vector& arg);
+Vector mult(const int& n, Vector v,const bool mode);
 Vector mult(const int& n, Vector v);
 std::ostream& operator<<(std::ostream& os, const Vector& obj);
 double maximal(Vector v);
