@@ -87,15 +87,23 @@ cout <<L<<endl;
 	file.open("test");
 	file << PoissonDiff(n, mode);
 	file.close();*/
-	int n=5;
+	int n=40;
 	bool mode=1;
-	int N=2*n*n+(n+1)*n;
-	Vector g(N), f(N),b(N),o(N),erg(N);
-	f=F(n);
-	 g=G(n);
-	 b=B(n, mode);
-	o=f+b;
-	cout <<o<<endl;
-	cout << CG(5,o,mode)<<endl;
+	int N=3*(n+1)*n;
+// cout << ErstelleL(2) << endl;
+
+Vector g(N); //, f(N),b(N),o(N),erg(N);
+//	f=F(n, mode);
+	 g=G(n, mode);
+//	 b=B(n, mode);
+//	o=f+b;
+//	cout <<o<<endl;
+	 ofstream file;
+	 file.open("test");
+	 file << g;
+	 file.close();
+//	cout << maximal(CG(5,o,mode)-g)<<endl;
+
+
 	return 0;
 }
