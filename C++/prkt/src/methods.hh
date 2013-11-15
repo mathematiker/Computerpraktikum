@@ -20,5 +20,6 @@ std::ostream& operator<<(std::ostream& os, const Vector& obj);
 double maximal(Vector v);
 Vector B(int n);
 Vector B();
+Matrix<double> ErstelleL(const int n);
 
 #endif /* METHODS_HH_ */
