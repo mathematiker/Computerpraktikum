@@ -8,11 +8,10 @@
 #ifndef METHODS_HH_
 #define METHODS_HH_
 
-
 Matrix<double> Erstelle(const int& M, const int& L);
 Vector CG(int n, Vector& b);
 Vector F(int n);
-Vector   G(int n);
+Vector G(int n);
 Vector G();
 Vector mult(Matrix<double>& A, Vector& arg);
 Vector mult(const int& n, Vector v);

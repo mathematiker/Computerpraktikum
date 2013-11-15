@@ -18,7 +18,7 @@
 using namespace std;
 
 int main() {
-/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten L�sung mit unserer diskreten L�sung
+/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten Loesung mit unserer diskreten Losung
 
  for (int n=10;n<=100;n=n+10){
 	int N=n*n;
@@ -58,7 +58,7 @@ N=n*n;
 f=F(n);
  g=G(n);
  b=B(n);
-o=f.operator+(b)*(-1);
+o=f+b;
 erg=CG(n,o);
 //file << erg.operator+(g.operator*(-1))<<endl;
 
@@ -74,6 +74,7 @@ cout << maximal(erg.operator+(g.operator*(-1)))<<endl;*/
 	Matrix<double>L(n*n*2+(n+1)*(n+1));
 	L=ErstelleL(n);
 	cout<<L<<endl;
+
 
 
 
