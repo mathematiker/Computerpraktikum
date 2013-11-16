@@ -117,9 +117,9 @@ if(mode==0) {
 				g[i+(j-1)*(2*n+1)-1]=TestG(-(n+1)+i,-(n+1)+j,n);
 			}
 		}
-		for(int j=0; j<n; j++) {
-			for(int i=1; i<= n; i++) {
-				g[2*n*n+n+i+(j-1)*n]=TestG(i,-(n+1)+ j, n);
+		for(int j=0; j<n+1; j++) {
+			for(int i=1; i<= n+1; i++) {
+				g[2*n*n+n+i+(j-1)*n]=TestG(-(n+1)+ i,j, n);
 			}
 		}
 		return g;
@@ -150,8 +150,8 @@ Vector F(int n, const bool mode) {
 					f[i+(j-1)*(2*n+1)-1]=TestF(-(n+1)+i,-(n+1)+j,n);
 				}
 			}
-			for(int j=0; j<n; j++) {
-				for(int i=1; i<= n; i++) {
+			for(int j=0; j<n+1; j++) {
+				for(int i=1; i<= n+1; i++) {
 					f[2*n*n+n+i+(j-1)*n]=TestF(i,-(n+1)+ j, n);
 				}
 			}
@@ -175,23 +175,23 @@ Vector B(int n, const bool mode){
 	return (b1+b2+b3+b4)*N2;
 	}
 	else {
-	int N= (3*n+2)*n;
-	double N2= (n+1)*(n+1);
-	Vector b1(N), b2(N), b3(N), b4(N), b5(N), b6(N), b(N);
-	for(int i=0; i<n+1; i++) {
-		b1[2*n*n+i*n]=TestG(-(n+1), i, n);
-		b6[2*n+(n-1)+n]=TestG(i, 0, n);
-	}
-	for(int i=0; i<n; i++) {
-		b1[i*2*n]=TestG(-(n+1), i-n, n);
-		b2[2*n-1+i*2*n]=TestG(n+1, -(n+1)+i+1, n);
-		b4[N-(i+1)]=TestG(-(i+1), n+1, n);
-		b5[2*n*n+n-1+i*n]= TestG(0, i+1, n);
-	}
-	for(int i=0; i<2*n; i++)
-		b3[i]=TestG(-1+(i+1), -(n+1), n);
-	return (b1 + b2 + b3 + b4)*N2;
-	}
+		int	N=(3*n+2)*n;
+		double N2= (n+1)*(n+1);
+		Vector b1(N), b2(N), b3(N), b4(N), b5(N), b6(N), b(N);
+		for(int i=0; i<n+1; i++) {
+			b1[(2*n+1)*n+i*n]=TestG(-(n+1), i, n);
+			b6[(2*n+1)*(n-1)+n+i]=TestG(i, 0, n);
+			b5[(2*n+1)*n+n-1+i*n]= TestG(0, i, n);
+		}
+		for(int i=0; i<n; i++) {
+			b1[i*(2*n+1)]=TestG(-(n+1), i-n, n);
+			b2[2*n+i*(2*n+1)]=TestG(n+1, -(n+1)+i+1, n);
+			b4[N-(i+1)]=TestG(-(i+1), n+1, n);
+		}
+		for(int i=0; i<2*n+1; i++)
+			b3[i]=TestG(i-n, -(n+1), n);
+		return (b1 + b2 + b3 + b4+b5+b6)*N2;
+		}
 }
 
 // mult multipliziert eine Matrix und einen Vektor und gibt das Ergebnis zurück
