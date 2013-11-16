@@ -90,16 +90,17 @@ cout <<L<<endl;
 */
 
 
-	int n=4;
+	int n=50;
 	bool mode=1;
 	int N=(3*n+2)*n;
+//	int N=n*n;
 	Vector g(N), f(N),b(N),o(N),erg(N);
 	f=F(n, mode);
 	 g=G(n, mode);
 	 b=B(n, mode);
-	 cout << b << endl;
-	 cout << g << endl;
-	 cout << f << endl;
+//	 cout << b << endl;
+//	 cout << g << endl;
+//	 cout << f << endl;
 	o=f+b;
 	erg=CG(n, o, mode);
 	cout << maximal(g-erg) << endl;

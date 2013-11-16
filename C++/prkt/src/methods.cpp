@@ -170,7 +170,7 @@ Vector B(int n, const bool mode){
 			b1[i*n]=TestG(0,i+1,n); //x1=i=0
 			b2[i]=TestG(i+1, 0, n);//x2=j=0
 			b3[n-1+i*n]=TestG(n+1, i+1, n);//x1=1 i=n+1
-			b4[N-i-1]=TestG(i+1, n+1, n);//x2=1 j=n+1
+			b4[N-i-1]=TestG(n-i, n+1, n);//x2=1 j=n+1
 	}
 	return (b1+b2+b3+b4)*N2;
 	}
@@ -185,7 +185,7 @@ Vector B(int n, const bool mode){
 		}
 		for(int i=0; i<n; i++) {
 			b1[i*(2*n+1)]=TestG(-(n+1), i-n, n);
-			b2[2*n+i*(2*n+1)]=TestG(n+1, -(n+1)+i+1, n);
+			b2[2*n+i*(2*n+1)]=TestG(n+1, i-n, n);
 			b4[N-(i+1)]=TestG(-(i+1), n+1, n);
 		}
 		for(int i=0; i<2*n+1; i++)
