@@ -80,22 +80,30 @@ Matrix<double> L;
 L=ErstelleL(3);
 cout <<L<<endl;
 */
-	/*
-	int n=3;
+
+	int n=50;
 	bool mode=1;
 	ofstream file;
 	file.open("test");
 	file << PoissonDiff(n, mode);
-	file.close();*/
-	int n=5;
+	file.close();
+
+/*
+	int n=2;
 	bool mode=1;
-	int N=2*n*n+(n+1)*n;
+	int N=(3*n+2)*n;
 	Vector g(N), f(N),b(N),o(N),erg(N);
-	f=F(n);
-	 g=G(n);
+	//f=F(n);
+	 g=G(n, mode);
 	 b=B(n, mode);
+	 cout << b << endl;
+//	 cout << g << endl;
+//	 cout << f << endl;
 	o=f+b;
 	erg=CG(n, o, mode);
-	cout << maximal(erg-g);
-	return 0;
+	cout << (g-erg).dimension() << endl;
+	cout << g.dimension() << endl;
+//	cout << erg << endl;
+*/
+return 0;
 }

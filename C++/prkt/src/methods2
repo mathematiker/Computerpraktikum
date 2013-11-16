@@ -44,7 +44,7 @@ Matrix<double> Erstelle(const int& M, const int& L) {
 //Erstelle L erstellt die Matrix für den L-Shape
 Matrix<double> ErstelleL(const int n){
     int N;
-	N=(3*n+2)*n;			//L ist eine NxN Matrix
+	N=2*n*n+(n+1)*n;			//L ist eine NxN Matrix
 	Matrix<double>L(N);
 
 	for (int i=0;i<N;i++){
@@ -83,20 +83,16 @@ for(int m=0;m<n+1;m++){						//war vorher m<n+2
 double TestG(const int i, const int j, const int n) {
 	double N2=(n+1)*(n+1);
 	return exp(-10*(i*i+j*j)/N2);
-//	double N=n+1;
-//	return (i+j)/N;
-//	return 1;
 }
 
 double TestF(const int i, const int j, const int n) {
 	double N2=(n+1)*(n+1);
 	return -40*(10*(i*i+j*j)/N2-1)*exp(-10*((i*i+j*j)/N2));
-//	return 0;
 }
 // G erstellt den Vektor g, der Gitterpunktauswertungen an inneren Punkten, der Funktion g = exp(-10 (||x||^2), bei gegebenen MxL Gitter.
 
-Vector   G(int n, const bool mode) {
-if(mode==0) {
+Vector   G(int n) {
+//	n=(double) n;
 	int N=n*n;
 //	double N2=(n+1)*(n+1);
 	Vector g(N);
@@ -109,27 +105,9 @@ if(mode==0) {
 	}
 	return g;
 }
-	else {
-			int N=(3*n+2)*n;
-			Vector g(N);
-		for(int j=1; j<=n; j++ ) {
-			for(int i=1; i<=2*n+1; i++) {
-				g[i+(j-1)*(2*n+1)-1]=TestG(-(n+1)+i,-(n+1)+j,n);
-			}
-		}
-		for(int j=0; j<n; j++) {
-			for(int i=1; i<= n; i++) {
-				g[2*n*n+n+i+(j-1)*n]=TestG(i,-(n+1)+ j, n);
-			}
-		}
-		return g;
-		}
-
-}
 
 // F erstellt den Vektor f, der Gitterpunktauswertungenan inneren Punkten,der Funktion f=-/\exp(-10(||x||^2) bei gegebenen MxL Gitter.
-Vector F(int n, const bool mode) {
-	if(mode==0) {
+Vector F(int n) {
 //	n = (double) n;
 	int N=n*n;
 //	double N2=(n+1)*(n+1);
@@ -141,22 +119,6 @@ Vector F(int n, const bool mode) {
 		}
 	}
 	return f;
-	}
-	else {
-				int N=(3*n+2)*n;
-				Vector f(N);
-			for(int j=1; j<=n; j++ ) {
-				for(int i=1; i<=2*n+1; i++) {
-					f[i+(j-1)*(2*n+1)-1]=TestF(-(n+1)+i,-(n+1)+j,n);
-				}
-			}
-			for(int j=0; j<n; j++) {
-				for(int i=1; i<= n; i++) {
-					f[2*n*n+n+i+(j-1)*n]=TestF(i,-(n+1)+ j, n);
-				}
-			}
-			return f;
-			}
 }
 
 // B erstellt den Vektor b, der die Randpunktauswertungen von f enthält
@@ -168,14 +130,14 @@ Vector B(int n, const bool mode){
 	Vector  b1(N), b2(N), b3(N), b4(N), b(N);
 	for(int i=0; i<n; i++) {
 			b1[i*n]=TestG(0,i+1,n); //x1=i=0
-			b2[i]=TestG(i+1, 0, n);//x2=j=0
+			b2[i]=TestG(i, 0, n);//x2=j=0
 			b3[n-1+i*n]=TestG(n+1, i+1, n);//x1=1 i=n+1
 			b4[N-i-1]=TestG(i+1, n+1, n);//x2=1 j=n+1
 	}
 	return (b1+b2+b3+b4)*N2;
 	}
 	else {
-	int N= (3*n+2)*n;
+	int N= 2*n*n+(n+1)*n;
 	double N2= (n+1)*(n+1);
 	Vector b1(N), b2(N), b3(N), b4(N), b5(N), b6(N), b(N);
 	for(int i=0; i<n+1; i++) {
@@ -239,40 +201,41 @@ Vector mult(const int& n, Vector v,const bool mode) {
 	}
 	//===================================
 	else{
-		    int N;
-		    N=(3*n+2)*n;			//L ist eine NxN Matrix
-		    int N2=(n+1)*(n+1);
-		    Vector w(N);
+		int N;
+			N=2*n*n+(n+1)*n;
+			int N0=(n+1)*(n+1);
+			Vector w(N);
 
 			for (int i=0;i<N;i++){
-				w[i]+=4*N2*v[i];
+				w[i]+=4*N0*v[i];
 			}
 
-			int l1=(2*n+1)*(n-1)-1+n;
+			int l1=2*n*(n-1)-1;
 			for (int i=0;i<l1+1;i++){
-				w[i]+=-N2*v[i+2*n+1];		//oben rechts
-				w[i+2*n+1]+=-N2*v[i];	//oben links
+				w[i]+=-N0*v[i+2*n];		//oben rechts
+				w[i+2*n]+=-N0*v[i];	//oben links
 			}
-			for (int i=(2*n+1)*n;i<N-n;i++){
-				w[i]+=-N2*v[i+n];				//unten rechts
-				w[i+n]+=-N2*v[i];				//unten links
+			for (int i=2*n*n-n;i<N-n;i++){
+				w[i]+=-N0*v[i+n];				//unten rechts
+				w[i+n]+=-N0*v[i];				//unten links
 			}
 
 		for(int m=0;m<n;m++){
-			for(int i=0;i<2*n;i++){
-				w[m*(2*n+1)+i]+=-N2*v[m*(2*n+1)+i+1];	//T1 rechts
-				w[m*(2*n+1)+i+1]+=-N2*v[m*(2*n+1)+i];	//T1 links
+			for(int i=0;i<2*n-1;i++){
+				w[m*2*n+i]+=-N0*v[m*2*n+i+1];	//T1 rechts
+				w[m*2*n+i+1]+=-N0*v[m*2*n+i];	//T1 links
 			}
-			}
+		}
 
-		for(int m=1;m<n+2;m++){						//war vorher m<n+2
+		for(int m=0;m<n+1;m++){
 			for(int i=0;i<n-1;i++){
-				w[2*n*n+m*n+i]+=-N2*v[2*n*n+m*n+i+1];	//T2 rechts
-				w[2*n*n+m*n+i+1]+=-N2*v[2*n*n+m*n+i];	//T2 links
+				w[2*n*n+m*n+i]+=-N0*v[2*n*n+m*n+i+1];	//T2 rechts
+				w[2*n*n+m*n+i+1]+=-N0*v[2*n*n+m*n+i];	//T2 links
 			}
 		}
-			return w;
-		}
+
+		return w;
+	}
 	}
 
 //maximal gibt den betragsgrößten Eintrag eines Vektors zurück
@@ -294,7 +257,7 @@ Vector CG(int n, Vector& b, bool mode) {
 	if (mode==0)
 		N=n*n;
 	else
-		N=(3*n+2)*n;
+		N=2*n*n+(n+1)*n;
 	double tol2=1e-14; //wähle geeignete Toleranz
 //	int n=A.size();
 	double a=0,beta=0;
@@ -324,10 +287,10 @@ Vector PoissonDiff(int n, bool mode) {
 	if (mode==0)
 	N=n*n;
 	else
-	N=(3*n+2)*n;
+	N=2*n*n+(n+1)*n;
 	Vector g(N), f(N),b(N),o(N),erg(N);
-	f=F(n, mode);
-	 g=G(n, mode);
+	f=F(n);
+	 g=G(n);
 	 b=B(n, mode);
 	o=f+b;
 	erg=CG(n,o, mode);

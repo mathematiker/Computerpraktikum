@@ -10,8 +10,8 @@
 
 Matrix<double> Erstelle(const int& M, const int& L);
 Vector CG(int n, Vector& b, bool mode);
-Vector F(int n);
-Vector G(int n);
+Vector F(int n, const bool mode);
+Vector G(int n, const bool mode);
 Vector mult(Matrix<double>& A, Vector& arg);
 Vector mult(const int& n, Vector v,const bool mode);
 Vector mult(const int& n, Vector v);
