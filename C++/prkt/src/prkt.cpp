@@ -44,7 +44,7 @@ int main() {
 200			0.255094
 500			0.252319
 
-//Hier könnte ihre Werbung stehen
+//Hier kï¿½nnte ihre Werbung stehen
 
 //Hier wird die diskrete Loesung des Problems berechnet und in die Datei "test" geschrieben, damit sie spaeter geplottet werden kann
 
@@ -95,7 +95,7 @@ cout <<L<<endl;
 	 g=G(n);
 	 b=B(n, mode);
 	o=f+b;
-	cout <<o<<endl;
-	cout << CG(5,o,mode)<<endl;
+	erg=CG(n, o, mode);
+	cout << maximal(erg-g);
 	return 0;
 }
