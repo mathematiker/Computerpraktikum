@@ -8,7 +8,7 @@ h=1/(n+1);
 U1=reshape(U1,2*n+1, n);
 U2=reshape(U2,n, n+1);
 [X1,Y1]=meshgrid((-1+h):h:-h,(-1+h):h:(1-h));
-%[X2, Y2]=meshgrid( 0:h:1-h,(-1+h):h:-h);
+[X2, Y2]=meshgrid( 0:h:1-h,(-1+h):h:-h);
 figure(1)
 clf
 hold on
