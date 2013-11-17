@@ -83,14 +83,17 @@ cout <<L<<endl;
 /*
 	int n=50;
 	bool mode=1;
+	Vector g((2*n+3)*n);
+	g=G(n, mode);
 	ofstream file;
 	file.open("test");
-	file << PoissonDiff(n, mode);
+	file << (PoissonDiff(n, mode));
 	file.close();
-*/
+	*/
 
 
-	int n=50;
+
+	int n=4;
 	bool mode=1;
 	int N=(3*n+2)*n;
 //	int N=n*n;
@@ -103,12 +106,28 @@ cout <<L<<endl;
 //	 cout << f << endl;
 	o=f+b;
 	erg=CG(n, o, mode);
-	cout << maximal(g-erg) << endl;
+//	cout << erg << endl;
+//	cout << g-erg << endl;
+	cout <<  maximal(g-erg) << endl;
 //	cout << erg << endl;
 //	cout << (g-erg).dimension() << endl;
 //	cout << g.dimension() << endl;
 //	cout << erg << endl;
 
+	/*
+	int n=2;
+	int N=(3*n+2)*n;
+	bool mode =1;
+	Vector e(N);
+	e[0]=1;
+	cout << mult(n, e, mode) << endl;
+	for (int i=0; i<N-1; i++) {
+		e[i]=0;
+		e[i+1]=1;
+		cout << mult(n,e, mode) << endl;
+
+	}
+*/
 
 return 0;
 }

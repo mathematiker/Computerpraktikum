@@ -117,9 +117,9 @@ if(mode==0) {
 				g[i+(j-1)*(2*n+1)-1]=TestG(-(n+1)+i,-(n+1)+j,n);
 			}
 		}
-		for(int j=0; j<n+1; j++) {
-			for(int i=1; i<= n+1; i++) {
-				g[2*n*n+n+i+(j-1)*n]=TestG(-(n+1)+ i,j, n);
+		for(int j=0; j<n; j++) {
+			for(int i=0; i<= n; i++) {
+				g[(2*n+1)*n+j+i*n]=TestG(j-n,i, n);
 			}
 		}
 		return g;
@@ -150,9 +150,9 @@ Vector F(int n, const bool mode) {
 					f[i+(j-1)*(2*n+1)-1]=TestF(-(n+1)+i,-(n+1)+j,n);
 				}
 			}
-			for(int j=0; j<n+1; j++) {
-				for(int i=1; i<= n+1; i++) {
-					f[2*n*n+n+i+(j-1)*n]=TestF(i,-(n+1)+ j, n);
+			for(int j=0; j<n; j++) {
+				for(int i=0; i<= n; i++) {
+					f[(2*n+1)*n+j+i*n]=TestF(j-n,i, n);
 				}
 			}
 			return f;
@@ -186,7 +186,7 @@ Vector B(int n, const bool mode){
 		for(int i=0; i<n; i++) {
 			b1[i*(2*n+1)]=TestG(-(n+1), i-n, n);
 			b2[2*n+i*(2*n+1)]=TestG(n+1, i-n, n);
-			b4[N-(i+1)]=TestG(-(i+1), n+1, n);
+			b4[(2*n+1)*n+n*n+i]=TestG(i-n, n+1, n);
 		}
 		for(int i=0; i<2*n+1; i++)
 			b3[i]=TestG(i-n, -(n+1), n);
