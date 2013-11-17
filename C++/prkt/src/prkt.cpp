@@ -80,19 +80,19 @@ Matrix<double> L;
 L=ErstelleL(3);
 cout <<L<<endl;
 */
-/*
+
 	int n=50;
 	bool mode=1;
 	Vector g((2*n+3)*n);
 	g=G(n, mode);
 	ofstream file;
 	file.open("test");
-	file << (PoissonDiff(n, mode));
+	file << PoissonDiff(n, mode);
 	file.close();
-	*/
 
 
 
+/*
 	int n=4;
 	bool mode=1;
 	int N=(3*n+2)*n;
@@ -114,7 +114,6 @@ cout <<L<<endl;
 //	cout << g.dimension() << endl;
 //	cout << erg << endl;
 
-	/*
 	int n=2;
 	int N=(3*n+2)*n;
 	bool mode =1;
