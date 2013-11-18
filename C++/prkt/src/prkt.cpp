@@ -94,8 +94,8 @@ int main() {
 	//für kleiner werdende Schrittweiten in die Datei Fehler
 	bool mode=0;
 	int i,j;
-	Vector Fehl(9);
-	for (i=2,  j=0; i< 513; i=i*2, j++){
+	Vector Fehl(25);
+	for (i=20,  j=0; i< 501; i=i+20, j++){
 		Fehl[j]=Fehler(i,mode);
 		cout << j<<endl;
 	}
