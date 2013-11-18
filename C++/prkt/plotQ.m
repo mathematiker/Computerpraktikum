@@ -1,5 +1,5 @@
-U_h=load("solvedQ");	%bzw. realQ/FehlerQ
-n=100; 
+U_h=load("src/solvedQ");	%bzw. realQ/FehlerQ
+n=load('src/n'); 
 
 h=1/(n+1);
 U_h_matrix=reshape(U_h,n,n);
@@ -11,7 +11,7 @@ xlabel('x-Achse');
 ylabel('y-Achse');
 zlabel('u(x,y)');
 view(60,30);
- axis([0 1 0 1 0 1])
+ %axis([0 1 0 1 0 1])
 print("Q.png", "-dpng");
 
 

@@ -1,0 +1,10 @@
+#!/bin/bash
+
+make
+./prkt
+read -p "Hit ENTER to continue"
+cd ..
+octave plotQ.m
+read -p "Hit ENTER to continue"
+octave plotL.m
+read -p "Hit ENTER to continue"

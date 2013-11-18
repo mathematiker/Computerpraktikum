@@ -40,12 +40,16 @@ int main() {
 	int n;
 	cout<<"Bitte geben Sie das n für die Schrittweite ein"<<endl;
 	cin>>n;
+	ofstream file;
+	file.open("n");
+		file << n;
+	file.close();
 	bool mode =0;
 	Vector ergQ =PoissonDiff(n,mode);
 	mode =1;
 	Vector ergL=PoissonDiff(n,mode);
 
-	ofstream file;
+
 	file.open("solvedQ");
 			file << ergQ;
 	file.close();

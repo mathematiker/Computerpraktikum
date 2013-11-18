@@ -1,5 +1,5 @@
-U_h=load('solvedL');	%bzw. realL/FehlerL
-n=100; 
+U_h=load('src/solvedL');	%bzw. realL/FehlerL
+n=load('src/n'); 
 
 U1=U_h(1:(2*n+1)*n);
 U2=U_h(2*n*n+n+1: (3*n+2)*n);
