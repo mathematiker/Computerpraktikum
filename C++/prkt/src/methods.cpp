@@ -10,6 +10,7 @@
 #include <iostream>
 #include "MatrixKlassen/matrix.hh"
 #include "vektor.hh"
+#include <fstream>
 //#include <stdio.h>
 
 
@@ -319,6 +320,8 @@ Vector CG(int n, Vector& b, bool mode) {
 	return x;
 }
 
+
+
 Vector PoissonDiff(int n, bool mode) {
 	int N;
 	if (mode==0)
@@ -346,6 +349,12 @@ std::ostream& operator<<(std::ostream& os, const Vector& obj)
   return os;
 }
 
+double Fehler(const int n, const bool mode){
+		Vector temp=PoissonDiff(n,mode);
+		Vector g=G(n,mode);
+		return maximal(temp-g);
+
+}
 
 
 

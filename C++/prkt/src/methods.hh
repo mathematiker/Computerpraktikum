@@ -21,5 +21,6 @@ Vector B(int n, const bool);
 Vector PoissonDiff(int n, bool mode);
 
 Matrix<double> ErstelleL(const int n);
+double Fehler(const int n, const bool mode);
 
 #endif /* METHODS_HH_ */

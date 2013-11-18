@@ -80,7 +80,7 @@ Matrix<double> L;
 L=ErstelleL(3);
 cout <<L<<endl;
 */
-
+/*
 	int n=50;
 	bool mode=1;
 	Vector g((2*n+3)*n);
@@ -89,7 +89,7 @@ cout <<L<<endl;
 	file.open("test");
 	file << PoissonDiff(n, mode);
 	file.close();
-
+*/
 
 
 /*
@@ -127,6 +127,16 @@ cout <<L<<endl;
 
 	}
 */
-
+	bool mode=1;
+	int i,j;
+	Vector Fehl(9);
+	for (i=2,  j=0; i< 513; i=i*2, j++){
+		Fehl[j]=Fehler(i,mode);
+	}
+	cout << Fehl << endl;
+	ofstream file;
+	file.open("Fehler");
+	file << Fehl;
+	file.close();
 return 0;
 }
