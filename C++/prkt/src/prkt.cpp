@@ -85,7 +85,7 @@ int main() {
 	cout << maximal(FehlerQ)<<endl;
 	cout <<"Maximums-Norm der Differenz auf dem L-Bereich für n= "<< n  <<" "<<endl;
 	cout << maximal(FehlerL)<<endl;
-
+/*
 	//Schreibt die beiden Matrizen in die Dateien Matrix A und Matrix A2, so dass daraus die Kondition berechnet werden können
 	file.open("Matrix A");
 		file << Erstelle(10,10);
@@ -94,7 +94,7 @@ int main() {
 	file.open("Matrix A2");
 		file << ErstelleL(10);
 	file.close();
-
+*/
 
 /*
 	//Schreibe den Fehler zwischen unserer diskretisierten Lösung und der wahren Lösung des Problems auf dem L-Bereich

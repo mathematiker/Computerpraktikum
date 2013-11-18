@@ -1,5 +1,6 @@
 prkt_SRC = prkt.cpp
 matrix_HDR = MatrixKlassen/matrix.hh
+vector_HDR=vector.hh
 methods_SRC=methods.cpp
 methods_HDR=methods.hh
 
