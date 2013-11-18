@@ -32,12 +32,14 @@ int main() {
 	*/
 
 
-//Hier koennte ihre Werbung stehen
 
-/*
-	//Schreibt die diskretisierte Lösung unseres Problems auf dem Quadrat in die Datei "solvedQ"
-	// und für den L-Bereich in die Datei "solvedL", für eine Schrittweite von 1/(n-1)
-	int n=100;
+
+	// Schreibt die diskretisierte Lösung unseres Problems auf dem Quadrat in die Datei "solvedQ"
+	// und für den L-Bereich in die Datei "solvedL", für eine Schrittweite von 1/(n-1) für
+	// vom Nutzer eingegebenes n
+	int n;
+	cout<<"Bitte geben Sie das n für die Schrittweite ein"<<endl;
+	cin>>n;
 	bool mode =0;
 	Vector ergQ =PoissonDiff(n,mode);
 	mode =1;
@@ -79,8 +81,8 @@ int main() {
 	cout << maximal(FehlerQ)<<endl;
 	cout <<"Maximums-Norm der Differenz auf dem L-Bereich für n= "<< n  <<" "<<endl;
 	cout << maximal(FehlerL)<<endl;
-*/
-	ofstream file;
+
+	//Schreibt die beiden Matrizen in die Dateien Matrix A und Matrix A2, so dass daraus die Kondition berechnet werden können
 	file.open("Matrix A");
 		file << Erstelle(10,10);
 	file.close();
@@ -88,6 +90,7 @@ int main() {
 	file.open("Matrix A2");
 		file << ErstelleL(10);
 	file.close();
+
 
 /*
 	//Schreibe den Fehler zwischen unserer diskretisierten Lösung und der wahren Lösung des Problems auf dem L-Bereich

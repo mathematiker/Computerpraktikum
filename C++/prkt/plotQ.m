@@ -14,5 +14,4 @@ view(60,30);
  axis([0 1 0 1 0 1])
 print("Q.png", "-dpng");
 
-A=load('Matrix A');
-print('Die Kondition der Matrix beträgt %f \n', cond(A));
+
