@@ -1,3 +1,6 @@
+
+//von Herr Heine bereitgestelltes und von uns ergänzte Matrix-Klasse
+
 #ifndef MATRIX_HH
 #define MATRIX_HH
 
@@ -17,17 +20,6 @@ public:
   // constructor
   Matrix(int n_rows_ = 1) :  n_rows(n_rows_), data(n_rows * n_rows) {}
 
-/*
-// Matrix-Vektor-Multiplikation
-  void operator()(const Vector& arg, Vector result)
-   {
-	  int i,j, n;
-	  n=arg.dimension();
-	  for (i=0, j=0; i<n; i++, j++) {
-		result[i]=result[i]+data[j+i*n_rows]*arg[j];
-	  }
-   }
-   */
 
   // Zugriff mit Schreibberechtigung
   EntryType& operator()(int i, int j) {
@@ -80,13 +72,6 @@ public:
     : n_blocks(n_blocks_), block_size(block_size_),
       data(n_blocks * n_blocks, MatrixType(block_size))
   {}
-
-  void operator()(const std::vector<EntryType>& arg, std::vector<EntryType>& result)
-         {
-
-
-         }
-
 
 
   double& operator()(int i, int j) {

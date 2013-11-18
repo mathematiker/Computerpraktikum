@@ -15,128 +15,103 @@
 using namespace std;
 
 int main() {
-/*Diese for Schleife ermittelt die Maximumsnorm der Differenz der exakten Loesung mit unserer diskreten Losung
 
- for (int n=10;n<=100;n=n+10){
-	int N=n*n;
-	Matrix<double> A(N)	;
-	A=Erstelle(n, n);
+	/*Maximums-Norm der Differenz auf dem Quadrat
+	n=50		0.000305519
+	n=100		7.78393e-05
+	n=200		1.96514e-05
+	n=300		8.76348e-06
+	n=400		4.93752e-06
 
-	Vector g(N), f(N),b(N),o(N),erg(N), diff(N);
-	f=F(n);
-	// cout << f << endl;
-	g=G(n);
-	b=B(n);
-	o=f.operator+(b);
-	erg=CG(n,o);
-	diff=g.operator+(erg.operator*(-1));
-	cout << maximal(diff)<<endl;
-}
-
- FEHLER
- n			max(erg-g)
-
-10			0.348287
-20			0.297169
-30			0.281444
-50			0.269251
-100			0.259745
-200			0.255094
-500			0.252319
-
-//Hier kï¿½nnte ihre Werbung stehen
-
-//Hier wird die diskrete Loesung des Problems berechnet und in die Datei "test" geschrieben, damit sie spaeter geplottet werden kann
-
-int N;
-int n=100;
-N=n*n;
-
-	Vector g(N), f(N),b(N),o(N),erg(N);
-f=F(n);
- g=G(n);
- b=B(n, 0);
-o=f+b;
-erg=CG(n,o);
-//file << erg.operator+(g.operator*(-1))<<endl;
-
-
-
-ofstream file;
-file.open("test");
-file << erg;
-file.close();
-
-cout << maximal(g-erg)<<endl; */
-/*
-	int n=2;
-	Matrix<double>L(n*n*2+(n+1)*(n+1));
-	L=ErstelleL(n);
-	cout<<L<<endl;
+	Maximums-Norm der Differenz auf dem L-Bereich für
+	n=50		0.00040141
+	n=100		0.000102042
+	n=200		2.57335e-05
+	n=300		1.14721e-05
+	n=400		6.4632e-06
 	*/
 
+
+//Hier koennte ihre Werbung stehen
+
 /*
-Matrix<double> L;
-L=ErstelleL(3);
-cout <<L<<endl;
-*/
-/*
-	int n=50;
-	bool mode=1;
-	Vector g((2*n+3)*n);
-	g=G(n, mode);
+	//Schreibt die diskretisierte Lösung unseres Problems auf dem Quadrat in die Datei "solvedQ"
+	// und für den L-Bereich in die Datei "solvedL", für eine Schrittweite von 1/(n-1)
+	int n=100;
+	bool mode =0;
+	Vector ergQ =PoissonDiff(n,mode);
+	mode =1;
+	Vector ergL=PoissonDiff(n,mode);
+
 	ofstream file;
-	file.open("test");
-	file << PoissonDiff(n, mode);
+	file.open("solvedQ");
+			file << ergQ;
 	file.close();
-*/
+	file.open("solvedL");
+			file << ergL;
+	file.close();
 
+	//Schreibt die Auswertung der wahren Lösung auf dem Quadrat in die Datei "realQ"
+	//und für den L-Bereich in die Datei "realL", für die selbe Stützstellenanzahl wie oben
+	mode =0;
+	Vector realQ=G(n,mode);
+	mode =1;
+	Vector realL=G(n,mode);
+
+	file.open("realQ");
+			file << realQ;
+	file.close();
+	file.open("realL");
+			file << realL;
+	file.close();
+
+	//Berechnet die Differenz der wahren Lösung und unserer diskretisierten Lösung,
+	//schreibt diese in eine Datei, damit der Fehler geplottet werden kann und gibt die Maximums-Norm der Differenz aus
+	Vector FehlerQ=realQ-ergQ;
+	Vector FehlerL=realL-ergL;
+	file.open("FehlerQ");
+			file << FehlerQ;
+	file.close();
+	file.open("FehlerL");
+			file << FehlerL;
+	file.close();
+	cout <<"Maximums-Norm der Differenz auf dem Quadrat für n= " << n <<" :"<<endl;
+	cout << maximal(FehlerQ)<<endl;
+	cout <<"Maximums-Norm der Differenz auf dem L-Bereich für n= "<< n  <<" "<<endl;
+	cout << maximal(FehlerL)<<endl;
+*/
+	ofstream file;
+	file.open("Matrix A");
+		file << Erstelle(10,10);
+	file.close();
+
+	file.open("Matrix A2");
+		file << ErstelleL(10);
+	file.close();
 
 /*
-	int n=4;
-	bool mode=1;
-	int N=(3*n+2)*n;
-//	int N=n*n;
-	Vector g(N), f(N),b(N),o(N),erg(N);
-	f=F(n, mode);
-	 g=G(n, mode);
-	 b=B(n, mode);
-//	 cout << b << endl;
-//	 cout << g << endl;
-//	 cout << f << endl;
-	o=f+b;
-	erg=CG(n, o, mode);
-//	cout << erg << endl;
-//	cout << g-erg << endl;
-	cout <<  maximal(g-erg) << endl;
-//	cout << erg << endl;
-//	cout << (g-erg).dimension() << endl;
-//	cout << g.dimension() << endl;
-//	cout << erg << endl;
-
-	int n=2;
-	int N=(3*n+2)*n;
-	bool mode =1;
-	Vector e(N);
-	e[0]=1;
-	cout << mult(n, e, mode) << endl;
-	for (int i=0; i<N-1; i++) {
-		e[i]=0;
-		e[i+1]=1;
-		cout << mult(n,e, mode) << endl;
-
-	}
-*/
-	bool mode=1;
+	//Schreibe den Fehler zwischen unserer diskretisierten Lösung und der wahren Lösung des Problems auf dem L-Bereich
+	//für kleiner werdende Schrittweiten in die Datei Fehler
+	bool mode=0;
 	int i,j;
 	Vector Fehl(9);
 	for (i=2,  j=0; i< 513; i=i*2, j++){
 		Fehl[j]=Fehler(i,mode);
+		cout << j<<endl;
 	}
 	cout << Fehl << endl;
 	ofstream file;
-	file.open("Fehler");
+	file.open("FQ");
+
 	file << Fehl;
 	file.close();
+
+
+*/
+
+
+
+
+
 return 0;
 }

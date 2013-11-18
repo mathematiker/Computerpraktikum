@@ -2,7 +2,7 @@
  * methods.hh
  *
  *  Created on: 06.11.2013
- *      Author: hofmanms, rehmeml
+ *      Author: Matthias, Michael, Nadine
  */
 
 #ifndef METHODS_HH_
@@ -19,7 +19,6 @@ std::ostream& operator<<(std::ostream& os, const Vector& obj);
 double maximal(Vector v);
 Vector B(int n, const bool);
 Vector PoissonDiff(int n, bool mode);
-
 Matrix<double> ErstelleL(const int n);
 double Fehler(const int n, const bool mode);
 

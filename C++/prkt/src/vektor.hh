@@ -2,7 +2,9 @@
  * vektor.hh
  *
  *  Created on: 12.11.2013
- *      Author: hofmanms,rehmeml
+ *      Author: Matthias,Michael,Nadine
+ *
+ *      Vektoren-Klasse
  */
 
 #ifndef VEKTOR_HH_
@@ -18,21 +20,23 @@ class Vector
 private:
     std::vector<double> vector;
 public:
-    // Ctor
+
+    //definiere Vector
     explicit Vector( size_t n ) : vector(std::vector<double>(n)) {}
 
-    // Ueberladung fuer non-const Vector Objekte
+    // Eintragen/Ausgeben von nicht const Vector Objekten
     double& operator[]( const size_t index )
     {
         return vector[index];
     }
 
-    // Ueberladung fuer const-Vector Objekte
+    // Ausgeben von const Vector Objekten
     const double& operator[]( const size_t index ) const
     {
         return vector[index];
     }
 
+    //definiert eine Addition auf den Vector Objekten
     Vector operator+( const Vector& rhs )
     {
         Vector v(dimension());
@@ -42,6 +46,7 @@ public:
         return v;
     }
 
+    //definiert eine Multiplikation auf den Vector Objekten
     double operator*(const Vector& rhs)
     {
     	double v=0;
@@ -50,6 +55,7 @@ public:
     	return v;
     }
 
+    //definiert eine Skalar-Vektor-Multiplikation auf den Vector Objekten
     Vector operator*( const double& a)
     {
     	Vector v(dimension());
@@ -60,6 +66,7 @@ public:
     	return v;
     }
 
+    //definiert eine Subtraktion auf den Vector Objekten
     Vector operator-(const Vector&rhs)
     {
     	Vector v(dimension());
@@ -70,14 +77,8 @@ public:
     	return v;
     }
 
-    // Liefert die Groesse des Vektors
+    // gibt die Groesse des Vektors aus
     size_t dimension() const { return vector.size(); }
 };
-
-
-
-
-
-
 
 #endif /* VEKTOR_HH_ */
