@@ -12,8 +12,8 @@ U2=reshape(U2,n, n+1);
 figure(1)
 clf
 hold on
-surf(X1,Y1,U1,'FaceColor','interp','EdgeAlpha',0);
-surf(X2,Y2,U2,'FaceColor','interp','EdgeAlpha',0);
+surf(X1,Y1,U1,'EdgeColor','none','LineStyle','none','FaceLighting','phong');
+surf(X2,Y2,U2,'EdgeColor','none','LineStyle','none','FaceLighting','phong');
 xlabel('x-Achse');
 ylabel('y-Achse');
 zlabel('u(x,y)');
