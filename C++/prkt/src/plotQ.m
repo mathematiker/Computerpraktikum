@@ -1,5 +1,5 @@
 U_h=load("solvedQ");	%bzw. realQ/FehlerQ
-n=load('src/n'); 
+n=load('n'); 
 
 h=1/(n+1);
 U_h_matrix=reshape(U_h,n,n);
