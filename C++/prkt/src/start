@@ -3,9 +3,9 @@
 make
 ./prkt
 read -p "Hit ENTER to continue"
-octave plotQ.m
+octave plotQ.m &>/dev/null
 xdg-open 'Q.png' &
 read -p "Hit ENTER to continue"
-octave plotL.m
+octave plotL.m &>/dev/null
 xdg-open 'L.png' &
-read -p "Hit ENTER to continue"
+read -p "Hit ENTER to end"
