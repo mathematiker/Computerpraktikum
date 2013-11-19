@@ -1,6 +1,6 @@
 #!/bin/bash
 
-make
+make &>/dev/null
 ./prkt
 read -p "Hit ENTER to continue"
 octave plotQ.m &>/dev/null
