@@ -1,2 +1,3 @@
 A=load('Matrix A');
-printf('Die Kondition der Matrix beträgt %f \n', cond(A));
+fprintf('Die Kondition der Matrix betraegt %f \n', cond(A));
+

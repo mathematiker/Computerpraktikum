@@ -95,6 +95,9 @@ int main() {
 		file << ErstelleL(10);
 	file.close();
 */
+	//Ausfuehren von kondA liefert : Die Kondition der Matrix betraegt 48.374150
+	//Ausfuehren von kondA2 liefert : Die Kondition der Matrix betraegt 77.917902
+
 
 /*
 	//Schreibe den Fehler zwischen unserer diskretisierten Lösung und der wahren Lösung des Problems auf dem L-Bereich
@@ -108,7 +111,7 @@ int main() {
 	}
 	cout << Fehl << endl;
 	ofstream file;
-	file.open("FQ");
+	file.open("Fehler 20er Schritte L");
 
 	file << Fehl;
 	file.close();

@@ -1,0 +1,2 @@
+Die Kondition der Matrix beträgt 48.374150 
+Die Kondition der Matrix betraegt 48.374150 
