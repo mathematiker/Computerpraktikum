@@ -40,12 +40,16 @@ int main() {
 	int n;
 	cout<<"Bitte geben Sie das n für die Schrittweite ein"<<endl;
 	cin>>n;
+	ofstream file;
+	file.open("n");
+		file << n;
+	file.close();
 	bool mode =0;
 	Vector ergQ =PoissonDiff(n,mode);
 	mode =1;
 	Vector ergL=PoissonDiff(n,mode);
 
-	ofstream file;
+
 	file.open("solvedQ");
 			file << ergQ;
 	file.close();
@@ -81,7 +85,7 @@ int main() {
 	cout << maximal(FehlerQ)<<endl;
 	cout <<"Maximums-Norm der Differenz auf dem L-Bereich für n= "<< n  <<" "<<endl;
 	cout << maximal(FehlerL)<<endl;
-
+/*
 	//Schreibt die beiden Matrizen in die Dateien Matrix A und Matrix A2, so dass daraus die Kondition berechnet werden können
 	file.open("Matrix A");
 		file << Erstelle(10,10);
@@ -90,6 +94,9 @@ int main() {
 	file.open("Matrix A2");
 		file << ErstelleL(10);
 	file.close();
+*/
+	//Ausfuehren von kondA liefert : Die Kondition der Matrix betraegt 48.374150
+	//Ausfuehren von kondA2 liefert : Die Kondition der Matrix betraegt 77.917902
 
 
 /*
@@ -104,7 +111,7 @@ int main() {
 	}
 	cout << Fehl << endl;
 	ofstream file;
-	file.open("FQ");
+	file.open("Fehler 20er Schritte L");
 
 	file << Fehl;
 	file.close();
