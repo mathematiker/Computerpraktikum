@@ -6,10 +6,16 @@
 // Description : Hello World in C++, Ansi-style
 //============================================================================
 
+
 #include <iostream>
-#include "Klassen.h"
+#include <iomanip>
+#include "Gitter.h"
+#include "victor.h"
+#include "Dreieck.h"
+
 using namespace std;
 
 int main() {
+
 	return 0;
 }
