@@ -7,18 +7,21 @@ CPP_SRCS += \
 ../src/Dreieck.cpp \
 ../src/Gitter.cpp \
 ../src/main.cpp \
+../src/methods.cpp \
 ../src/victor.cpp 
 
 OBJS += \
 ./src/Dreieck.o \
 ./src/Gitter.o \
 ./src/main.o \
+./src/methods.o \
 ./src/victor.o 
 
 CPP_DEPS += \
 ./src/Dreieck.d \
 ./src/Gitter.d \
 ./src/main.d \
+./src/methods.d \
 ./src/victor.d 
 
 
