@@ -1,4 +1,4 @@
-#include "victor.cpp"
+#include "victor.h"
 
 #ifndef DREIECK_H
 #define DREIECK_H

@@ -1,0 +1,43 @@
+# depslib dependency file v1.0
+1385722725 source:/afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/main.cpp
+	"include/victor.h"
+
+1385721930 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/include/victor.h
+	<iostream>
+	<vector>
+	<cstdlib>
+	<math.h>
+
+1385723600 source:/afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Dreieck.cpp
+	"Dreieck.h"
+
+1385726386 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Dreieck.h
+	"victor.h"
+
+1385726543 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/victor.h
+	<iostream>
+	<vector>
+	<cstdlib>
+	<math.h>
+
+1385726386 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Gitter.h
+	"Dreieck.h"
+
+1385723299 source:/afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Gitter.cpp
+	"Gitter.h"
+
+1385725996 source:/afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/main.cpp
+	"Gitter.cpp"
+
+1385725884 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/victor.cpp
+	"victor.h"
+
+1385725884 source:/afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/victor.cpp
+	"victor.h"
+
+1385723600 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Dreieck.cpp
+	"Dreieck.h"
+
+1385723299 /afs/stud.mathematik.uni-stuttgart.de/home/2011/krohnpl/workspace/Triangulation/src/Gitter.cpp
+	"Gitter.h"
+

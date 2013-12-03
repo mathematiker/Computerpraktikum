@@ -1,19 +1,23 @@
 #include "victor.h"
 
+unsigned int dim=2;
 
 victor::victor(){
             v=vector<double>(dim,0);
+            isRand=0;
         };
 
-victor::victor(const vector<double> arg){
-            if (arg.size() == dim){
-                v=arg;
-            }
-            else {
-            cout << "Der Vektor ist von falscher Dimension!" << endl;
-            exit(0);
-            }
-        };
+victor::victor(const vector<double> arg, const bool is)
+{
+       if (arg.size() == dim){
+            v=arg;
+       }
+       else {
+       cout << "Der Vektor ist von falscher Dimension!" << endl;
+       exit(0);
+       }
+       isRand=is;
+};
 
 victor& victor::operator+=(const victor& arg){
             for(unsigned i=0; i<dim; i++){
@@ -47,14 +51,4 @@ double victor::operator*(const victor&arg) const{
 	return temp;
 };
 
-double norm(victor arg) {
-    return sqrt(arg*arg);
-};
 
-void vcout(victor arg) {
-		cout << "("<< arg.v.at(0) ;
-    for (std::vector<double>::iterator it = arg.v.begin()+1 ; it != arg.v.end(); ++it){
-        cout <<","  << *it ;
-    };
-    cout << ")"<< endl;
-};

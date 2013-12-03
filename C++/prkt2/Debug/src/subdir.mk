@@ -4,16 +4,22 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Klassen.cpp \
-../src/prkt2.cpp 
+../src/Dreieck.cpp \
+../src/Gitter.cpp \
+../src/main.cpp \
+../src/victor.cpp 
 
 OBJS += \
-./src/Klassen.o \
-./src/prkt2.o 
+./src/Dreieck.o \
+./src/Gitter.o \
+./src/main.o \
+./src/victor.o 
 
 CPP_DEPS += \
-./src/Klassen.d \
-./src/prkt2.d 
+./src/Dreieck.d \
+./src/Gitter.d \
+./src/main.d \
+./src/victor.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

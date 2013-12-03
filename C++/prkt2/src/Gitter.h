@@ -1,11 +1,9 @@
-#include <vector>
 #include "Dreieck.h"
-#include "victor.cpp"
 
 #ifndef GITTER_H
 #define GITTER_H
 
-class Dreieck;
+
 class Gitter
 {
     public:

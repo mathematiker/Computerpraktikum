@@ -31,4 +31,3 @@ Dreieck::Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3)
     nachbarn[1]=n2;
     nachbarn[2]=n3;
 }
-
