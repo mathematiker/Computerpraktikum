@@ -14,7 +14,7 @@ int main(){
 	vcout(g);
 	cout << b << endl;
 	*/
-
+	//Implementiere noch isRand-Option und die Dreiecke...
 	Gitter* test;
 	std::vector<Dreieck> Kreistest(3);
 	std::vector<victor> punkte(4);
