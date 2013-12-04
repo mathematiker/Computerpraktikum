@@ -7,10 +7,14 @@ class Gitter;
 class Dreieck
 {
     public:
+		Dreieck();
+		Dreieck(int a, int b, int c);
         Dreieck(Gitter* vater);
         Dreieck(Gitter* vater,int a, int b, int c);
         Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3);
+        void Schreibe(int, int,int);
         virtual ~Dreieck();
+    private:
         int punkte[3];
         int nachbarn[3];
         Gitter* papa;

@@ -14,6 +14,7 @@ class victor {
         bool isRand;
         victor();
         victor(const vector<double> arg, bool is);
+        double& operator[]( int i );
         victor& operator+=(const victor& arg);
         victor operator+(const victor& arg)const;
         victor& operator*=(const double& arg);

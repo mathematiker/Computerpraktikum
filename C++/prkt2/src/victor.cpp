@@ -1,6 +1,6 @@
 #include "victor.h"
 
-unsigned int dim=2;
+unsigned int dim=3;
 
 victor::victor(){
             v=vector<double>(dim,0);
@@ -18,6 +18,12 @@ victor::victor(const vector<double> arg, const bool is)
        }
        isRand=is;
 };
+
+// Eintragen/Ausgeben von nicht const Vector Objekten
+   double& victor::operator[](int i )
+   {
+       return v[i];
+   }
 
 victor& victor::operator+=(const victor& arg){
             for(unsigned i=0; i<dim; i++){
