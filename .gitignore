@@ -1,6 +1,6 @@
-C++/prkt/Debug/*
+C++/prkt/Debug/.*
 C++/.metadata
 C++/prkt/.metadata
 *~
 C++/prkt2/.metadata
-C++/prkt2/Debug/*
+C++/prkt2/Debug/.*
