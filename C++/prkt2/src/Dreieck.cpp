@@ -56,3 +56,5 @@ void Dreieck::Schreibe(int a, int b, int c)
        punkte[1]=b;
        punkte[2]=c;
    }
+
+
