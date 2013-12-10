@@ -7,7 +7,7 @@ Gitter::Gitter()
 
 Gitter::~Gitter()
 {
-    //dtor
+    //ltor
 }
 
 Gitter::Gitter(const vector<victor> arg1,const vector<Dreieck> arg2){
