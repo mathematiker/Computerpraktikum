@@ -51,6 +51,8 @@ victor cross(victor a, victor b)
 //Dreiecke
 victor::victor(){
             v=vector<double>(dim,0);
+            papa=0;
+            isRand=0;
         };
 
 victor::victor(const vector<double> arg)
@@ -62,6 +64,8 @@ victor::victor(const vector<double> arg)
        cout << "Der Vektor ist von falscher Dimension!" << endl;
        exit(0);
        }
+       papa=0;
+       isRand=0;
 };
 
 victor& victor::operator+=(const victor& arg){

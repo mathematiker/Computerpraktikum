@@ -10,7 +10,7 @@
 
 #include <iostream>
 #include <list>
-#include <cstddef>
+//#include <cstddef>
 #include<vector>
 #include<cstdlib>
 #include<math.h>
@@ -24,6 +24,8 @@ class Gitter; //forward declaration
 //Vektor
 class victor {
     public:
+		Gitter* papa;
+		bool isRand;
         vector<double> v;
         victor();
         victor(const vector<double> arg);
