@@ -122,11 +122,7 @@ double victor::operator*(const victor&arg) const{
     return temp;
 };
 
-void victor::finde() {
-	unsigned int j=0;
-	for (unsigned int i=0; i<papa->dreiecke.size(); i++)
-		j=i;
-}
+
 
 //Dreiecke
 Dreieck::Dreieck(Gitter* vater)
@@ -207,3 +203,11 @@ victor Gitter::gdp(const int d, const int p){
 return punkte.at(dreiecke.at(d).punkte[p]);
 }
 
+void Gitter::finde() {
+	for (unsigned int i=0; i<dreiecke.size(); i++)
+	{
+		punkte[dreiecke[i].punkte[0]].dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[1]].dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[2]].dreiecke.push_back(i);
+	}
+}

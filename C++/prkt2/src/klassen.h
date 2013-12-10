@@ -27,6 +27,7 @@ class victor {
 		Gitter* papa;
 		bool isRand;
         vector<double> v;
+        list<int> dreiecke;
         victor();
         victor(const vector<double> arg);
 
@@ -45,7 +46,7 @@ class victor {
 
         double operator*(const victor& arg)const;
 
-        void finde();
+//        void finde();
 };
 
 //Dreieck
@@ -77,6 +78,7 @@ class Gitter
         std::vector<Dreieck> dreiecke;
         victor gdp (const int d,const int p); // gitter dreiecks eckpunkt victor ausgeben
 
+        void finde();
         void Minimiere();
 };
 
