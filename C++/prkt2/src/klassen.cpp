@@ -122,6 +122,12 @@ double victor::operator*(const victor&arg) const{
     return temp;
 };
 
+void victor::finde() {
+	unsigned int j=0;
+	for (unsigned int i=0; i<papa->dreiecke.size(); i++)
+		j=i;
+}
+
 //Dreiecke
 Dreieck::Dreieck(Gitter* vater)
 {

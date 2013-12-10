@@ -44,6 +44,8 @@ class victor {
 
 
         double operator*(const victor& arg)const;
+
+        void finde();
 };
 
 //Dreieck
