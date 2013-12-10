@@ -1,10 +1,10 @@
-#include "Gitter.h"
+#include "klassen.h"
 
 int main(){
 
-    victor g1=def(1,1);
-	victor g2=def(2,2);
-	victor g3=def(3,3);
+    victor g1=def(1,1, 1);
+	victor g2=def(2,2, 2);
+	victor g3=def(3,3, 3);
 
 
 	victor cont[] = {g1,g2,g3};

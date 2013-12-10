@@ -4,32 +4,23 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/Dreieck.cpp \
-../src/Gitter.cpp \
-../src/main.cpp \
-../src/methods.cpp \
-../src/victor.cpp 
+../src/klassen.cpp \
+../src/main.cpp 
 
 OBJS += \
-./src/Dreieck.o \
-./src/Gitter.o \
-./src/main.o \
-./src/methods.o \
-./src/victor.o 
+./src/klassen.o \
+./src/main.o 
 
 CPP_DEPS += \
-./src/Dreieck.d \
-./src/Gitter.d \
-./src/main.d \
-./src/methods.d \
-./src/victor.d 
+./src/klassen.d \
+./src/main.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 src/%.o: ../src/%.cpp
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C++ Compiler'
-	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o"$@" "$<"
+	g++ -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
