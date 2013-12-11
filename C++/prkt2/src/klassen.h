@@ -9,6 +9,7 @@
 #define KLASSEN_H_
 
 #include <iostream>
+#include <fstream>
 #include <list>
 //#include <cstddef>
 #include<vector>
@@ -46,6 +47,7 @@ class victor {
 
         double operator*(const victor& arg)const;
 
+        void ausgeben();
 //        void finde();
 };
 
@@ -53,6 +55,7 @@ class victor {
 class Dreieck
 {
     public:
+		Dreieck();
         Dreieck(Gitter* vater);
         Dreieck(Gitter* vater,int a, int b, int c);
         Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3);
@@ -73,6 +76,7 @@ class Gitter
     public:
         Gitter();
         Gitter(const vector<victor> arg1,const vector<Dreieck> arg2 );
+        std::vector<victor> gib();
         virtual ~Gitter();
         std::vector<victor> punkte;
         std::vector<Dreieck> dreiecke;
@@ -85,6 +89,7 @@ class Gitter
 //Methods
 double norm(const victor& arg);
 void vcout(victor arg);
+void Gcout(const Gitter& arg);
 victor def(double a, double b);
 victor def(double a, double b,double c);
 victor cross(victor a, victor b);

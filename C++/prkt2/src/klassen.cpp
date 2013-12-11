@@ -5,6 +5,7 @@
  *      Author: matthias
  */
 #include <iostream>
+#include <fstream>
 #include <list>
 #include <cstddef>
 #include<vector>
@@ -23,6 +24,22 @@ void vcout(victor arg) {
     };
     cout << ")"<< endl;
 };
+
+void Gcout(const Gitter& arg) {
+	ofstream file;
+	file.open("testGitter");
+	file << "OFF"<< endl;
+	file << arg.punkte.size() << " " << arg.dreiecke.size() << " " << 4 << endl;
+	std::vector<victor> arg2=arg.punkte;
+	for(unsigned int i=0; i<arg2.size(); i++) {
+		file << arg2[i].v[0] << " " << arg2[i].v[1] << " " << arg2[i].v[2] << endl;
+	}
+	std::vector<Dreieck> arg3=arg.dreiecke;
+	for(unsigned int i=0; i<arg3.size(); i++) {
+			file << 3 << " " << arg3[i].punkte[0] << " " << arg3[i].punkte[1] << " " << arg3[i].punkte[2] << endl;
+		}
+	file.close();
+}
 
 victor def(double a, double b){
 double cont[]={a,b};
@@ -122,9 +139,18 @@ double victor::operator*(const victor&arg) const{
     return temp;
 };
 
+void victor::ausgeben() {
+  //  cout << "(" ;
+    for (list<int>::iterator it = dreiecke.begin() ; it != dreiecke.end(); ++it){
+        cout <<  *it << " ";
+    };
+   // cout << ")"<< endl;
+}
 
 
 //Dreiecke
+Dreieck::Dreieck() {}
+
 Dreieck::Dreieck(Gitter* vater)
 {
     papa = vater;
@@ -199,6 +225,10 @@ Gitter::Gitter(const vector<victor> arg1,const vector<Dreieck> arg2){
 
 }
 
+vector<victor> Gitter::gib() {
+	return punkte;
+}
+
 victor Gitter::gdp(const int d, const int p){
 return punkte.at(dreiecke.at(d).punkte[p]);
 }
@@ -211,3 +241,5 @@ void Gitter::finde() {
 		punkte[dreiecke[i].punkte[2]].dreiecke.push_back(i);
 	}
 }
+
+
