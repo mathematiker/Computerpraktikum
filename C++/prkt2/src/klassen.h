@@ -47,7 +47,11 @@ class victor {
 
         double operator*(const victor& arg)const;
 
+        void clear();
+
         void ausgeben();
+        void setParent(Gitter* arg);
+       // void verbessere();
 //        void finde();
 };
 
@@ -68,6 +72,7 @@ class Dreieck
         double flaeche();
         // gibt den gradienten an einer ecke (also 0 = 1. ecke, 1 = 2. ecke, 2 = 3. ecke) zurück
         victor gradient(int ecke);
+        void setParent(Gitter* arg);
 };
 
 //Gitter
@@ -83,6 +88,7 @@ class Gitter
         victor gdp (const int d,const int p); // gitter dreiecks eckpunkt victor ausgeben
 
         void finde();
+        void verbessere();
         void Minimiere();
 };
 

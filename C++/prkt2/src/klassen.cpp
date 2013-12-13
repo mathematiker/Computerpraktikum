@@ -72,6 +72,10 @@ victor::victor(){
             isRand=0;
         };
 
+void victor::clear() {
+	v=vector<double>(dim,0);
+}
+
 victor::victor(const vector<double> arg)
 {
        if (arg.size() == dim){
@@ -147,6 +151,11 @@ void victor::ausgeben() {
    // cout << ")"<< endl;
 }
 
+void victor::setParent(Gitter* arg) {
+	papa=arg;
+}
+
+
 
 //Dreiecke
 Dreieck::Dreieck() {}
@@ -208,6 +217,10 @@ victor Dreieck::gradient(int ecke)
     return c*(norm(b)/norm(c));
 }
 
+void Dreieck::setParent(Gitter* arg) {
+	papa=arg;
+}
+
 //Gitter
 Gitter::Gitter()
 {
@@ -242,4 +255,29 @@ void Gitter::finde() {
 	}
 }
 
+void Gitter::verbessere() {
+	victor gradient;
+	double flaeche_ref;
+	double flaeche;
+	for (unsigned int i=0; i<punkte.size(); i++) {
+		if (punkte[i].isRand==0) {
+			flaeche_ref=0;
+	for (list<int>::iterator it = punkte[i].dreiecke.begin() ; it != punkte[i].dreiecke.end(); ++it){
+			gradient.clear();
+	       gradient+=dreiecke[*it].gradient(i);
+	       flaeche_ref+=dreiecke[*it].flaeche();
+	    }
+		do {
+			flaeche=0;
+			punkte[i]=punkte[i]-gradient;
+			for (list<int>::iterator it = punkte[i].dreiecke.begin() ; it != punkte[i].dreiecke.end(); ++it) {
+				flaeche+=dreiecke[*it].flaeche();
+			}
+			gradient*=0.5;
+		}
+		while(flaeche>=flaeche_ref);
+		flaeche_ref=flaeche;
+	}
+	}
+}
 

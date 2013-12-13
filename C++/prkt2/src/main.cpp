@@ -26,19 +26,30 @@ int main(){
 	victor p3=def(-0.3333333,-sqrt(8)/3,0);
 	/ictor p4=def(0,-0.666666,sqrt(5)/3);
 	victor p5=def(0.01,0.03,-0.6);*/
+	Gitter* Gittel;
 
-	victor p0=def(0,0,0.3);
+	//Gittel=new Gitter;
+
+	victor p0=def(0, 0, 0.3);
+	p0.setParent(Gittel);
 	victor p1=def(1,0,0);
+	p1.setParent(Gittel);
 	victor p2=def(0,1,0);
+	p2.setParent(Gittel);
 	victor p3=def(-1,0,0);
+	p3.setParent(Gittel);
 	victor p4=def(0,-1,0);
+	p4.setParent(Gittel);
 	victor cont[] = {p0,p1,p2,p3, p4};
 	vector<victor> punkte(cont,cont+5);
 
-	Dreieck d0(0,0,1,2);
-	Dreieck d1(0,0,2,3);
-	Dreieck d2(0,0,3,4);
-	Dreieck d3(0,0,4,1);
+	Dreieck d0(Gittel,0,1,2);
+	Dreieck d1(Gittel,0,2,3);
+	Dreieck d2(Gittel,0,3,4);
+	Dreieck d3(Gittel,0,4,1);
+
+
+
 
 	vector<Dreieck> Trip(4);
 	Trip[0]=d0;
@@ -46,14 +57,53 @@ int main(){
 	Trip[2]=d2;
 	Trip[3]=d3;
 
-	Gitter Gittel(punkte,Trip);
+	Gitter Gittel2(punkte,Trip);
 
-	Gcout(Gittel);
+	Gittel =& Gittel2;
 
-	Gittel.finde();
+	p0=def(0, 0, 0.3);
+		p0.setParent(Gittel);
+	p1=def(1,0,0);
+		p1.setParent(Gittel);
+		p1.isRand=1;
+	p2=def(0,1,0);
+		p2.setParent(Gittel);
+		p2.isRand=1;
+	p3=def(-1,0,0);
+		p3.setParent(Gittel);
+		p3.isRand=1;
+	p4=def(0,-1,0);
+		p4.setParent(Gittel);
+		p4.isRand=1;
+		victor cont2[] = {p0,p1,p2,p3, p4};
+		vector<victor> punkte2(cont2,cont2+5);
 
-	Gittel.punkte[1].ausgeben();
+		Dreieck d0t(Gittel,0,1,2);
+		Dreieck d1t(Gittel,0,2,3);
+		Dreieck d2t(Gittel,0,3,4);
+		Dreieck d3t(Gittel,0,4,1);
 
 
+
+
+		//vector<Dreieck> Trip(4);
+		Trip[0]=d0t;
+		Trip[1]=d1t;
+		Trip[2]=d2t;
+		Trip[3]=d3t;
+
+		Gittel2.punkte=punkte2;
+		Gittel2.dreiecke=Trip;
+
+	Gcout(Gittel2);
+
+	Gittel2.finde();
+	Gittel2.verbessere();
+
+	//Gittel2.punkte[1].ausgeben();
+
+	//cout << Gittel2.punkte[0].papa->punkte[0] << endl;
+
+	Gcout(Gittel2);
 return 0;
 }
