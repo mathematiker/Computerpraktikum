@@ -4,16 +4,16 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-../src/klassen.cpp \
-../src/main.cpp 
+../src/methods.cpp \
+../src/prkt.cpp 
 
 OBJS += \
-./src/klassen.o \
-./src/main.o 
+./src/methods.o \
+./src/prkt.o 
 
 CPP_DEPS += \
-./src/klassen.d \
-./src/main.d 
+./src/methods.d \
+./src/prkt.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
