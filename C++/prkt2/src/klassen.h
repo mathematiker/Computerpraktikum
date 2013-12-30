@@ -29,6 +29,7 @@ class victor {
 		bool isRand;
         vector<double> v;
         list<int> dreiecke;
+        list<int> position;
         victor();
         victor(const vector<double> arg);
 
@@ -55,6 +56,8 @@ class victor {
 //        void finde();
 };
 
+
+
 //Dreieck
 class Dreieck
 {
@@ -72,7 +75,20 @@ class Dreieck
         double flaeche();
         // gibt den gradienten an einer ecke (also 0 = 1. ecke, 1 = 2. ecke, 2 = 3. ecke) zurück
         victor gradient(int ecke);
+        victor gradient();
         void setParent(Gitter* arg);
+};
+
+class Punkt
+{
+    public:
+        Punkt();
+        Punkt(victor v, double t);
+        virtual ~Punkt();
+        Punkt& operator=(const Punkt& other);
+
+        victor Ort;
+        double parameter;
 };
 
 //Gitter
@@ -80,17 +96,20 @@ class Gitter
 {
     public:
         Gitter();
-        Gitter(const vector<victor> arg1,const vector<Dreieck> arg2 );
-        std::vector<victor> gib();
+        Gitter(const vector<Punkt> arg1,const vector<Dreieck> arg2 );
+        std::vector<Punkt> gib();
         virtual ~Gitter();
-        std::vector<victor> punkte;
+        std::vector<Punkt> punkte;
         std::vector<Dreieck> dreiecke;
         victor gdp (const int d,const int p); // gitter dreiecks eckpunkt victor ausgeben
 
         void finde();
         void verbessere();
         void Minimiere();
+        void Verfeinere();
 };
+
+
 
 //Methods
 double norm(const victor& arg);

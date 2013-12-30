@@ -26,6 +26,7 @@ int main(){
 	victor p3=def(-0.3333333,-sqrt(8)/3,0);
 	/ictor p4=def(0,-0.666666,sqrt(5)/3);
 	victor p5=def(0.01,0.03,-0.6);*/
+	/*
 	Gitter* Gittel;
 
 	//Gittel=new Gitter;
@@ -98,12 +99,13 @@ int main(){
 	Gcout(Gittel2);
 
 	Gittel2.finde();
-	Gittel2.verbessere();
+	//Gittel2.verbessere();
 
 	//Gittel2.punkte[1].ausgeben();
 
 	//cout << Gittel2.punkte[0].papa->punkte[0] << endl;
 
 	Gcout(Gittel2);
+	*/
 return 0;
 }

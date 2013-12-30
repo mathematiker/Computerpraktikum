@@ -12,6 +12,7 @@
 #include<cstdlib>
 #include<math.h>
 #include"klassen.h"
+#include<map>
 
 double norm(const victor& arg) {
     return sqrt(arg*arg);
@@ -30,9 +31,9 @@ void Gcout(const Gitter& arg) {
 	file.open("testGitter");
 	file << "OFF"<< endl;
 	file << arg.punkte.size() << " " << arg.dreiecke.size() << " " << 4 << endl;
-	std::vector<victor> arg2=arg.punkte;
+	std::vector<Punkt> arg2=arg.punkte;
 	for(unsigned int i=0; i<arg2.size(); i++) {
-		file << arg2[i].v[0] << " " << arg2[i].v[1] << " " << arg2[i].v[2] << endl;
+		file << arg2[i].Ort.v[0] << " " << arg2[i].Ort.v[1] << " " << arg2[i].Ort.v[2] << endl;
 	}
 	std::vector<Dreieck> arg3=arg.dreiecke;
 	for(unsigned int i=0; i<arg3.size(); i++) {
@@ -196,9 +197,9 @@ Dreieck::Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3)
 double Dreieck::flaeche()
 {
     // Hole die viktoren
-    victor a = papa->punkte[punkte[0]];
-    victor b = papa->punkte[punkte[1]];
-    victor c = papa->punkte[punkte[2]];
+    victor a = papa->punkte[punkte[0]].Ort;
+    victor b = papa->punkte[punkte[1]].Ort;
+    victor c = papa->punkte[punkte[2]].Ort;
 
     victor x = b-a;
     victor y = c-a;
@@ -209,8 +210,8 @@ double Dreieck::flaeche()
 
 victor Dreieck::gradient(int ecke)
 {
-    victor a = papa->punkte[punkte[(ecke+1)%3]]-papa->punkte[punkte[ecke]];
-    victor b = papa->punkte[punkte[(ecke+2)%3]]-papa->punkte[punkte[ecke]];
+    victor a = papa->punkte[punkte[(ecke+1)%3]].Ort-papa->punkte[punkte[ecke]].Ort;
+    victor b = papa->punkte[punkte[(ecke+2)%3]].Ort-papa->punkte[punkte[ecke]].Ort;
 
     victor c = cross(cross(a,b),b);
 
@@ -219,6 +220,29 @@ victor Dreieck::gradient(int ecke)
 
 void Dreieck::setParent(Gitter* arg) {
 	papa=arg;
+}
+
+Punkt::Punkt()
+{
+    //ctor
+}
+
+Punkt::Punkt(victor v, double t)
+{
+    Ort = v;
+    parameter = t;
+}
+
+Punkt::~Punkt()
+{
+    //dtor
+}
+
+Punkt& Punkt::operator=(const Punkt& rhs)
+{
+    if (this == &rhs) return *this; // handle self assignment
+    //assignment operator
+    return *this;
 }
 
 //Gitter
@@ -232,26 +256,25 @@ Gitter::~Gitter()
     //ltor
 }
 
-Gitter::Gitter(const vector<victor> arg1,const vector<Dreieck> arg2){
+Gitter::Gitter(const vector<Punkt> arg1,const vector<Dreieck> arg2){
     punkte=arg1;
     dreiecke=arg2;
 
 }
 
-vector<victor> Gitter::gib() {
+vector<Punkt> Gitter::gib() {
 	return punkte;
-}
-
-victor Gitter::gdp(const int d, const int p){
-return punkte.at(dreiecke.at(d).punkte[p]);
 }
 
 void Gitter::finde() {
 	for (unsigned int i=0; i<dreiecke.size(); i++)
 	{
-		punkte[dreiecke[i].punkte[0]].dreiecke.push_back(i);
-		punkte[dreiecke[i].punkte[1]].dreiecke.push_back(i);
-		punkte[dreiecke[i].punkte[2]].dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[0]].Ort.dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[1]].Ort.dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[2]].Ort.dreiecke.push_back(i);
+		punkte[dreiecke[i].punkte[0]].Ort.position.push_back(0);
+		punkte[dreiecke[i].punkte[1]].Ort.position.push_back(1);
+		punkte[dreiecke[i].punkte[2]].Ort.position.push_back(2);
 	}
 }
 
@@ -260,17 +283,17 @@ void Gitter::verbessere() {
 	double flaeche_ref;
 	double flaeche;
 	for (unsigned int i=0; i<punkte.size(); i++) {
-		if (punkte[i].isRand==0) {
+		if (punkte[i].Ort.isRand==0) {
 			flaeche_ref=0;
-	for (list<int>::iterator it = punkte[i].dreiecke.begin() ; it != punkte[i].dreiecke.end(); ++it){
+	for (list<int>::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it){
 			gradient.clear();
 	       gradient+=dreiecke[*it].gradient(i);
 	       flaeche_ref+=dreiecke[*it].flaeche();
 	    }
 		do {
 			flaeche=0;
-			punkte[i]=punkte[i]-gradient;
-			for (list<int>::iterator it = punkte[i].dreiecke.begin() ; it != punkte[i].dreiecke.end(); ++it) {
+			punkte[i].Ort-=gradient;
+			for (list<int>::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it) {
 				flaeche+=dreiecke[*it].flaeche();
 			}
 			gradient*=0.5;
@@ -279,5 +302,99 @@ void Gitter::verbessere() {
 		flaeche_ref=flaeche;
 	}
 	}
+}
+/*
+void Gitter::Verfeinere()
+{
+    // enthält zu (a,b) den Punkt c.Ort = (a.Ort+b.Ort)/2, wobei a,b,c mithilfe von punktindizes definiert werden
+    std::map<std::pair<int,int>,int> erstelltepunkte;
+    std::vector<Dreieck> neuedreiecke = std::vector<Dreieck>();
+    for(int i=0;i<dreiecke.size();++i)
+    {
+        int np[3];
+        for(int j=0;j<3;++j)
+        {
+            int a = dreiecke[i].punkte[j];
+            int b = dreiecke[i].punkte[(j+1)%3];
+
+            if(erstelltepunkte.find(std::pair<int,int>(a,b))==erstelltepunkte.end())
+            {
+                Punkt c = Punkt();
+                c.Ort = (punkte[a].Ort+punkte[b].Ort)*0.5;
+                c.parameter = (punkte[a].parameter+punkte[b].parameter)*0.5;
+                np[j] = punkte.size();
+                punkte.push_back(c);
+                erstelltepunkte.insert(std::pair<std::pair<int,int>,int>(std::pair<int,int>(a,b),np[j]));
+            }
+            else
+            {
+                np[j] = erstelltepunkte[std::pair<int,int>(a,b)];
+            }
+        }
+        // neue dreiecke erstellen
+        for(int k=0;k<3;++k)
+        {
+            Dreieck d = Dreieck(this,dreiecke[i].punkte[k],np[k],np[(k+2)%3]);
+            neuedreiecke.push_back(d);
+        }
+        Dreieck e = Dreieck(this,np[0],np[1],np[2]);
+        neuedreiecke.push_back(e);
+    }
+    dreiecke = neuedreiecke;
+}
+*/
+
+void Gitter::Verfeinere()
+{
+    // enthält zu (a,b) den Punkt c.Ort = (a.Ort+b.Ort)/2, wobei a,b,c mithilfe von punktindizes definiert werden
+    std::map<std::pair<int,int>,int> erstelltepunkte;
+    std::vector<Dreieck> neuedreiecke = std::vector<Dreieck>();
+    int pcnt = 0;
+    int dcnt = 0;
+    for(int i=0;i<dreiecke.size();++i)
+    {
+        int np[3];
+        for(int j=0;j<3;++j)
+        {
+            int a = dreiecke[i].punkte[j];
+            int b = dreiecke[i].punkte[(j+1)%3];
+
+            if(erstelltepunkte.find(std::pair<int,int>(a,b))==erstelltepunkte.end()
+               && erstelltepunkte.find(std::pair<int,int>(b,a))==erstelltepunkte.end())
+            {
+                Punkt c = Punkt();
+                c.Ort = (punkte[a].Ort+punkte[b].Ort)*0.5;
+                if(punkte[a].parameter<punkte[b].parameter)c.parameter = (punkte[a].parameter+punkte[b].parameter)*0.5;
+                else c.parameter = (1.0+punkte[a].parameter+punkte[b].parameter)*0.5;
+                np[j] = punkte.size();
+                punkte.push_back(c);
+                pcnt ++;
+                erstelltepunkte.insert(std::pair<std::pair<int,int>,int>(std::pair<int,int>(a,b),np[j]));
+            }
+            else
+            {
+                if(erstelltepunkte.find(std::pair<int,int>(a,b))==erstelltepunkte.end())
+                {
+                    np[j] = erstelltepunkte[std::pair<int,int>(b,a)];
+                }
+                else
+                {
+                    np[j] = erstelltepunkte[std::pair<int,int>(a,b)];
+                }
+            }
+        }
+        // neue dreiecke erstellen
+        for(int k=0;k<3;++k)
+        {
+            Dreieck d = Dreieck(this,dreiecke[i].punkte[k],np[k],np[(k+2)%3]);
+            neuedreiecke.push_back(d);
+            dcnt++;
+        }
+        Dreieck e = Dreieck(this,np[0],np[1],np[2]);
+        neuedreiecke.push_back(e);
+        dcnt++;
+    }
+    dreiecke = neuedreiecke;
+    std::cout << "Erstellte " << pcnt << " neue Punkte und " << dcnt << " neue Dreiecke" << std::endl;
 }
 
