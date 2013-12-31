@@ -25,11 +25,10 @@ class Gitter; //forward declaration
 //Vektor
 class victor {
     public:
-		Gitter* papa;
+//		Gitter* papa;
 		bool isRand;
         vector<double> v;
-        list<int> dreiecke;
-        list<int> position;
+        list<pair<int, int> > dreiecke;
         victor();
         victor(const vector<double> arg);
 
@@ -51,7 +50,7 @@ class victor {
         void clear();
 
         void ausgeben();
-        void setParent(Gitter* arg);
+//        void setParent(Gitter* arg);
        // void verbessere();
 //        void finde();
 };
@@ -91,17 +90,19 @@ class Punkt
         double parameter;
 };
 
+
+
 //Gitter
 class Gitter
 {
     public:
         Gitter();
         Gitter(const vector<Punkt> arg1,const vector<Dreieck> arg2 );
+        Gitter(int mode);
         std::vector<Punkt> gib();
         virtual ~Gitter();
         std::vector<Punkt> punkte;
         std::vector<Dreieck> dreiecke;
-        victor gdp (const int d,const int p); // gitter dreiecks eckpunkt victor ausgeben
 
         void finde();
         void verbessere();
@@ -118,5 +119,7 @@ void Gcout(const Gitter& arg);
 victor def(double a, double b);
 victor def(double a, double b,double c);
 victor cross(victor a, victor b);
+victor randkurve(double t, int mode);
+Punkt randpunkt();
 
 #endif /* KLASSEN_H_ */

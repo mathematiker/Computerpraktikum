@@ -13,6 +13,7 @@
 #include<math.h>
 #include"klassen.h"
 #include<map>
+#define PI (3.141592653589793)
 
 double norm(const victor& arg) {
     return sqrt(arg*arg);
@@ -66,10 +67,30 @@ victor cross(victor a, victor b)
     return res;
 }
 
+victor randkurve(double t, int mode) {
+	double a,b,c;
+	switch(mode) {
+	case 1:
+		//Tennisballkurve
+		 a = 3.0;
+		 b = 1.0;
+		 c = 2*sqrt(a*b);
+		 return def(a*cos(2*PI*t)+b*cos(3.0*2*PI*t),a*sin(2*PI*t)-b*sin(3*2*PI*t),c*2*sin(2*2*PI*t));
+	default:
+		return def(0,0,0);
+	}
+}
+
+Punkt randpunkt(double t, int mode) {
+	Punkt arg(randkurve(t,mode), t);
+	arg.Ort.isRand=1;
+	return arg;
+}
+
 //Dreiecke
 victor::victor(){
             v=vector<double>(dim,0);
-            papa=0;
+            //papa=0;
             isRand=0;
         };
 
@@ -86,7 +107,7 @@ victor::victor(const vector<double> arg)
        cout << "Der Vektor ist von falscher Dimension!" << endl;
        exit(0);
        }
-       papa=0;
+       //papa=0;
        isRand=0;
 };
 
@@ -146,15 +167,16 @@ double victor::operator*(const victor&arg) const{
 
 void victor::ausgeben() {
   //  cout << "(" ;
-    for (list<int>::iterator it = dreiecke.begin() ; it != dreiecke.end(); ++it){
-        cout <<  *it << " ";
+    for (list< pair<int, int> >::iterator it = dreiecke.begin() ; it != dreiecke.end(); ++it){
+        cout <<  it->first << " ";
     };
    // cout << ")"<< endl;
 }
-
+/*
 void victor::setParent(Gitter* arg) {
 	papa=arg;
 }
+*/
 
 
 
@@ -256,11 +278,22 @@ Gitter::~Gitter()
     //ltor
 }
 
+Gitter::Gitter(int mode) {
+	punkte = vector<Punkt>();
+	dreiecke =vector<Dreieck>();
+	punkte.push_back(randpunkt(0, mode));
+	punkte.push_back(randpunkt(1.0/3.0, mode)); //int/int ist schlecht :)
+	punkte.push_back(randpunkt(2.0/3.0, mode));
+	dreiecke.push_back(Dreieck(this, 0, 1, 2));
+}
+
+/*
 Gitter::Gitter(const vector<Punkt> arg1,const vector<Dreieck> arg2){
     punkte=arg1;
     dreiecke=arg2;
 
 }
+*/
 
 vector<Punkt> Gitter::gib() {
 	return punkte;
@@ -269,12 +302,9 @@ vector<Punkt> Gitter::gib() {
 void Gitter::finde() {
 	for (unsigned int i=0; i<dreiecke.size(); i++)
 	{
-		punkte[dreiecke[i].punkte[0]].Ort.dreiecke.push_back(i);
-		punkte[dreiecke[i].punkte[1]].Ort.dreiecke.push_back(i);
-		punkte[dreiecke[i].punkte[2]].Ort.dreiecke.push_back(i);
-		punkte[dreiecke[i].punkte[0]].Ort.position.push_back(0);
-		punkte[dreiecke[i].punkte[1]].Ort.position.push_back(1);
-		punkte[dreiecke[i].punkte[2]].Ort.position.push_back(2);
+		punkte[dreiecke[i].punkte[0]].Ort.dreiecke.push_back(make_pair(i,1));
+		punkte[dreiecke[i].punkte[1]].Ort.dreiecke.push_back(make_pair(i,2));
+		punkte[dreiecke[i].punkte[2]].Ort.dreiecke.push_back(make_pair(i,3));
 	}
 }
 
@@ -285,16 +315,16 @@ void Gitter::verbessere() {
 	for (unsigned int i=0; i<punkte.size(); i++) {
 		if (punkte[i].Ort.isRand==0) {
 			flaeche_ref=0;
-	for (list<int>::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it){
+	for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it){
 			gradient.clear();
-	       gradient+=dreiecke[*it].gradient(i);
-	       flaeche_ref+=dreiecke[*it].flaeche();
+	       gradient+=dreiecke[it->first].gradient(it->second);
+	       flaeche_ref+=dreiecke[it->first].flaeche();
 	    }
 		do {
 			flaeche=0;
 			punkte[i].Ort-=gradient;
-			for (list<int>::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it) {
-				flaeche+=dreiecke[*it].flaeche();
+			for (list< pair<int, int> >::iterator it = punkte[i].Ort.dreiecke.begin() ; it != punkte[i].Ort.dreiecke.end(); ++it) {
+				flaeche+=dreiecke[it->first].flaeche();
 			}
 			gradient*=0.5;
 		}
@@ -351,7 +381,7 @@ void Gitter::Verfeinere()
     std::vector<Dreieck> neuedreiecke = std::vector<Dreieck>();
     int pcnt = 0;
     int dcnt = 0;
-    for(int i=0;i<dreiecke.size();++i)
+    for(unsigned int i=0;i<dreiecke.size();++i)
     {
         int np[3];
         for(int j=0;j<3;++j)
