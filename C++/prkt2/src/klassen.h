@@ -74,7 +74,7 @@ class Dreieck
         double flaeche();
         // gibt den gradienten an einer ecke (also 0 = 1. ecke, 1 = 2. ecke, 2 = 3. ecke) zurück
         victor gradient(int ecke);
-        victor gradient();
+        //victor gradient();
         void setParent(Gitter* arg);
 };
 
@@ -105,9 +105,12 @@ class Gitter
         std::vector<Dreieck> dreiecke;
 
         void finde();
+        victor gradient(Dreieck* arg, int ecke);
         void verbessere();
+        void verbessere(int arg);
         void Minimiere();
-        void Verfeinere();
+        void Verfeinere(int mode);
+        void Verfeinere(int mode, int arg);
 };
 
 

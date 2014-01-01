@@ -1,5 +1,9 @@
 #include "klassen.h"
 #include <math.h>
+#include <iostream>
+#include <fstream>
+
+using namespace std;
 
 int main(){
 /*
@@ -107,5 +111,32 @@ int main(){
 
 	Gcout(Gittel2);
 	*/
+	/*
+	int mode=1;
+	Gitter g=Gitter(mode);
+	g.finde();
+	g.Verfeinere(mode);
+	g.finde();
+	g.verbessere();
+	g.finde();
+	g.Verfeinere(mode);
+	g.finde();
+
+	g.verbessere();
+
+//	g.finde();
+
+	Gcout(g);
+	*/
+
+	int mode =1;
+	Gitter g=Gitter(mode);
+	g.finde();
+	int j=3;
+	for(int i=0; i<5; i++){
+	g.Verfeinere(mode);
+	}
+	g.verbessere(3);
+	Gcout(g);
 return 0;
 }
