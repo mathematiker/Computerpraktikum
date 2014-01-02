@@ -25,7 +25,6 @@ class Gitter; //forward declaration
 //Vektor
 class victor {
     public:
-//		Gitter* papa;
 		bool isRand;
         vector<double> v;
         list<pair<int, int> > dreiecke;
@@ -64,10 +63,10 @@ class Dreieck
 		Dreieck();
         Dreieck(Gitter* vater);
         Dreieck(Gitter* vater,int a, int b, int c);
-        Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3);
+  //      Dreieck(Gitter* vater,int a, int b, int c, int n1, int n2, int n3);
         virtual ~Dreieck();
         int punkte[3];
-        int nachbarn[3];
+ //       int nachbarn[3];
         Gitter* papa;
 
         // gibt die fläche des rechtecks zurück
@@ -78,6 +77,7 @@ class Dreieck
         void setParent(Gitter* arg);
 };
 
+//Punkteklasse
 class Punkt
 {
     public:
@@ -106,9 +106,9 @@ class Gitter
 
         void finde();
         victor gradient(Dreieck* arg, int ecke);
+        double Oberflaeche();
         void verbessere();
         void verbessere(int arg);
-        void Minimiere();
         void Verfeinere(int mode);
         void Verfeinere(int mode, int arg);
 };
