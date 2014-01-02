@@ -84,8 +84,8 @@ victor randkurve(double t, int mode) {
 	switch (mode) {
 	case 1:
 		//Tennisballkurve
-		a = 6.0;
-		b = 0.5;
+		a = 3.0;
+		b = 1.0;
 		c = 2 * sqrt(a * b);
 		return def(a * cos(2 * PI * t) + b * cos(3.0 * 2 * PI * t),
 				a * sin(2 * PI * t) - b * sin(3 * 2 * PI * t),
@@ -273,12 +273,24 @@ double Dreieck::flaeche() {
 }
 
 //Bestimmt die Richtung des Gradienten
+/*
 victor Dreieck::gradient(int ecke) {
 	victor a = papa->punkte[punkte[(ecke) % 3]].Ort;
 	victor b = papa->punkte[punkte[(ecke + 1) % 3]].Ort;
 	victor c = papa->punkte[punkte[(ecke + 2) % 3]].Ort;
 
 	return cross(cross(a - b, a - c), b - c);
+}
+*/
+victor Dreieck::gradient(int ecke)
+{
+    victor a = papa->punkte[punkte[(ecke+1)%3]].Ort-papa->punkte[punkte[ecke]].Ort;
+    victor b = papa->punkte[punkte[(ecke+1)%3]].Ort-papa->punkte[punkte[(ecke+2)%3]].Ort;
+
+    victor c = cross(cross(a,b),b);
+    double nc = norm(c);
+    if(nc <= 0.0001)return def(0,0,0);
+    return c*(norm(b)/norm(c));
 }
 
 /*
@@ -360,7 +372,11 @@ void Gitter::verbessere() {
 	double flaeche_ref;
 	double flaeche;
 	double faktor; //Schrittweite
-	double armijo=0.01;
+	double armijo=0.01; //Armijo-koeffizient
+	double neueflaeche=this->Oberflaeche();
+	double alteflaeche;
+	do {
+		alteflaeche=neueflaeche;
 	for (unsigned int i = 0; i < punkte.size(); i++) {
 		//Gradientenverfahren
 		flaeche_ref = 0;
@@ -377,24 +393,34 @@ void Gitter::verbessere() {
 			}
 		//repeat-Schleife
 		do {
+			//double ngrad=grad*grad;
 			flaeche=0;
-			grad_tmp.clear();
+
 			tmp=punkte[i].Ort;
 			faktor*=0.5;
 			punkte[i].Ort-=grad*faktor; //update Punkt
 			for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin();
 					it != punkte[i].Ort.dreiecke.end(); ++it) {
-				grad_tmp+=dreiecke[it->first].gradient(it->second);
+
 				flaeche+=dreiecke[it->first].flaeche();
 			}
 			punkte[i].Ort=tmp;
 		} while (flaeche>flaeche_ref-armijo*faktor*(grad*grad));
-		//Wir akzeptieren unsere Verbesserung nur wenn sie sich nicht verschlechtert
+		grad_tmp.clear();
+		for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin();
+							it != punkte[i].Ort.dreiecke.end(); it++) {
+		grad_tmp+=dreiecke[it->first].gradient(it->second);
+		}
+		//Wir akzeptieren unsere Verbesserung nur wenn sie die Armijo-Bedingung erfüllt
 		punkte[i].Ort-=grad*faktor;
 		grad=grad_tmp;
 		flaeche_ref=flaeche;
 	}
 }
+	neueflaeche=this->Oberflaeche();
+	//cout << alteflaeche-neueflaeche <<endl;
+	} while(fabs((alteflaeche-neueflaeche)/neueflaeche)>1e-7); //Berechne die Verbesserung
+	//Falls die relative Verbesserung einer gewissen Toleranz unterliegt brechen wir ab.
 }
 
 // arg mal Verbessern
