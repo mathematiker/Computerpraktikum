@@ -268,7 +268,6 @@ double Dreieck::flaeche() {
 	victor x = b - a;
 	victor y = c - a;
 
-	//return sqrt(pow((x.v[1]*y.v[2]-x.v[2]*y.v[1]),2)+pow((x.v[2]*y.v[0]-x.v[0]*y.v[2]),2)+pow((x.v[0]*y.v[1]-x.v[1]*y.v[0]),2));
 	return norm(cross(x, y)) / 2;
 }
 
@@ -288,9 +287,7 @@ victor Dreieck::gradient(int ecke)
     victor b = papa->punkte[punkte[(ecke+1)%3]].Ort-papa->punkte[punkte[(ecke+2)%3]].Ort;
 
     victor c = cross(cross(a,b),b);
-    double nc = norm(c);
-    if(nc <= 0.0001)return def(0,0,0);
-    return c*(norm(b)/norm(c));
+    return c;
 }
 
 /*
@@ -391,6 +388,7 @@ void Gitter::verbessere() {
 				grad += dreiecke[it->first].gradient(it->second);
 				flaeche_ref += dreiecke[it->first].flaeche();
 			}
+			if(grad*grad>1e-4) {
 		//repeat-Schleife
 		do {
 			//double ngrad=grad*grad;
@@ -415,11 +413,12 @@ void Gitter::verbessere() {
 		punkte[i].Ort-=grad*faktor;
 		grad=grad_tmp;
 		flaeche_ref=flaeche;
+		}
 	}
 }
 	neueflaeche=this->Oberflaeche();
 	//cout << alteflaeche-neueflaeche <<endl;
-	} while(fabs((alteflaeche-neueflaeche)/neueflaeche)>1e-7); //Berechne die Verbesserung
+	} while(fabs((alteflaeche-neueflaeche)/neueflaeche)>1e-4); //Berechne die Verbesserung
 	//Falls die relative Verbesserung einer gewissen Toleranz unterliegt brechen wir ab.
 }
 
