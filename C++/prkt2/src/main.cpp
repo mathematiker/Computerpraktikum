@@ -30,7 +30,7 @@ int main(){
 	g.Verfeinere(mode);
 	alteflaeche=g.Oberflaeche();
 	cout <<"Oberfläche nach Verfeinerung: " << alteflaeche <<endl;
-	g.verbessere(5);
+	g.verbessere();
 	neueflaeche=g.Oberflaeche();
 	cout <<"Oberfläche nach Minimierungsschritt: " << neueflaeche <<endl;
 	cout <<"relative Verbesserung nach Minimierungsschritt: " <<  fabs((alteflaeche-neueflaeche)/alteflaeche*100) << "%"<< endl;
