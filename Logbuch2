@@ -11,6 +11,7 @@ gap> A:=kQ/I;
 <two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>, 
   (3 generators)>>
 gap> projectives := IndecProjectiveModules(A);
+%das sind die unzerlegbaren projektiven Moduln
 [ <[ 1, 0, 0, 0, 0 ]>, <[ 1, 1, 0, 0, 0 ]>, <[ 0, 1, 1, 0, 0 ]>, 
   <[ 0, 0, 1, 1, 0 ]>, <[ 0, 0, 0, 1, 1 ]> ]
 %e_1A,e_2A,...
@@ -30,3 +31,25 @@ for arrow b:
 for arrow a:
 [ [  0 ] ]
 %M=e_1A
+gap> proj3:=projectives[3];
+<[ 0, 1, 1, 0, 0 ]>
+gap> Display(proj3);
+<Module over <Rationals[<quiver with 5 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>, 
+  (3 generators)>> with dimension vector [ 0, 1, 1, 0, 0 
+ ]> and linear maps given by
+for arrow d:
+[ [  0 ] ]
+for arrow c:
+[ [  0 ] ]
+for arrow b:
+[ [  1 ] ]
+for arrow a:
+[ [  0 ] ]
+%M=e_2A
+gap> RadicalOfModule(proj1);
+<[ 0, 0, 0, 0, 0 ]>
+%Radikale von e_1A
+gap> RadicalOfModule(proj3);
+<[ 0, 1, 0, 0, 0 ]>
+%Radikale von e_3A
