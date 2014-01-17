@@ -1,0 +1,32 @@
+gap> Q:=Quiver(5,[[5,4,"d"],[4,3,"c"],[3,2,"b"],[2,1,"a"]]);
+<quiver with 5 vertices and 4 arrows>
+gap> I:=NthPowerOfArrowIdeal(kQ,2);
+[ (1)*a^2, (1)*a*s, (1)*b^2, (1)*b*g, (1)*g*a, (1)*g*s, (1)*s*b, (1)*s*g ]
+gap>  kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 5 vertices and 4 arrows>]>
+gap> I:=NthPowerOfArrowIdeal(kQ,2);
+[ (1)*d*c, (1)*c*b, (1)*b*a ]
+gap> A:=kQ/I;
+<Rationals[<quiver with 5 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>, 
+  (3 generators)>>
+gap> projectives := IndecProjectiveModules(A);
+[ <[ 1, 0, 0, 0, 0 ]>, <[ 1, 1, 0, 0, 0 ]>, <[ 0, 1, 1, 0, 0 ]>, 
+  <[ 0, 0, 1, 1, 0 ]>, <[ 0, 0, 0, 1, 1 ]> ]
+%e_1A,e_2A,...
+gap> proj1 := projectives[1];
+<[ 1, 0, 0, 0, 0 ]>
+gap> Display(proj1);
+<Module over <Rationals[<quiver with 5 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 5 vertices and 4 arrows>]>, 
+  (3 generators)>> with dimension vector [ 1, 0, 0, 0, 0 
+ ]> and linear maps given by
+for arrow d:
+[ [  0 ] ]
+for arrow c:
+[ [  0 ] ]
+for arrow b:
+[ [  0 ] ]
+for arrow a:
+[ [  0 ] ]
+%M=e_1A
