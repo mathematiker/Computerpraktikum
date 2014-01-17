@@ -61,4 +61,8 @@ gap> A2 := kQ/relations2;
   (10 generators)>>
 gap> IsAdmissibleQuotientOfPathAlgebra(A2);
 true
+gap> Dimension(A);
+12
+gap> Dimension(A2);
+14
 
