@@ -531,7 +531,7 @@ g.finde();
 	g.Verfeinere(mode);
 	alteflaeche=g.Oberflaeche();
 	cout <<"Oberflaeche nach Verfeinerung: " << alteflaeche <<endl;
-	g.verbessere(5);
+	g.verbessere();
 	neueflaeche=g.Oberflaeche();
 	cout <<"Oberflaeche nach Minimierungsschritt: " << neueflaeche <<endl;
 	cout <<"relative Verbesserung nach Minimierungsschritt: " <<  fabs((alteflaeche-neueflaeche)/alteflaeche*100) << "%"<< endl;
