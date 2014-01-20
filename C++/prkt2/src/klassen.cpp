@@ -357,7 +357,7 @@ void Gitter::finde() {
 //Berechnet die Oberflaeche der Gitterstruktur
 double Gitter::Oberflaeche() {
 	double neuegesamtflaeche=0;
-	for(int i = 0; i < dreiecke.size(); ++i)
+	for(unsigned int i = 0; i < dreiecke.size(); ++i)
 	        {
 	            neuegesamtflaeche += dreiecke[i].flaeche();
 	        }
@@ -367,6 +367,7 @@ double Gitter::Oberflaeche() {
 void Gitter::verbessere() {
 	victor grad, grad_tmp, tmp;
 	double flaeche_ref;
+	double ngrad;
 	double flaeche;
 	double faktor; //Schrittweite
 	double armijo=0.01; //Armijo-koeffizient
@@ -388,6 +389,7 @@ void Gitter::verbessere() {
 				grad += dreiecke[it->first].gradient(it->second);
 				flaeche_ref += dreiecke[it->first].flaeche();
 			}
+			ngrad=grad*grad;
 			if(grad*grad>1e-4) {
 		//repeat-Schleife
 		do {
@@ -404,15 +406,15 @@ void Gitter::verbessere() {
 			}
 			punkte[i].Ort=tmp;
 		} while (flaeche>flaeche_ref-armijo*faktor*(grad*grad));
-		grad_tmp.clear();
-		for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin();
-							it != punkte[i].Ort.dreiecke.end(); it++) {
-		grad_tmp+=dreiecke[it->first].gradient(it->second);
-		}
+		//grad_tmp.clear();
+		//for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin();
+		//					it != punkte[i].Ort.dreiecke.end(); it++) {
+		//grad_tmp+=dreiecke[it->first].gradient(it->second);
+		//}
 		//Wir akzeptieren unsere Verbesserung nur wenn sie die Armijo-Bedingung erfüllt
 		punkte[i].Ort-=grad*faktor;
-		grad=grad_tmp;
-		flaeche_ref=flaeche;
+		//grad=grad_tmp;
+		//flaeche_ref=flaeche;
 		}
 	}
 }
