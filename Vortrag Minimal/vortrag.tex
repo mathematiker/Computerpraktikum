@@ -451,15 +451,8 @@ void Gitter::verbessere() {
 			}
 			punkte[i].Ort=tmp;
 		} while (flaeche>flaeche_ref-armijo*faktor*(grad*grad));
-		grad_tmp.clear();
-		for (list<pair<int,int> >::iterator it = punkte[i].Ort.dreiecke.begin();
-							it != punkte[i].Ort.dreiecke.end(); it++) {
-		grad_tmp+=dreiecke[it->first].gradient(it->second);
-		}
 		//Wir akzeptieren unsere Verbesserung nur wenn sie die Armijo-Bedingung erfuellt
 		punkte[i].Ort-=grad*faktor;
-		grad=grad_tmp;
-		flaeche_ref=flaeche;
 	}
 }
 	neueflaeche=this->Oberflaeche();
