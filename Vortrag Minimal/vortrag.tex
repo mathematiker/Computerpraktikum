@@ -387,9 +387,7 @@ victor Dreieck::gradient(int ecke)
     victor b = papa->punkte[punkte[(ecke+1)%3]].Ort-papa->punkte[punkte[(ecke+2)%3]].Ort;
 
     victor c = cross(cross(a,b),b);
-    double nc = norm(c);
-    if(nc <= 0.0001)return def(0,0,0);
-    return c*(norm(b)/norm(c));
+    return c;
 }
 
 //Berechnet die Oberflaeche der Gitterstruktur
@@ -457,7 +455,7 @@ void Gitter::verbessere() {
 }
 	neueflaeche=this->Oberflaeche();
 	//cout << alteflaeche-neueflaeche <<endl;
-	} while(fabs((alteflaeche-neueflaeche)/neueflaeche)>1e-7); //Berechne die Verbesserung
+	} while(fabs((alteflaeche-neueflaeche)/neueflaeche)>1e-4); //Berechne die Verbesserung
 	//Falls die relative Verbesserung einer gewissen Toleranz unterliegt brechen wir ab.
 }
 \end{lstlisting}
