@@ -78,3 +78,32 @@ gap> inj1:=injectives[1];
 <[ 1, 1, 0, 0, 0 ]>
 gap> SocleOfModule(inj1);
 <[ 1, 0, 0, 0, 0 ]>
+
+
+
+------------------------------------------------------------------
+
+gap> Q:=Quiver(6,[[2,1,"b"],[3,2,"a"],[1,4,"t"],[2,5,"m"],[3,6,"n"],[5,4,"d"],[6,5,"g"]]);
+<quiver with 6 vertices and 7 arrows>
+gap> kQ := PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 6 vertices and 7 arrows>]>
+gap> gens:=GeneratorsOfAlgebra(kQ);
+[ (1)*v1, (1)*v2, (1)*v3, (1)*v4, (1)*v5, (1)*v6, (1)*b, (1)*a, (1)*t, (1)*m, (1)*n, (1)*d, (1)*g ]
+gap> a:=gens[8];
+(1)*a
+gap> b:=gens[7];
+(1)*b
+gap> m:=gens[10];
+(1)*m
+gap> n:=gens[11];
+(1)*n
+gap> d:=gens[12];
+(1)*d
+gap> g:=gens[13];
+(1)*g
+gap> t:=gens[9];
+(1)*t
+gap> relations:=[a*m-n*g,b*t-m*d,a*b,g*d];
+[ (1)*a*m+(-1)*n*g, (1)*b*t+(-1)*m*d, (1)*a*b, (1)*g*d ]
+
+
