@@ -11,3 +11,16 @@ gap> M:=RightModuleOverPathAlgebra(A,[2,1,1,1],[["a",[[1],[0]]],["b",[[1]]],["c"
 <[ 2, 1, 1, 1 ]>
 gap> EndOverAlgebra(M);
 <algebra-with-one of dimension 2 over Rationals>
+
+-----------------
+gap>  Q:=Quiver(4,[[1,2,"a"],[2,3,"b"],[3,4,"c"],[4,1,"d"]]);
+<quiver with 4 vertices and 4 arrows>
+gap> kQ:=PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 4 vertices and 4 arrows>]>
+gap>  relations:=NthPowerOfArrowIdeal(kQ,2);
+[ (1)*a*b, (1)*b*c, (1)*c*d, (1)*d*a ]
+gap> M:=RightModuleOverPathAlgebra(A,[1,1,0,0],[["a",[[1]]]]);
+<[ 1, 1, 0, 0 ]>
+gap> ProjectivePathAlgebraPresentation(M);
+[ <right-module over <Rationals[<quiver with 4 vertices and 4 arrows>]>>, <right-module over <Rationals[<quiver with 
+    4 vertices and 4 arrows>]>>, [ [ (1)*v1 ] ], [ [ (1)*a*b ] ], [ [ (1)*a*b ] ] ]
