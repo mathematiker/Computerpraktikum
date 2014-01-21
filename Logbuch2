@@ -105,5 +105,43 @@ gap> t:=gens[9];
 (1)*t
 gap> relations:=[a*m-n*g,b*t-m*d,a*b,g*d];
 [ (1)*a*m+(-1)*n*g, (1)*b*t+(-1)*m*d, (1)*a*b, (1)*g*d ]
+gap> A:=kQ/relations;
+<Rationals[<quiver with 6 vertices and 7 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 7 arrows>]>, (4 generators)>>
+gap> projectives:=IndecProjectiveModules(A);
+[ <[ 1, 0, 0, 1, 0, 0 ]>, <[ 1, 1, 0, 1, 1, 0 ]>, <[ 0, 1, 1, 0, 1, 1 ]>, <[ 0, 0, 0, 1, 0, 0 ]>, 
+  <[ 0, 0, 0, 1, 1, 0 ]>, <[ 0, 0, 0, 0, 1, 1 ]> ]
+gap> proj1:=projectives[1];
+<[ 1, 0, 0, 1, 0, 0 ]>
+gap> Display(proj1);
+<Module over <Rationals[<quiver with 6 vertices and 7 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 6 vertices and 7 arrows>]>, (4 generators)>> with dimension vector 
+[ 1, 0, 0, 1, 0, 0 ]> and linear maps given by
+for arrow b:
+[ [  0 ] ]
+for arrow a:
+[ [  0 ] ]
+for arrow t:
+[ [  1 ] ]
+for arrow m:
+[ [  0 ] ]
+for arrow n:
+[ [  0 ] ]
+for arrow d:
+[ [  0 ] ]
+for arrow g:
+[ [  0 ] ]
+gap> RadicalOfModule(proj1);
+<[ 0, 0, 0, 1, 0, 0 ]>
+gap> injectives:=IndecInjectiveModules(A);
+[ <[ 1, 1, 0, 0, 0, 0 ]>, <[ 0, 1, 1, 0, 0, 0 ]>, <[ 0, 0, 1, 0, 0, 0 ]>, <[ 1, 1, 0, 1, 1, 0 ]>, 
+  <[ 0, 1, 1, 0, 1, 1 ]>, <[ 0, 0, 1, 0, 0, 1 ]> ]
+gap> simples:=SimpleModules(A);
+[ <[ 1, 0, 0, 0, 0, 0 ]>, <[ 0, 1, 0, 0, 0, 0 ]>, <[ 0, 0, 1, 0, 0, 0 ]>, <[ 0, 0, 0, 1, 0, 0 ]>, 
+  <[ 0, 0, 0, 0, 1, 0 ]>, <[ 0, 0, 0, 0, 0, 1 ]> ]
+gap> inj1:=injectives[1];
+<[ 1, 1, 0, 0, 0, 0 ]>
+gap> SocleOfModule(inj1);
+<[ 1, 0, 0, 0, 0, 0 ]>
 
 
