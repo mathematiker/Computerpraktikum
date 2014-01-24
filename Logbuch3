@@ -30,7 +30,65 @@ gap> A:=kQ/relations;
 <Rationals[<quiver with 4 vertices and 4 arrows>]/
 <two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>, 
   (4 generators)>>
-gap> M:=RightModuleOverPathAlgebra(A,[1,1,0,0],[["a",[[1]]]]);
+ sim:=SimpleModules(A);
+[ <[ 1, 0, 0, 0 ]>, <[ 0, 1, 0, 0 ]>, <[ 0, 0, 1, 0 ]>, <[ 0, 0, 0, 1 ]> ]
+
+%einfache Module von A (also e_1A/e_1J,...) 
+
+gap> S_1:=sim[1];
+<[ 1, 0, 0, 0 ]>
+gap> projres:= ProjectiveResolution(S_1);
+--- -> 0:(1,1,0,0) -> -1:(1,0,0,0) -> 0
+
+%Projektive Auflösung
+
+gap> P_1:=ObjectOfComplex(projres,1);
+<[ 0, 1, 1, 0 ]>
+gap> P_2:=ObjectOfComplex(projres,2);
+<[ 0, 0, 1, 1 ]>
+gap> P_3:=ObjectOfComplex(projres,3);
+<[ 1, 0, 0, 1 ]>
+gap> P_4:=ObjectOfComplex(projres,4);
 <[ 1, 1, 0, 0 ]>
-gap> ProjectiveResolution(M);
---- -> 0:(1,1,0,0) -> -1:(1,1,0,0) -> 0
+gap> P_5:=ObjectOfComplex(projres,5);
+<[ 0, 1, 1, 0 ]>
+gap> P_6:=ObjectOfComplex(projres,6);
+<[ 0, 0, 1, 1 ]>
+gap> P_7:=ObjectOfComplex(projres,7);
+<[ 1, 0, 0, 1 ]>
+
+%Zugriff auf verschiedene Stellen der Auflösung
+
+gap> f_0:=DifferentialOfComplex(projres,0);
+<<[ 1, 1, 0, 0 ]> ---> <[ 1, 0, 0, 0 ]>>
+
+gap> f_1:=DifferentialOfComplex(projres,1);
+<<[ 0, 1, 1, 0 ]> ---> <[ 1, 1, 0, 0 ]>>
+
+gap> f_2:=DifferentialOfComplex(projres,2);
+<<[ 0, 0, 1, 1 ]> ---> <[ 0, 1, 1, 0 ]>>
+
+gap> f_3:=DifferentialOfComplex(projres,3);
+<<[ 1, 0, 0, 1 ]> ---> <[ 0, 0, 1, 1 ]>>
+
+gap> f_4:=DifferentialOfComplex(projres,4);
+<<[ 1, 1, 0, 0 ]> ---> <[ 1, 0, 0, 1 ]>>
+
+gap> f_5:=DifferentialOfComplex(projres,5);
+<<[ 0, 1, 1, 0 ]> ---> <[ 1, 1, 0, 0 ]>>
+
+%Zugriff auf Abbildung zwischen P_i und P_(i-1)
+
+gap> Kernel(f_0);
+<[ 0, 1, 0, 0 ]>
+gap> Kernel(f_1);
+<[ 0, 0, 1, 0 ]>
+gap> Kernel(f_2);
+<[ 0, 0, 0, 1 ]>
+gap> Kernel(f_3);
+<[ 1, 0, 0, 0 ]>
+gap> Kernel(f_4);
+<[ 0, 1, 0, 0 ]>
+
+%Kerne der Abbildung --> Periode 4, da Kerne übereinstimmen
+
