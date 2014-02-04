@@ -1,22 +1,7 @@
-gap> Q := Quiver( 1, [ [1,1,"a"], [1,1,"b"] ] );
-<quiver with 1 vertices and 2 arrows>
-gap> Display(Q);
-Quiver( ["v1"], [["v1","v1","a"],["v1","v1","b"]] )
 gap> Q := Quiver(2,[ [1,1,"a"],[2,2,"b"],[2,1,"g"],[1,2,"s"]]);
 <quiver with 2 vertices and 4 arrows>
 gap> kQ := PathAlgebra(Rationals,Q);
 <Rationals[<quiver with 2 vertices and 4 arrows>]>
-gap> relations := [kQ.a*kQg];
-Error, Variable: 'kQg' must have a value
-not in any function at line 9 of *stdin*
-gap> relations := [kQ.a*kQ.g];
-[ <zero> of ... ]
-gap> relations := [kQ.a*kQ.s];
-[ (1)*a*s ]
-gap> A := kQ/relations;
-<Rationals[<quiver with 2 vertices and 4 arrows>]/
-<two-sided ideal in <Rationals[<quiver with 2 vertices and 4 arrows>]>, 
-  (1 generators)>>
 gap> relations := [kQ.a*kQ.a-kQ.s*kQ.g , 2*kQ.b*kQ.b-kQ.g*kQ.s , kQ.g*kQ.a-kQ.b*kQ.g , kQ.s*kQ.b-kQ.a*kQ.s];
 [ (1)*a^2+(-1)*s*g, (2)*b^2+(-1)*g*s, (-1)*b*g+(1)*g*a, (-1)*a*s+(1)*s*b ]
 gap> A := kQ/relations;
