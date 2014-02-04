@@ -1,0 +1,34 @@
+DeclareOperation("DimE5",[IsQuotientOfPathAlgebra]);
+InstallMethod(DimE5,"irgendwas",
+[IsQuotientOfPathAlgebra],0,function(A)
+local projres, l, M, sim, i, f, PHom, Hom, DimH, DimPH, E;
+l:=[];
+E:=[0];
+i:=1;
+if IsSelfinjectiveAlgebra(A)=true then
+sim:=SimpleModules(A);
+M:=sim[1];
+projres:=ProjectiveResolution(M);
+while E[i]=0 do
+	i:=i+1;
+	f:=DifferentialOfComplex(projres,i);
+	#K:=Kernel(f);
+	Hom:=HomOverAlgebra(Kernel(f),M);
+	PHom:=HomFactoringThroughProjOverAlgebra(Kernel(f),M);
+	DimH:=Size(Hom);
+	DimPH:=Size(PHom);
+	Append(E,[DimH-DimPH]);
+od;
+Unbind(E[1]);
+return E;
+else
+ Print("Keine selbstinjektive Pfadalgebra.");
+return(l);
+fi;
+end);
+
+%Programm das hoffentlich alles richtig macht
+
+Köcher, die ich ausprobiert habe:
+
+1) Köcher aus Aufgabe eins mit I_1 (langweilig)
