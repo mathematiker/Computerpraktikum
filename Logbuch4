@@ -1,5 +1,5 @@
-DeclareOperation("DimE7",[IsQuotientOfPathAlgebra]);
-InstallMethod(DimE7,"irgendwas",
+DeclareOperation("DimE",[IsQuotientOfPathAlgebra]);
+InstallMethod(DimE,"irgendwas",
 [IsQuotientOfPathAlgebra],0,function(A)
 local projres,n, l, M, sim, i, f, PHom, Hom, DimH, DimPH, E;
 l:=[];
@@ -29,7 +29,34 @@ return(l);
 fi;
 end);
 
-%Programm, das hoffentlich alles richtig macht
+%Programm, bei dem die Algebra übergeben wird
+
+DeclareOperation("DimE2",[IsPathAlgebraMatModule]);
+InstallMethod(DimE2,"irgendwas",
+[IsQuotientPathAlgebraMatModule],0,function(M)
+local projres,n, l, sim, i, f, PHom, Hom, DimH, DimPH, E;
+l:=[];
+E:=[0];
+i:=1;
+n:=0;
+
+projres:=ProjectiveResolution(M);
+while E[i]=0 do
+	f:=DifferentialOfComplex(projres,n);
+	#K:=Kernel(f);
+	Hom:=HomOverAlgebra(Kernel(f),M);
+	PHom:=HomFactoringThroughProjOverAlgebra(Kernel(f),M);
+	DimH:=Size(Hom);
+	DimPH:=Size(PHom);
+	Append(E,[DimH-DimPH]);
+	i:=i+1;
+	n:=n+1;
+od;
+Unbind(E[1]);
+return E;
+end);
+
+$Programm, bei dem das Modul abgegeben wird
 
 
 
