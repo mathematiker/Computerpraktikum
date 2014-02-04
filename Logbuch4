@@ -1,7 +1,7 @@
 DeclareOperation("DimE7",[IsQuotientOfPathAlgebra]);
 InstallMethod(DimE7,"irgendwas",
 [IsQuotientOfPathAlgebra],0,function(A)
-local projres, l, M, sim, i, f, PHom, Hom, DimH, DimPH, E;
+local projres,n, l, M, sim, i, f, PHom, Hom, DimH, DimPH, E;
 l:=[];
 E:=[0];
 i:=1;
