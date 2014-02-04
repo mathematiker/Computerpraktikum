@@ -38,7 +38,29 @@ end);
 
 Köcher, die ich ausprobiert habe:
 
-1) Köcher aus Aufgabe eins mit I_1 (langweilig)
-2)Köcher aus Skript (Programm falsch?!)
+1) Köcher aus Aufgabe 3
+
+gap> Q:=Quiver(4,[[1,2,"a"],[2,3,"b"],[3,4,"c"],[4,1,"d"]]);
+<quiver with 4 vertices and 4 arrows>
+gap> kQ:=PathAlgebra(Rationals,Q);
+<Rationals[<quiver with 4 vertices and 4 arrows>]>
+gap>  relations:=NthPowerOfArrowIdeal(kQ,8);
+[ (1)*a*b*c*d*a*b*c*d, (1)*b*c*d*a*b*c*d*a, (1)*c*d*a*b*c*d*a*b, 
+  (1)*d*a*b*c*d*a*b*c ]
+gap>  A := kQ/relations;
+<Rationals[<quiver with 4 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>, 
+  (4 generators)>>
+gap> DimE(A);
+[ , 0, 1 ]
+gap>  relations:=NthPowerOfArrowIdeal(kQ,2);
+[ (1)*a*b, (1)*b*c, (1)*c*d, (1)*d*a ]
+gap>  A:=kQ/relations;
+<Rationals[<quiver with 4 vertices and 4 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 4 vertices and 4 arrows>]>, 
+  (4 generators)>>
+gap> DimE(A);
+[ , 0, 0, 0, 1 ]
+
 
 
