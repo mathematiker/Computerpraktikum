@@ -62,5 +62,27 @@ gap>  A:=kQ/relations;
 gap> DimE(A);
 [ , 0, 0, 0, 1 ]
 
+2)Köcher aus Skript:
+
+gap> Q:=Quiver(5,[[1,2,"a1"],[2,3,"a2"],[3,4,"a3"],[4,1,"a4"],[1,5,"b1"],[5,1,"b2"]]);
+<quiver with 5 vertices and 6 arrows>
+gap> kQ:=PathAlgebra(rationals,Q); 
+Error, Variable: 'rationals' must have a value
+not in any function at line 44 of *stdin*
+gap> kQ:=PathAlgebra(Rationals,Q);<Rationals[<quiver with 5 vertices and 6 arrows>]>
+gap> I:=[kQ.a4*kQ.a1,kQ.b2*kQ.b1,kQ.a1*kQ.a2*kQ.a3*kQ.a4*kQ.b1*kQ.b2-kQ.b1*kQ.b2*kQ.a1*kQ.a2*kQ.a3*kQ.a4,kQ.a2*kQ.a3*kQ.a4*kQ.b1*kQ.b2*kQ.a1*kQ.a2,kQ.a3*kQ.a4*kQ.b1*kQ.b2*kQ.a1*kQ.a2*kQ.a3];
+[ (1)*a4*a1, (1)*b2*b1, (1)*a1*a2*a3*a4*b1*b2+(-1)*b1*b2*a1*a2*a3*a4, 
+  (1)*a2*a3*a4*b1*b2*a1*a2, (1)*a3*a4*b1*b2*a1*a2*a3 ]
+gap> A:=kQ/I;
+<Rationals[<quiver with 5 vertices and 6 arrows>]/
+<two-sided ideal in <Rationals[<quiver with 5 vertices and 6 arrows>]>, 
+  (7 generators)>>
+gap> IsSelfInjectiveAlgebra(A);
+Error, Variable: 'IsSelfInjectiveAlgebra' must have a value
+not in any function at line 48 of *stdin*
+gap> IsSelfinjectiveAlgebra(A);
+true
+gap> DimE(A);
+[ , 0, 1 ]
 
 
